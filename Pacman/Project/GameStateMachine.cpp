@@ -95,7 +95,7 @@ void GameStateMachine::Render()
 		screens.Render(1, 0);
 		break;
 	case 4:
-		screens.Render(1, 0);
+		screens.Render(1, WHITE);
 		break;
 	case 5:
 		screens.Render(1, 0);
@@ -146,9 +146,12 @@ void GameStateMachine::Run()
 	Start();
 	while (nextState != -1 && !WindowShouldClose() && IsSameState())
 	{
+		ClearBackground(BLACK);
 		Input();
 		Logic();
+		BeginDrawing();
 		Render();
+		EndDrawing();
 	}
 	End();
 }

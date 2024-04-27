@@ -1,11 +1,15 @@
 #include "Renderer.hpp"
 #include "CustomColors.hpp"
+#include <iostream>
 
 Renderer::Renderer()
 {
-	SpriteSheet general{ LoadTexture("../assets/sprites/General.png"), 16};
-	SpriteSheet map{ LoadTexture("../assets/sprites/Map.png"), 16 };
-	SpriteSheet text{ LoadTexture("../assets/sprites/Text.png"), 16 };
+	SpriteSheet general{ LoadTexture("assets/sprites/General.png"), 16};
+	SpriteSheet map{ LoadTexture("assets/sprites/Map.png"), 8 };
+	SpriteSheet text{ LoadTexture("assets/sprites/Text.png"), 8 };
+	spritesheets.push_back(general);
+	spritesheets.push_back(map);
+	spritesheets.push_back(text);
 }
 
 Rectangle Renderer::GetSpriteRectangle(int textureIndex, Vector2 texturePosition)
@@ -29,16 +33,16 @@ Color Renderer::GetCustomColor(int index)
 
 Vector2 Renderer::SpriteIndexToPosition(const int textureIndex, const int index)
 {
-	Vector2 position = {(float) (index%(spritesheets[textureIndex].spritesheet.width/ spritesheets[textureIndex].spriteSize)* spritesheets[textureIndex].spriteSize),
-	(float)(index / (spritesheets[textureIndex].spritesheet.width / spritesheets[textureIndex].spriteSize) * spritesheets[textureIndex].spriteSize) };
-	return position;
+	int x = (index % (spritesheets[textureIndex].spritesheet.width / spritesheets[textureIndex].spriteSize));
+	int y = (index / (spritesheets[textureIndex].spritesheet.width / spritesheets[textureIndex].spriteSize));
+	return { (float)x,(float)y };
 }
 
 void Renderer::DrawSprite(int textureIndex, Vector2 texturePosition, Vector2 position, Color color)
 {
 	Rectangle source = GetSpriteRectangle(textureIndex, texturePosition);
-	Rectangle dest = {	spritesheets[textureIndex].spriteSize * position.x,
-						spritesheets[textureIndex].spriteSize * position.y,
+	Rectangle dest = {	position.x,
+						position.y,
 						spritesheets[textureIndex].spriteSize,
 						spritesheets[textureIndex].spriteSize};
 	Vector2 origin = {	spritesheets[textureIndex].spriteSize / 2 , spritesheets[textureIndex].spriteSize / 2 };
