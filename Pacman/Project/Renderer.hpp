@@ -15,7 +15,7 @@ private:
 	vector <SpriteSheet> spritesheets;
 	Rectangle GetSpriteRectangle(int textureIndex, Vector2 texturePosition);
 	Color GetCustomColor(int index);
-	~Renderer();
+	~Renderer() {};
 public:
 #pragma region Singleton
 	static Renderer& Instance()
@@ -24,6 +24,7 @@ public:
 		return instance;
 	}
 #pragma endregion
+	Vector2 SpriteIndexToPosition(const int textureIndex, const int index);
 	void DrawSprite(int textureIndex, Vector2 texturePosition, Vector2 position, Color color);
 	void DrawSprite(int textureIndex, Vector2 texturePosition, Vector2 position, int color);
 	void DrawText(char* text, int length, Vector2 position, Color color);

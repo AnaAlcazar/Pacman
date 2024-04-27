@@ -1,1 +1,0 @@
-#include "InsertCoin.hpp"

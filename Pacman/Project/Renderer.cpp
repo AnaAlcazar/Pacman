@@ -27,6 +27,13 @@ Color Renderer::GetCustomColor(int index)
 	else if (index == 4)return Color(TEXT_RED);
 }
 
+Vector2 Renderer::SpriteIndexToPosition(const int textureIndex, const int index)
+{
+	Vector2 position = {(float) (index%(spritesheets[textureIndex].spritesheet.width/ spritesheets[textureIndex].spriteSize)* spritesheets[textureIndex].spriteSize),
+	(float)(index / (spritesheets[textureIndex].spritesheet.width / spritesheets[textureIndex].spriteSize) * spritesheets[textureIndex].spriteSize) };
+	return position;
+}
+
 void Renderer::DrawSprite(int textureIndex, Vector2 texturePosition, Vector2 position, Color color)
 {
 	Rectangle source = GetSpriteRectangle(textureIndex, texturePosition);
