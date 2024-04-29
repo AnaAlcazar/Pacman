@@ -5,7 +5,7 @@
 
 void Entity::Move()
 {
-	if(ScreenManager::Instance().GetMapValue()!= )
+	if(ScreenManager::Instance().IsTangible({position.x+direction.x}))
 	position.x += direction.x * speed;
 	position.y += direction.y * speed;
 }
