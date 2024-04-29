@@ -1,18 +1,22 @@
 #pragma once
 #include "raylib.h"
+#include <vector>
 
+using namespace std;
 class Entity
 {
-private:
+protected:
 	enum Type
 	{
 		Player,
-		Ghost
+		Enemy
 	};
 	Type type;
 	Vector2 position;
 	Vector2 direction, nextDirection;
+	bool alive;
 	float speed;
+	void Move();
 public:
 #pragma region Constructor & Destructor
 	Entity(const Type t, const Vector2 pos, const Vector2 dir, const float sp);
@@ -32,39 +36,23 @@ public:
 	virtual void Logic() = 0;
 	virtual void Render() = 0;
 #pragma endregion
-
-};
-
-class Pacman : public Entity
-{
-private:
-	int lives;
-	int points;
-	float pelletEffect;
-	int pelletMultiplier;
-public:
-	void Input()override;
-	void Logic()override;
-	void Render()override;
-};
-
-class Ghost : public Entity
-{
-private:
-	enum Mode
-	{
-		Scatter,
-		Chase,
-		Frightened,
-	};
-	float ghostModeTimer;
-	int modeRound;
-	Vector2 targetTile;
-public:
-	void Logic()override;
-	void Render()override;
 };
 
 class EntityManager
 {
+private:
+	vector <Entity*> entityList;
+	EntityManager();
+	~EntityManager();
+public:
+	static EntityManager& Instance()
+	{
+		static EntityManager instance;
+		return instance;
+	}
+	int entityListLength();
+	Entity* GetEntityAt(int index);
+	void Input();
+	void Logic();
+	void Render();
 };

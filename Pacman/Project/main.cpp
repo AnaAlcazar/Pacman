@@ -1,8 +1,10 @@
 #include "raylib.h"
+#include "MemLeaks.h"
 #include "GameStateMachine.hpp"
 
 int main()
 {
+	ReportMemoryLeaks();
 	InitWindow(224, 288, "Pacman");
 	SetTargetFPS(60);
 	InitAudioDevice();

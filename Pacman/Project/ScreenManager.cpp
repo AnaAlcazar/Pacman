@@ -11,6 +11,11 @@ Screen::Screen(const int layout_[36][28])
 	}
 }
 
+int Screen::GetValue(Vector2 tile)
+{
+    return layout[(int)tile.y][(int)tile.x];
+}
+
 void Screen::RenderLayout(const Color color_)
 {
 	for (int y = 0; y < 36; y++)
@@ -20,6 +25,10 @@ void Screen::RenderLayout(const Color color_)
 			Renderer::Instance().DrawSprite(1, Renderer::Instance().SpriteIndexToPosition(1, layout[y][x]), { (float)(x*8)+4, (float)(y*8)+4 }, color_);
 		}
 	}
+}
+
+Screen::~Screen()
+{
 }
 
 ScreenManager::ScreenManager()
@@ -106,6 +115,11 @@ ScreenManager::ScreenManager()
     Screens.push_back(Map);
 }
 
+ScreenManager::~ScreenManager()
+{
+    Screens.clear();
+}
+
 void ScreenManager::Render(const int index, const Color color_)
 {
     Screens[index].RenderLayout(color_);
@@ -115,4 +129,12 @@ void ScreenManager::Render(const int index, const int color_)
 {
     Color newColor = Renderer::Instance().GetCustomColor(color_);
 	Render(index, newColor);
+}
+
+bool ScreenManager::IsTangible(Vector2 tile)
+{
+    if (Screens[1].GetValue(tile) == 36)return true;
+    else if (Screens[1].GetValue(tile) == 37)return true;
+    else if (Screens[1].GetValue(tile) == 38)return true;
+    else return false;
 }

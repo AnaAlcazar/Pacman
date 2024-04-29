@@ -1,4 +1,14 @@
 #include "EntityManager.hpp"
+#include "Pacman.hpp"
+#include "Ghost.hpp"
+#include "ScreenManager.hpp"
+
+void Entity::Move()
+{
+	if(ScreenManager::Instance().GetMapValue()!= )
+	position.x += direction.x * speed;
+	position.y += direction.y * speed;
+}
 
 Entity::Entity(const Type t, const Vector2 pos, const Vector2 dir, const float sp)
 {
@@ -7,6 +17,7 @@ Entity::Entity(const Type t, const Vector2 pos, const Vector2 dir, const float s
 	direction = dir;
 	nextDirection = dir;
 	speed = sp;
+	alive = true;
 }
 
 Entity::~Entity()
@@ -25,7 +36,9 @@ Vector2 Entity::GetDirection()
 
 Vector2 Entity::GetTileOfEntity()
 {
-	return { (float) (int)(position.x + 4 + direction.x == -1 ? -1 : 0) / 8, (float) (int)(position.y + 4 + direction.y == -1 ? -1 : 0) / 8 };
+	int x = position.x / 8;
+	int y = position.y / 8;
+	return {(float) x, (float) y};
 }
 
 bool Entity::EntityIsCenteredInTile()
@@ -33,3 +46,62 @@ bool Entity::EntityIsCenteredInTile()
 	if (position.x == GetTileOfEntity().x && position.y == GetTileOfEntity().y)return true;
 	return false;
 }
+
+bool Entity::IsAlive()
+{
+	return alive;
+}
+
+EntityManager::EntityManager()
+{
+	entityList.push_back(new Pacman());
+	entityList.push_back(new Ghost());
+	entityList.push_back(new Ghost());
+	entityList.push_back(new Ghost());
+	entityList.push_back(new Ghost());
+}
+
+int EntityManager::entityListLength()
+{
+	return entityList.size();
+}
+
+Entity* EntityManager::GetEntityAt(int index)
+{
+	return entityList[index];
+}
+
+void EntityManager::Input()
+{
+	for (int i = 0; i < entityList.size(); i++)
+	{
+		entityList[i]->Input();
+	}
+}
+
+void EntityManager::Logic()
+{
+	for (int i = 0; i < entityList.size(); i++)
+	{
+		entityList[i]->Logic();
+	}
+}
+
+void EntityManager::Render()
+{
+	for (int i = 0; i < entityList.size(); i++)
+	{
+		entityList[i]->Render();
+	}
+}
+
+EntityManager::~EntityManager()
+{
+	for (int i = 0; i < entityList.size(); i++)
+	{
+		delete entityList[i];
+	}
+	entityList.clear();
+}
+
+

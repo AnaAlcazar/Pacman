@@ -134,16 +134,25 @@
   <ItemGroup>
     <ClInclude Include="CustomColors.hpp" />
     <ClInclude Include="EntityManager.hpp" />
+    <ClInclude Include="Game.hpp" />
     <ClInclude Include="GameStateMachine.hpp" />
+    <ClInclude Include="Ghost.hpp" />
+    <ClInclude Include="Pacman.hpp" />
     <ClInclude Include="Renderer.hpp" />
     <ClInclude Include="ScreenManager.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EntityManager.cpp" />
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameStateMachine.cpp" />
+    <ClCompile Include="Ghost.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Pacman.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="ScreenManager.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\..\Desktop\points.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

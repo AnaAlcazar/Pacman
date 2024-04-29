@@ -1,4 +1,5 @@
 #include "GameStateMachine.hpp"
+#include "Game.hpp"
 
 void GameStateMachine::Start()
 {
@@ -11,6 +12,7 @@ void GameStateMachine::Start()
 	case 2:
 		break;
 	case 3:
+		game = Game();
 		break;
 	case 4:
 		break;
@@ -37,6 +39,7 @@ void GameStateMachine::Input()
 		if (IsKeyPressed(KEY_ENTER))SetState(3);
 		break;
 	case 3:
+		game.Input();
 		break;
 	case 4:
 		break;
@@ -47,6 +50,13 @@ void GameStateMachine::Input()
 	default:
 		break;
 	}
+	if (IsKeyPressed(KEY_KP_0))SetState(0);
+	else if (IsKeyPressed(KEY_KP_1))SetState(1);
+	else if (IsKeyPressed(KEY_KP_2))SetState(2);
+	else if (IsKeyPressed(KEY_KP_3))SetState(3);
+	else if (IsKeyPressed(KEY_KP_4))SetState(4);
+	else if (IsKeyPressed(KEY_KP_5))SetState(5);
+	else if (IsKeyPressed(KEY_KP_6))SetState(6);
 }
 
 void GameStateMachine::Logic()
@@ -60,6 +70,7 @@ void GameStateMachine::Logic()
 	case 2:
 		break;
 	case 3:
+		game.Logic();
 		break;
 	case 4:
 		break;
@@ -93,6 +104,7 @@ void GameStateMachine::Render()
 		break;
 	case 3:
 		screens.Render(1, 0);
+		game.Render();
 		break;
 	case 4:
 		screens.Render(1, WHITE);
