@@ -14,11 +14,17 @@ Renderer::Renderer()
 
 Rectangle Renderer::GetSpriteRectangle(int textureIndex, Vector2 texturePosition)
 {
-
-	Rectangle sprite = {	spritesheets[textureIndex].spriteSize * texturePosition.x,
-							spritesheets[textureIndex].spriteSize * texturePosition.y,
-							spritesheets[textureIndex].spriteSize, spritesheets[textureIndex].spriteSize };
-	return sprite;
+	if (textureIndex >= 0)
+	{
+		Rectangle sprite = { spritesheets[textureIndex].spriteSize * texturePosition.x,
+								spritesheets[textureIndex].spriteSize * texturePosition.y,
+								spritesheets[textureIndex].spriteSize, spritesheets[textureIndex].spriteSize };
+		return sprite;
+	}
+	else
+	{
+		return Rectangle();
+	}
 }
 
 Color Renderer::GetCustomColor(int index)
