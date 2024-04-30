@@ -9,7 +9,6 @@ private:
 	int nextState;
 	int coins;
 	float timer;
-	ScreenManager screens;
 	Game game;
 	void Start();
 	void Input();

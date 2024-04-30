@@ -2,12 +2,34 @@
 #include "Pacman.hpp"
 #include "Ghost.hpp"
 #include "ScreenManager.hpp"
+#include <math.h>
+#include <iostream>
 
 void Entity::Move()
 {
-	if(ScreenManager::Instance().IsTangible({position.x+direction.x}))
+	direction = nextDirection;
+	bool NextTileTangible = ScreenManager::Instance().IsTangible({ GetTileOfEntity().x + direction.x, GetTileOfEntity().y + direction.y });
+	DrawRectangleLinesEx({ (GetTileOfEntity().x + direction.x)*8, (GetTileOfEntity().y + direction.y)*8, 8, 8}, 1, WHITE);
+	//std::cout << abs(position.x - GetTileOfEntity().x*8) << " " << abs(position.y - GetTileOfEntity().y*8) << std::endl;
+	if (!NextTileTangible)
+	{
+		//std::cout << "EnterInNotTangibleTile ";
+		if (direction.x != 0 && EntityIsCenteredInTile(GetTileOfEntity()))
+		{
+			position.x = GetTileOfEntity().x * 8 + 4;
+			position.y = GetTileOfEntity().y * 8 + 4;
+			return;
+		}
+		else if (direction.y != 0 && EntityIsCenteredInTile(GetTileOfEntity()))
+		{
+			position.y = GetTileOfEntity().y * 8 + 4;
+			position.x = GetTileOfEntity().x * 8 + 4;
+			return;
+		}
+	}
 	position.x += direction.x * speed;
 	position.y += direction.y * speed;
+	
 }
 
 Entity::Entity(const Type t, const Vector2 pos, const Vector2 dir, const float sp)
@@ -41,9 +63,9 @@ Vector2 Entity::GetTileOfEntity()
 	return {(float) x, (float) y};
 }
 
-bool Entity::EntityIsCenteredInTile()
+bool Entity::EntityIsCenteredInTile(Vector2 tile)
 {
-	if (position.x == GetTileOfEntity().x && position.y == GetTileOfEntity().y)return true;
+	if (abs(position.x - tile.x * 8) <= 4 && abs(position.y - tile.y * 8) <= 4)return true;
 	return false;
 }
 

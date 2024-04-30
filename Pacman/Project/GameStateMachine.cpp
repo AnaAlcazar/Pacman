@@ -94,26 +94,26 @@ void GameStateMachine::Render()
 	switch (currentState)
 	{
 	case 0:
-		screens.Render(0, WHITE);
+		ScreenManager::Instance().Render(0, WHITE);
 		break;
 	case 1:
-		screens.Render(1, 0);
+		ScreenManager::Instance().Render(1, 0);
 		break;
 	case 2:
-		screens.Render(0, WHITE);
+		ScreenManager::Instance().Render(0, WHITE);
 		break;
 	case 3:
-		screens.Render(1, 0);
+		ScreenManager::Instance().Render(1, 0);
 		game.Render();
 		break;
 	case 4:
-		screens.Render(1, WHITE);
+		ScreenManager::Instance().Render(1, WHITE);
 		break;
 	case 5:
-		screens.Render(1, 0);
+		ScreenManager::Instance().Render(1, 0);
 		break;
 	case 6:
-		screens.Render(0, WHITE);
+		ScreenManager::Instance().Render(0, WHITE);
 		break;
 	default:
 		break;
