@@ -64,8 +64,8 @@ Vector2 Entity::GetTileOfEntity()
 
 bool Entity::EntityIsCenteredInTile(Vector2 tile)
 {
-	if(abs(position.x - tile.x * 8 + 4 * direction.x + 4) <= 4 && abs(position.y - tile.y * 8 + 4 * direction.x + 4) <= 4)
-	if ( && abs(position.y - tile.y * 8 + 4 * direction.x + 4) <= 4)return true;
+	if (abs(position.x - tile.x * 8 -(4 * direction.x + 4)) <= 4 && abs(position.y - tile.y * 8) <= 4)return true;
+	if (abs(position.x - tile.x * 8) <= 4 && abs(position.y - tile.y * 8 - (4 * direction.y + 4)) <= 4)return true;
 	return false;
 }
 
