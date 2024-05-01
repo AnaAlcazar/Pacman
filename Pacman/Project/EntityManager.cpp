@@ -1,19 +1,26 @@
 #include "EntityManager.hpp"
+#include "ScreenManager.hpp"
 #include "Pacman.hpp"
 #include "Ghost.hpp"
-#include "ScreenManager.hpp"
 #include <math.h>
-#include <iostream>
+
+void Entity::TrySetDirection(Vector2 dir)
+{
+	if (dir.x == nextDirection.x && dir.y == nextDirection.y) return;
+	Vector2 targetTile = { GetTileOfEntity().x + dir.x, GetTileOfEntity().y + dir.y };
+	if (!ScreenManager::Instance().IsTangible(targetTile))return;
+	if (abs(position.x - GetTileOfEntity().x * 8) > 4 && abs(position.y - GetTileOfEntity().y * 8) > 4)return;
+	nextDirection = dir;
+	position.x = GetTileOfEntity().x * 8 + 4;
+	position.y = GetTileOfEntity().y * 8 + 4;
+}
 
 void Entity::Move()
 {
 	direction = nextDirection;
 	bool NextTileTangible = ScreenManager::Instance().IsTangible({ GetTileOfEntity().x + direction.x, GetTileOfEntity().y + direction.y });
-	DrawRectangleLinesEx({ (GetTileOfEntity().x + direction.x)*8, (GetTileOfEntity().y + direction.y)*8, 8, 8}, 1, WHITE);
-	//std::cout << abs(position.x - GetTileOfEntity().x*8) << " " << abs(position.y - GetTileOfEntity().y*8) << std::endl;
 	if (!NextTileTangible)
 	{
-		//std::cout << "EnterInNotTangibleTile ";
 		if (direction.x != 0 && EntityIsCenteredInTile(GetTileOfEntity()))
 		{
 			position.x = GetTileOfEntity().x * 8 + 4;

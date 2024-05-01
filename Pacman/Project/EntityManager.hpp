@@ -16,6 +16,7 @@ protected:
 	Vector2 direction, nextDirection;
 	bool alive;
 	float speed;
+	void TrySetDirection(Vector2 dir);
 	void Move();
 public:
 #pragma region Constructor & Destructor
