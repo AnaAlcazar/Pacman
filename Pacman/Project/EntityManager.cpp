@@ -7,7 +7,7 @@
 void Entity::TrySetDirection(Vector2 dir)
 {
 	if (dir.x == nextDirection.x && dir.y == nextDirection.y) return;
-	Vector2 targetTile = { GetTileOfEntity().x + dir.x, GetTileOfEntity().y + dir.y };
+	Vector2 targetTile = { GetTileOfEntity().x + dir.x*2, GetTileOfEntity().y + dir.y*2 };
 	if (!ScreenManager::Instance().IsTangible(targetTile))return;
 	if (abs(position.x - GetTileOfEntity().x * 8) > 4 && abs(position.y - GetTileOfEntity().y * 8) > 4)return;
 	nextDirection = dir;
@@ -17,26 +17,18 @@ void Entity::TrySetDirection(Vector2 dir)
 
 void Entity::Move()
 {
-	direction = nextDirection;
-	bool NextTileTangible = ScreenManager::Instance().IsTangible({ GetTileOfEntity().x + direction.x, GetTileOfEntity().y + direction.y });
-	if (!NextTileTangible)
+	if (EntityIsCenteredInTile(GetTileOfEntity()))
 	{
-		if (direction.x != 0 && EntityIsCenteredInTile(GetTileOfEntity()))
-		{
-			position.x = GetTileOfEntity().x * 8 + 4;
-			position.y = GetTileOfEntity().y * 8 + 4;
-			return;
-		}
-		else if (direction.y != 0 && EntityIsCenteredInTile(GetTileOfEntity()))
-		{
-			position.y = GetTileOfEntity().y * 8 + 4;
-			position.x = GetTileOfEntity().x * 8 + 4;
-			return;
-		}
+		direction = nextDirection;
 	}
-	position.x += direction.x * speed;
-	position.y += direction.y * speed;
-	
+	bool NextTileTangible = ScreenManager::Instance().IsTangible({ GetTileOfEntity().x + direction.x, GetTileOfEntity().y + direction.y });
+	if (!NextTileTangible && EntityIsCenteredInTile(GetTileOfEntity()))
+	{}
+	else
+	{
+		position.x += direction.x * speed;
+		position.y += direction.y * speed;
+	}
 }
 
 Entity::Entity(const Type t, const Vector2 pos, const Vector2 dir, const float sp)
@@ -65,14 +57,15 @@ Vector2 Entity::GetDirection()
 
 Vector2 Entity::GetTileOfEntity()
 {
-	int x = position.x / 8;
-	int y = position.y / 8;
+	int x = (position.x-1) / 8;
+	int y = (position.y-1) / 8;
 	return {(float) x, (float) y};
 }
 
 bool Entity::EntityIsCenteredInTile(Vector2 tile)
 {
-	if (abs(position.x - tile.x * 8) <= 4 && abs(position.y - tile.y * 8) <= 4)return true;
+	if(abs(position.x - tile.x * 8 + 4 * direction.x + 4) <= 4 && abs(position.y - tile.y * 8 + 4 * direction.x + 4) <= 4)
+	if ( && abs(position.y - tile.y * 8 + 4 * direction.x + 4) <= 4)return true;
 	return false;
 }
 
@@ -122,6 +115,11 @@ void EntityManager::Render()
 	{
 		entityList[i]->Render();
 	}
+}
+
+void EntityManager::SetTargetTile(Entity* entity, Vector2 tile)
+{
+	entity->SetTargetTile(tile);
 }
 
 EntityManager::~EntityManager()

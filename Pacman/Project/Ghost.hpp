@@ -15,12 +15,16 @@ private:
 	Vector2 targetTile;
 	Mode ghostMode;
 	Vector2 IntToDirection(int index);
+	bool ContraryDirections();
+	bool intersectionDecided;
 	int AvaiableDirections();
+	void DecideDirection(bool canTurnBack);
 public:
 	Ghost();
 	void Input()override;
 	void Logic()override;
 	void Render()override;
+	void SetTargetTile(Vector2 tile)override;
 	~Ghost();
 };
 

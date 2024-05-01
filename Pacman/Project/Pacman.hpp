@@ -11,5 +11,6 @@ public:
 	void Input()override;
 	void Logic()override;
 	void Render()override;
+	void SetTargetTile(Vector2 tile)override;
 };
 

@@ -3,10 +3,10 @@
 #include "EntityManager.hpp"
 class Game
 {
-	friend class ScreenManager;
 private:
 	int lives;
 	int score;
+    int mode;
 	int pointsLayout[36][28] = {
            {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
            {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
@@ -52,5 +52,6 @@ public:
 	void Render();
     void ResetLayout();
     void RenderPoints();
+    void EatDot();
     ~Game();
 };

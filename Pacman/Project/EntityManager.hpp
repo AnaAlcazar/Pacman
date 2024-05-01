@@ -18,6 +18,7 @@ protected:
 	float speed;
 	void TrySetDirection(Vector2 dir);
 	void Move();
+	
 public:
 #pragma region Constructor & Destructor
 	Entity(const Type t, const Vector2 pos, const Vector2 dir, const float sp);
@@ -36,6 +37,7 @@ public:
 	virtual void Input() = 0;
 	virtual void Logic() = 0;
 	virtual void Render() = 0;
+	virtual void SetTargetTile(Vector2 tile) = 0;
 #pragma endregion
 };
 
@@ -56,4 +58,5 @@ public:
 	void Input();
 	void Logic();
 	void Render();
+	void SetTargetTile(Entity* entity, Vector2 tile);
 };
