@@ -57,7 +57,7 @@ void Ghost::DecideDirection(bool canTurnBack)
 	TrySetDirection(selectedDirection);
 	intersectionDecided = true;
 }
-Ghost::Ghost() : Entity(Enemy, { 13.5 * 8 + 4,9 * 8 + 4 }, { -1,0 }, 0.8f)
+Ghost::Ghost() : Entity(Enemy, { 13.5 * 8 + 4,8 * 8 + 4 }, { -1,0 }, 0.8f)
 {
 	ghostModeTimer = 7;
 	modeRound = 0;
@@ -77,7 +77,7 @@ void Ghost::Logic()
 		DecideDirection(false);
 	if (AvaiableDirections() < 3 && ContraryDirections())
 		intersectionDecided = false;
-	Move();
+	Entity::Move();
 }
 
 void Ghost::Render()

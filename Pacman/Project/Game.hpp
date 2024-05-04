@@ -6,6 +6,7 @@ class Game
 private:
 	int lives;
 	int score;
+    int highscore;
     int mode;
 	int pointsLayout[36][28] = {
            {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
@@ -47,11 +48,13 @@ private:
 	};
 public:
     Game();
+    void Start();
 	void Input();
 	void Logic();
 	void Render();
     void ResetLayout();
     void RenderPoints();
     void EatDot();
+    void End();
     ~Game();
 };

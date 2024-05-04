@@ -8,7 +8,6 @@ Pacman::Pacman() : Entity(Player, { 13.5*8+4,26*8+4}, { -1, 0 }, 0.8f)
 {
 	pelletEffect = 0;
 	pelletMultiplier = 0;
-	
 }
 
 void Pacman::Input()
@@ -33,15 +32,14 @@ void Pacman::Input()
 
 void Pacman::Logic()
 {
-	Move();
-	std::cout << abs(GetTileOfEntity().x * 8 - position.x) << " " << abs(GetTileOfEntity().x * 8 - position.x) << std::endl;
-	
+	Entity::Move();
 }
 
 void Pacman::Render()
 {
 	Renderer::Instance().DrawSprite(0, {0,0}, GetPosition(), WHITE);
 	DrawCircle(position.x, position.y, 2, RED);
+	DrawCircle(GetTileOfEntity().x*8, GetTileOfEntity().y*8, 2, GREEN);
 }
 
 void Pacman::SetTargetTile(Vector2 tile)

@@ -27,9 +27,11 @@ public:
 	Color GetCustomColor(int index);
 	void DrawSprite(int textureIndex, Vector2 texturePosition, Vector2 position, Color color);
 	void DrawSprite(int textureIndex, Vector2 texturePosition, Vector2 position, int color);
-	void DrawText(char* text, int length, Vector2 position, Color color);
-	void DrawText(char* text, int length, Vector2 position, int color);
-	bool IsAnimationFinished();
+	void DrawText(const char* text, const int length, Vector2 position, Color color);
+	void DrawText(const char* text, const int length, Vector2 position, int color);
+	void DrawNumber(int number, Vector2 position, Color color);
+	void DrawNumber(int number, Vector2 position, int color);
+	Vector2 AnchorNumberOnRight(int number, Vector2 initialPos);
 	void Animate(int textureIndex, Vector2* sprites, int spriteLength, Color* colors, int colorLength, bool loop);
 	void Animate(int textureIndex, Vector2* sprites, int spriteLength, int* colors, int colorLength, bool loop);
 };

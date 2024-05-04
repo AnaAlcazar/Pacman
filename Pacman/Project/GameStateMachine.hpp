@@ -1,6 +1,7 @@
 #pragma once
 #include "ScreenManager.hpp"
 #include "EntityManager.hpp"
+#include "FileReader.hpp"
 #include "Game.hpp"
 class GameStateMachine
 {
@@ -9,6 +10,7 @@ private:
 	int nextState;
 	int coins;
 	float timer;
+	int highscore;
 	Game game;
 	void Start();
 	void Input();

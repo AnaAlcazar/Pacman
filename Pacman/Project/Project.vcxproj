@@ -134,6 +134,7 @@
   <ItemGroup>
     <ClInclude Include="CustomColors.hpp" />
     <ClInclude Include="EntityManager.hpp" />
+    <ClInclude Include="FileReader.hpp" />
     <ClInclude Include="Game.hpp" />
     <ClInclude Include="GameStateMachine.hpp" />
     <ClInclude Include="Ghost.hpp" />
@@ -143,6 +144,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EntityManager.cpp" />
+    <ClCompile Include="FileReader.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameStateMachine.cpp" />
     <ClCompile Include="Ghost.cpp" />
