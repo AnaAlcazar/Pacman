@@ -7,7 +7,7 @@
 
 void Entity::TrySetDirection(Vector2 dir)
 {
-	if (ScreenManager::Instance().EndOfTunnel(GetTileOfEntity()))return;
+	if (ScreenManager::Instance().OnTunnel(GetTileOfEntity()))return;
 	if (dir.x == nextDirection.x && dir.y == nextDirection.y) return;
 	Vector2 targetTile = { GetTileOfEntity().x + dir.x*2, GetTileOfEntity().y + dir.y*2 };
 	if (!ScreenManager::Instance().IsTangible(targetTile))return;
@@ -24,7 +24,7 @@ void Entity::Move()
 		direction = nextDirection;
 	}
 	bool NextTileTangible = ScreenManager::Instance().IsTangible({ GetTileOfEntity().x + direction.x, GetTileOfEntity().y + direction.y });
-	if (ScreenManager::Instance().EndOfTunnel(GetTileOfEntity()))
+	if (ScreenManager::Instance().OnTunnel(GetTileOfEntity()))
 	{
 		position.x += direction.x * speed;
 		position.y += direction.y * speed;

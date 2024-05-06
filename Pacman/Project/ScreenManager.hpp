@@ -28,6 +28,6 @@ public:
 	}
 	void Render(const int index, const Color color_);
 	void Render(const int index, const int color_);
-	bool EndOfTunnel(Vector2 tile);
+	bool OnTunnel(Vector2 tile);
 	bool IsTangible(Vector2 tile);
 };

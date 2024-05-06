@@ -73,6 +73,8 @@ void Ghost::Input()
 
 void Ghost::Logic()
 {
+	if (ScreenManager::Instance().OnTunnel(GetTileOfEntity()))speed = 0.4f;
+	else speed = 0.8f;
 	if(!intersectionDecided)
 		DecideDirection(false);
 	if (AvaiableDirections() < 3 && ContraryDirections())
