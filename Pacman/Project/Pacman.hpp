@@ -1,11 +1,12 @@
 #pragma once
 #include "EntityManager.hpp"
-
+#include "Renderer.hpp"
 class Pacman : public Entity
 {
 private:
 	float pelletEffect;
 	int pelletMultiplier;
+	Animator anim;
 public:
 	Pacman();
 	void Input()override;
@@ -13,4 +14,3 @@ public:
 	void Render()override;
 	void SetTargetTile(Vector2 tile)override;
 };
-

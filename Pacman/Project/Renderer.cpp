@@ -148,7 +148,35 @@ void Renderer::DrawNumber(int number, Vector2 position, int color)
 		 length++;
 		 number /= 10;
 	 }
-	 /*cout << length << " ";
-	 cout << initialPos.x - (8* length) << endl;*/
 	 return { initialPos.x-8*length,initialPos.y};
 }
+
+ Animator::Animator()
+ {
+	 currentSprite = 0;
+	 timer = 0;
+ }
+
+ void Animator::Animate(Vector2 pos_, int animIndex, float sp_, bool loop_)
+ {
+	 timer += GetFrameTime();
+	 if (timer >= sp_)
+	 {
+		 timer = 0;
+		 currentSprite++;
+	 }
+
+	 if (currentSprite >= animations[animIndex].size)
+	 {
+		 if (loop_)
+			 currentSprite = 0;
+		 else
+			 currentSprite = animations[animIndex].size;
+	 }
+	 
+	 Renderer::Instance().DrawSprite(animations[animIndex].spritesheetIndex, Renderer::Instance().SpriteIndexToPosition(animations[animIndex].spritesheetIndex,animations[animIndex].sprites[currentSprite]), pos_, WHITE);
+ }
+
+ Animator::~Animator()
+ {
+ }

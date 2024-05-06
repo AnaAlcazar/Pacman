@@ -8,6 +8,27 @@ struct SpriteSheet
 	Texture2D spritesheet;
 	int spriteSize;
 };
+
+struct Animation
+{
+	int spritesheetIndex;
+	int size;
+	vector <int> sprites;
+};
+
+class Animator
+{
+private:
+	int currentSprite;
+	float timer;
+	
+public:
+	vector <Animation> animations;
+	Animator();
+	void Animate(Vector2 pos_, int animIndex, float sp_, bool loop_);
+	~Animator();
+};
+
 class Renderer
 {
 private:
@@ -32,6 +53,4 @@ public:
 	void DrawNumber(int number, Vector2 position, Color color);
 	void DrawNumber(int number, Vector2 position, int color);
 	Vector2 AnchorNumberOnRight(int number, Vector2 initialPos);
-	void Animate(int textureIndex, Vector2* sprites, int spriteLength, Color* colors, int colorLength, bool loop);
-	void Animate(int textureIndex, Vector2* sprites, int spriteLength, int* colors, int colorLength, bool loop);
 };
