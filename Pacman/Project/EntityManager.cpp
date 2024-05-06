@@ -7,6 +7,7 @@
 
 void Entity::TrySetDirection(Vector2 dir)
 {
+	if (ScreenManager::Instance().EndOfTunnel(GetTileOfEntity()))return;
 	if (dir.x == nextDirection.x && dir.y == nextDirection.y) return;
 	Vector2 targetTile = { GetTileOfEntity().x + dir.x*2, GetTileOfEntity().y + dir.y*2 };
 	if (!ScreenManager::Instance().IsTangible(targetTile))return;
@@ -23,13 +24,20 @@ void Entity::Move()
 		direction = nextDirection;
 	}
 	bool NextTileTangible = ScreenManager::Instance().IsTangible({ GetTileOfEntity().x + direction.x, GetTileOfEntity().y + direction.y });
-	if (!NextTileTangible && EntityIsCenteredInTile(GetTileOfEntity()))
+	if (ScreenManager::Instance().EndOfTunnel(GetTileOfEntity()))
+	{
+		position.x += direction.x * speed;
+		position.y += direction.y * speed;
+	}
+	else if (!NextTileTangible && EntityIsCenteredInTile(GetTileOfEntity()))
 	{}
 	else
 	{
 		position.x += direction.x * speed;
 		position.y += direction.y * speed;
 	}
+	if (position.x < -4 && direction.x == -1)position.x = 224;
+	else if (position.x > 228 && direction.x == 1)position.x = -8;
 }
 
 Entity::Entity(const Type t, const Vector2 pos, const Vector2 dir, const float sp)

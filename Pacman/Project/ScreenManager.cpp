@@ -132,6 +132,12 @@ void ScreenManager::Render(const int index, const int color_)
 	Render(index, newColor);
 }
 
+bool ScreenManager::EndOfTunnel(Vector2 tile)
+{
+    if (Screens[1].GetValue(tile) == 38)return true;
+    return false;
+}
+
 bool ScreenManager::IsTangible(Vector2 tile)
 {
     if (Screens[1].GetValue(tile) == 36)return true;
