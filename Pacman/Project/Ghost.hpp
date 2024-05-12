@@ -23,8 +23,8 @@ public:
 	Ghost();
 	void Input()override;
 	void Logic()override;
-	void Render()override;
-	void SetTargetTile(Vector2 tile)override;
+	virtual void Render()override;
+	virtual void SetTargetTile(Vector2 tile)override;
 	~Ghost();
 };
 

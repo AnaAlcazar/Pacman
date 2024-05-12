@@ -3,6 +3,7 @@
 #include <vector>
 
 using namespace std;
+
 class Entity
 {
 protected:
@@ -16,12 +17,13 @@ protected:
 	Vector2 direction, nextDirection;
 	bool alive;
 	float speed;
-	void TrySetDirection(Vector2 dir);
+	Vector2 StartTile;
 	void Move();
 	
 public:
 #pragma region Constructor & Destructor
 	Entity(const Type t, const Vector2 pos, const Vector2 dir, const float sp);
+	void TrySetDirection(Vector2 dir);
 	virtual ~Entity();
 #pragma endregion
 

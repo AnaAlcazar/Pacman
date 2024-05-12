@@ -8,7 +8,15 @@ Game::Game()
 	lives = 3;
 	score = 0;
 	highscore = 0;
-	mode = 1;
+	stage = 0;
+	autopilot = false;
+	eatenDots = 0;
+	timer = 0;
+}
+
+void Game::EnableAutopilot()
+{
+	autopilot = true;
 }
 
 void Game::Start()
@@ -20,32 +28,42 @@ void Game::Start()
 
 void Game::Input()
 {
-	EntityManager::Instance().Input();
-	if (IsKeyDown(KEY_LEFT))mode = 0;
-	else if (IsKeyDown(KEY_RIGHT))mode = 1;
-	else if (IsKeyDown(KEY_SPACE))ResetLayout();
+	if(stage == 1)
+		EntityManager::Instance().Input();
 }
 
 void Game::Logic()
 {
-	if (score > highscore)highscore = score;
-	if (mode == 0)
+	if (stage == 0)		//Ready text
 	{
-		Entity* pacman = EntityManager::Instance().GetEntityAt(0);
-		EntityManager::Instance().SetTargetTile(EntityManager::Instance().GetEntityAt(1), pacman->GetTileOfEntity());
-		EntityManager::Instance().SetTargetTile(EntityManager::Instance().GetEntityAt(2), {pacman->GetTileOfEntity().x + 4*pacman->GetDirection().x, pacman->GetTileOfEntity().y + 4 * pacman->GetDirection().y });
-		EntityManager::Instance().SetTargetTile(EntityManager::Instance().GetEntityAt(3), EntityManager::Instance().GetEntityAt(0)->GetTileOfEntity());
-		EntityManager::Instance().SetTargetTile(EntityManager::Instance().GetEntityAt(4), {(float)(rand()%28),(float)(rand() % 31)+3});
+		timer += GetFrameTime();
+		if (timer >= 3)
+		{
+			timer = 0;
+			stage++;
+		}
 	}
-	else if(mode == 1)
+	else if (stage == 1)	//Game Running
 	{
-		EntityManager::Instance().SetTargetTile(EntityManager::Instance().GetEntityAt(1), {25, 0});
-		EntityManager::Instance().SetTargetTile(EntityManager::Instance().GetEntityAt(2), {2, 0});
-		EntityManager::Instance().SetTargetTile(EntityManager::Instance().GetEntityAt(3), {27, 35});
-		EntityManager::Instance().SetTargetTile(EntityManager::Instance().GetEntityAt(4), {0, 35});
+		/*for (int i = 0; i < Instructions.size(); i++)
+		{
+			if (Instructions[i].done)continue;
+			else if (!(Instructions[i].tile.x == EntityManager::Instance().GetEntityAt(0)->GetTileOfEntity().x) || !(Instructions[i].tile.y == EntityManager::Instance().GetEntityAt(0)->GetTileOfEntity().y) || EntityManager::Instance().GetEntityAt(0)->EntityIsCenteredInTile())break;
+			EntityManager::Instance().GetEntityAt(0).TrySetDirection(Instructions[i].dir);
+		}*/
+		EatDot();
+		EntityManager::Instance().Logic();
 	}
-	EatDot(); 
-	EntityManager::Instance().Logic();
+	else if (stage == 2)		//Level Cleared
+	{
+
+	}
+	else if (stage == 3)		//Pacman Dying
+	{
+
+	}
+
+	if (!autopilot && score > highscore)highscore = score;
 }
 
 void Game::Render()
@@ -59,6 +77,7 @@ void Game::Render()
 	{
 		Renderer::Instance().DrawSprite(0,{(float)8,(float)1},{(float)(24+16*i),(float) 280}, WHITE);
 	}
+	if (stage == 0)Renderer::Instance().DrawText("Ready!", 6, { 92, 160 }, 6);
 }
 
 void Game::ResetLayout()
@@ -99,13 +118,17 @@ void Game::EatDot()
 		tileValue = -20;
 		score += 50;
 	}
+	else return;
+	eatenDots++;
 }
 
 void Game::End()
 {
-	FileReader::Instance().NewHighScore(highscore);
+	if(!autopilot)
+		FileReader::Instance().NewHighScore(highscore);
 }
 
 Game::~Game()
 {
+	Instructions.clear();
 }

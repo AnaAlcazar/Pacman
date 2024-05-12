@@ -2,6 +2,7 @@
 #include "ScreenManager.hpp"
 #include "Pacman.hpp"
 #include "Ghost.hpp"
+#include "Blinky.hpp"
 #include <math.h>
 #include <iostream>
 
@@ -73,9 +74,9 @@ Vector2 Entity::GetTileOfEntity()
 
 bool Entity::EntityIsCenteredInTile(Vector2 tile)
 {
-	if (direction.x == -1 && (abs(position.x - tile.x * 8) <= 4) && (abs(position.y - tile.y * 8) <= 4))return true;
+	if (direction.x == -1 && (abs(position.x - tile.x * 8) < 4) && (abs(position.y - tile.y * 8) <= 4))return true;
 	else if (direction.x == 1 && (abs(position.x - tile.x * 8) >= 4) && (abs(position.y - tile.y * 8) <= 4))return true;
-	else if (direction.y == -1 && (abs(position.y - tile.y * 8) <= 4) && (abs(position.x - tile.x * 8) <= 4))return true;
+	else if (direction.y == -1 && (abs(position.y - tile.y * 8) < 4) && (abs(position.x - tile.x * 8) <= 4))return true;
 	else if (direction.y == 1 && (abs(position.y - tile.y * 8) >= 4) && (abs(position.x - tile.x * 8) <= 4))return true;
 	return false;
 }
@@ -88,7 +89,7 @@ bool Entity::IsAlive()
 EntityManager::EntityManager()
 {
 	entityList.push_back(new Pacman());
-	entityList.push_back(new Ghost());
+	entityList.push_back(new Blinky());
 	entityList.push_back(new Ghost());
 	entityList.push_back(new Ghost());
 	entityList.push_back(new Ghost());

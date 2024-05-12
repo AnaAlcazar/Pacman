@@ -38,6 +38,7 @@ Color Renderer::GetCustomColor(int index)
 	else if (index == 3)return Color(TEXT_ORANGE);
 	else if (index == 4)return Color(TEXT_OCHER);
 	else if (index == 5)return Color(TEXT_RED);
+	else if (index == 6)return Color(TEXT_YELLOW);
 }
 
 Vector2 Renderer::SpriteIndexToPosition(const int textureIndex, const int index)
@@ -173,8 +174,8 @@ void Renderer::DrawNumber(int number, Vector2 position, int color)
 		 else
 			 currentSprite = animations[animIndex].size;
 	 }
-	 
-	 Renderer::Instance().DrawSprite(animations[animIndex].spritesheetIndex, Renderer::Instance().SpriteIndexToPosition(animations[animIndex].spritesheetIndex,animations[animIndex].sprites[currentSprite]), pos_, WHITE);
+	 if(animations[animIndex].sprites[currentSprite] >= 0)
+		Renderer::Instance().DrawSprite(animations[animIndex].spritesheetIndex, Renderer::Instance().SpriteIndexToPosition(animations[animIndex].spritesheetIndex,animations[animIndex].sprites[currentSprite]), pos_, WHITE);
  }
 
  Animator::~Animator()

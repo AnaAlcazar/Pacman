@@ -71,8 +71,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Users\anaac8\Documents\GitHub\Shared-Projects\Pacman\Project\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\anaac8\Documents\GitHub\Shared-Projects\Pacman\Project\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\ANA\Documents\GitHub\Shared-Projects\Pacman\Project\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\ANA\Documents\GitHub\Shared-Projects\Pacman\Project\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -132,22 +132,26 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Blinky.hpp" />
     <ClInclude Include="CustomColors.hpp" />
     <ClInclude Include="EntityManager.hpp" />
     <ClInclude Include="FileReader.hpp" />
     <ClInclude Include="Game.hpp" />
     <ClInclude Include="GameStateMachine.hpp" />
     <ClInclude Include="Ghost.hpp" />
+    <ClInclude Include="LevelManager.hpp" />
     <ClInclude Include="Pacman.hpp" />
     <ClInclude Include="Renderer.hpp" />
     <ClInclude Include="ScreenManager.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Blinky.cpp" />
     <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="FileReader.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameStateMachine.cpp" />
     <ClCompile Include="Ghost.cpp" />
+    <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Pacman.cpp" />
     <ClCompile Include="Renderer.cpp" />

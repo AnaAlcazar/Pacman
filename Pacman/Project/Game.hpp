@@ -1,13 +1,26 @@
 #pragma once
 #include "ScreenManager.hpp"
 #include "EntityManager.hpp"
+#include <vector>
+
+class Instruction
+{
+    Vector2 tile;
+    Vector2 dir;
+    bool done;
+};
+
 class Game
 {
 private:
+    vector <Instruction> Instructions;
+    float timer;
+    int stage;
+    bool autopilot;
 	int lives;
 	int score;
     int highscore;
-    int mode;
+    int eatenDots;
 	int pointsLayout[36][28] = {
            {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
            {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
@@ -48,6 +61,7 @@ private:
 	};
 public:
     Game();
+    void EnableAutopilot();
     void Start();
 	void Input();
 	void Logic();

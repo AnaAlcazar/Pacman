@@ -17,7 +17,6 @@ int FileReader::ReadHighScore()
 	highScore.open("assets/files/HighScore.txt", ios::in);
 	if (highScore.is_open())
 	{
-		cout << "File opened for reading" << endl;
 		highScore >> score;
 		highScore.close();
 	}
@@ -30,7 +29,6 @@ void FileReader::NewHighScore(int score)
 	highScore.open("assets/files/HighScore.txt", ios::out);
 	if (highScore.is_open())
 	{
-		cout << "File opened for writting" << endl;
 		highScore << score;
 		highScore.close();
 	}

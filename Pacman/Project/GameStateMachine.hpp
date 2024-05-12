@@ -6,6 +6,12 @@
 class GameStateMachine
 {
 private:
+	Animator pellet;
+	Animator pacman;
+	Animator b;
+	Animator p;
+	Animator i;
+	Animator c;
 	int currentState;
 	int nextState;
 	int coins;
