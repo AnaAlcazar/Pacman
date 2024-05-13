@@ -18,6 +18,7 @@ private:
 	float timer;
 	int highscore;
 	Game game;
+	float scaleFactor;
 	void Start();
 	void Input();
 	void Logic();

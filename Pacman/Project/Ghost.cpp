@@ -73,6 +73,8 @@ void Ghost::Input()
 
 void Ghost::Logic()
 {
+	Brain();
+
 	if (ScreenManager::Instance().OnTunnel(GetTileOfEntity()))speed = 0.4f;
 	else speed = 0.8f;
 	if(!intersectionDecided)
@@ -83,9 +85,7 @@ void Ghost::Logic()
 }
 
 void Ghost::Render()
-{
-	Renderer::Instance().DrawSprite(0, { 0,2 }, position, WHITE);
-}
+{}
 
 void Ghost::SetTargetTile(Vector2 tile)
 {
@@ -93,6 +93,4 @@ void Ghost::SetTargetTile(Vector2 tile)
 }
 
 Ghost::~Ghost()
-{
-
-}
+{}

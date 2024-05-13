@@ -3,6 +3,10 @@
 #include "Pacman.hpp"
 #include "Ghost.hpp"
 #include "Blinky.hpp"
+#include "Pinky.hpp"
+#include "Inky.hpp"
+#include "Clyde.hpp"
+#include "Globals.hpp"
 #include <math.h>
 #include <iostream>
 
@@ -27,8 +31,8 @@ void Entity::Move()
 	bool NextTileTangible = ScreenManager::Instance().IsTangible({ GetTileOfEntity().x + direction.x, GetTileOfEntity().y + direction.y });
 	if (ScreenManager::Instance().OnTunnel(GetTileOfEntity()))
 	{
-		position.x += direction.x * speed;
-		position.y += direction.y * speed;
+		position.x += direction.x * speed*SCALE_FACTOR;
+		position.y += direction.y * speed*SCALE_FACTOR;
 	}
 	else if (!NextTileTangible && EntityIsCenteredInTile(GetTileOfEntity()))
 	{}
@@ -90,9 +94,9 @@ EntityManager::EntityManager()
 {
 	entityList.push_back(new Pacman());
 	entityList.push_back(new Blinky());
-	entityList.push_back(new Ghost());
-	entityList.push_back(new Ghost());
-	entityList.push_back(new Ghost());
+	entityList.push_back(new Pinky());
+	entityList.push_back(new Inky());
+	entityList.push_back(new Clyde());
 }
 
 int EntityManager::entityListLength()
@@ -125,7 +129,7 @@ void EntityManager::Render()
 {
 	for (int i = 0; i < entityList.size(); i++)
 	{
-		entityList[i]->Render();
+ 		entityList[i]->Render();
 	}
 }
 

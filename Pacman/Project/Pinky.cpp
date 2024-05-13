@@ -1,22 +1,22 @@
-#include "Blinky.hpp"
+#include "Pinky.hpp"
 
-Blinky::Blinky()
+Pinky::Pinky()
 {
 	Animation u{ 0,2 };
-	u.sprites.push_back(32);
-	u.sprites.push_back(33);
+	u.sprites.push_back(46);
+	u.sprites.push_back(47);
 
 	Animation l{ 0,2 };
-	u.sprites.push_back(30);
-	u.sprites.push_back(31);
+	u.sprites.push_back(44);
+	u.sprites.push_back(45);
 
 	Animation d{ 0,2 };
-	u.sprites.push_back(34);
-	u.sprites.push_back(35);
+	u.sprites.push_back(48);
+	u.sprites.push_back(49);
 
 	Animation r{ 0,2 };
-	u.sprites.push_back(28);
-	u.sprites.push_back(29);
+	u.sprites.push_back(42);
+	u.sprites.push_back(43);
 
 	Animation f{ 0,2 };
 	u.sprites.push_back(36);
@@ -29,7 +29,7 @@ Blinky::Blinky()
 	anim.animations.push_back(f);
 }
 
-void Blinky::Render()
+void Pinky::Render()
 {
 	if (alive)
 	{
@@ -47,26 +47,32 @@ void Blinky::Render()
 	}
 	else
 	{
-		if (direction.x == 0 && direction.y == -1) Renderer::Instance().DrawSprite(0, {8,5}, position, WHITE);
-		else if (direction.x == -1 && direction.y == 0) Renderer::Instance().DrawSprite(0, {9,4}, position, WHITE);
-		else if (direction.x == 0 && direction.y == 1) Renderer::Instance().DrawSprite(0, {9,5}, position, WHITE);
-		else if (direction.x == 1 && direction.y == 0) Renderer::Instance().DrawSprite(0, {8,4}, position, WHITE);
+		if (direction.x == 0 && direction.y == -1) Renderer::Instance().DrawSprite(0, { 8,5 }, position, WHITE);
+		else if (direction.x == -1 && direction.y == 0) Renderer::Instance().DrawSprite(0, { 9,4 }, position, WHITE);
+		else if (direction.x == 0 && direction.y == 1) Renderer::Instance().DrawSprite(0, { 9,5 }, position, WHITE);
+		else if (direction.x == 1 && direction.y == 0) Renderer::Instance().DrawSprite(0, { 8,4 }, position, WHITE);
 	}
 }
 
-void Blinky::Brain()
+void Pinky::Brain()
 {
 	Vector2 tileGo = { 0,0 };
 	switch (ghostMode)
 	{
 	case Ghost::Scatter:
-		tileGo = { 25,0 };
+		tileGo = { 2,0 };
 		break;
 	case Ghost::Chase:
 		tileGo = EntityManager::Instance().GetEntityAt(0)->GetTileOfEntity();
+		tileGo.x += 4 * direction.x;
+		tileGo.y += 4 * direction.y;
+		if (direction.y == -1)
+		{
+			tileGo.x -= 4;
+		}
 		break;
 	case Ghost::Frightened:
-		tileGo = { (float)((int)(rand() % 28)), (float)((int)(rand() % 31+3)) };
+		tileGo = { (float)((int)(rand() % 28)), (float)((int)(rand() % 31 + 3)) };
 		break;
 	default:
 		break;

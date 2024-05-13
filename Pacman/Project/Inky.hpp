@@ -1,11 +1,12 @@
 #pragma once
 #include "Ghost.hpp"
-class Blinky : public Ghost
+class Inky : public Ghost
 {
 private:
 	Animator anim;
 public:
-	Blinky();
+	Inky();
 	void Render()override;
 	void Brain() override;
 };
+

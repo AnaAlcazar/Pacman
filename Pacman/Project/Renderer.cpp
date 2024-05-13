@@ -1,4 +1,5 @@
 #include "Renderer.hpp"
+#include "Globals.hpp"
 #include "CustomColors.hpp"
 #include <iostream>
 #include <string>
@@ -51,11 +52,11 @@ Vector2 Renderer::SpriteIndexToPosition(const int textureIndex, const int index)
 void Renderer::DrawSprite(int textureIndex, Vector2 texturePosition, Vector2 position, Color color)
 {
 	Rectangle source = GetSpriteRectangle(textureIndex, texturePosition);
-	Rectangle dest = {	position.x,
-						position.y,
-						spritesheets[textureIndex].spriteSize,
-						spritesheets[textureIndex].spriteSize};
-	Vector2 origin = {	spritesheets[textureIndex].spriteSize / 2 , spritesheets[textureIndex].spriteSize / 2 };
+	Rectangle dest = {	position.x*SCALE_FACTOR,
+						position.y*SCALE_FACTOR,
+						spritesheets[textureIndex].spriteSize*SCALE_FACTOR,
+						spritesheets[textureIndex].spriteSize*SCALE_FACTOR};
+	Vector2 origin = {	(spritesheets[textureIndex].spriteSize / 2)*SCALE_FACTOR , (spritesheets[textureIndex].spriteSize / 2)*SCALE_FACTOR };
 	DrawTexturePro(spritesheets[textureIndex].spritesheet, source, dest, origin, 0, color);
 }
 
