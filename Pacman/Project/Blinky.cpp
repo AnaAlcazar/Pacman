@@ -7,20 +7,20 @@ Blinky::Blinky()
 	u.sprites.push_back(33);
 
 	Animation l{ 0,2 };
-	u.sprites.push_back(30);
-	u.sprites.push_back(31);
+	l.sprites.push_back(30);
+	l.sprites.push_back(31);
 
 	Animation d{ 0,2 };
-	u.sprites.push_back(34);
-	u.sprites.push_back(35);
+	d.sprites.push_back(34);
+	d.sprites.push_back(35);
 
 	Animation r{ 0,2 };
-	u.sprites.push_back(28);
-	u.sprites.push_back(29);
+	r.sprites.push_back(28);
+	r.sprites.push_back(29);
 
 	Animation f{ 0,2 };
-	u.sprites.push_back(36);
-	u.sprites.push_back(37);
+	f.sprites.push_back(36);
+	f.sprites.push_back(37);
 
 	anim.animations.push_back(u);
 	anim.animations.push_back(l);

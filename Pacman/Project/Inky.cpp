@@ -7,20 +7,20 @@ Inky::Inky()
 	u.sprites.push_back(61);
 
 	Animation l{ 0,2 };
-	u.sprites.push_back(58);
-	u.sprites.push_back(59);
+	l.sprites.push_back(58);
+	l.sprites.push_back(59);
 
 	Animation d{ 0,2 };
-	u.sprites.push_back(62);
-	u.sprites.push_back(63);
+	d.sprites.push_back(62);
+	d.sprites.push_back(63);
 
 	Animation r{ 0,2 };
-	u.sprites.push_back(56);
-	u.sprites.push_back(57);
+	r.sprites.push_back(56);
+	r.sprites.push_back(57);
 
 	Animation f{ 0,2 };
-	u.sprites.push_back(36);
-	u.sprites.push_back(37);
+	f.sprites.push_back(36);
+	f.sprites.push_back(37);
 
 	anim.animations.push_back(u);
 	anim.animations.push_back(l);
@@ -61,7 +61,7 @@ void Inky::Brain()
 	switch (ghostMode)
 	{
 	case Ghost::Scatter:
-		tileGo = { 26,27 };
+		tileGo = { 26,35 };
 		break;
 	case Ghost::Chase:
 		distance = hypot(EntityManager::Instance().GetEntityAt(1)->GetPosition().x - position.x, EntityManager::Instance().GetEntityAt(1)->GetPosition().y - position.y);

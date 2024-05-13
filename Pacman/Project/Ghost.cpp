@@ -1,4 +1,5 @@
 #include "Ghost.hpp"
+#include "Pacman.hpp"
 #include "Renderer.hpp"
 #include <math.h>
 Vector2 Ghost::IntToDirection(int index)
@@ -90,6 +91,27 @@ void Ghost::Render()
 void Ghost::SetTargetTile(Vector2 tile)
 {
 	targetTile = tile;
+}
+
+void Ghost::Kill()
+{
+	Vector2 pacmanTile = EntityManager::Instance().GetEntityAt(0)->GetTileOfEntity();
+	if (!GetTileOfEntity().x == pacmanTile.x || !GetTileOfEntity().y == pacmanTile.y)return;
+	else
+	{
+		if (dynamic_cast<Pacman*>(EntityManager::Instance().GetEntityAt(0))->GetPelletEffect() > 0)
+		{
+			Die();
+			EntityManager::Instance().GetEntityAt(0)->Kill();
+		}
+		else
+			EntityManager::Instance().GetEntityAt(0)->Die();
+	}
+}
+
+void Ghost::Die()
+{
+
 }
 
 Ghost::~Ghost()

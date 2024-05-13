@@ -21,6 +21,8 @@ public:
 	virtual void Brain() {}
 	virtual void Render()override;
 	void SetTargetTile(Vector2 tile) override;
+	void Kill()override;
+	void Die()override;
 	~Ghost();
 
 protected:

@@ -49,6 +49,11 @@ Pacman::Pacman() : Entity(Player, { 13.5*8+4,26*8+4}, { -1, 0 }, 0.8f)
 	anim.animations.push_back(pDie);
 }
 
+float Pacman::GetPelletEffect()
+{
+	return pelletEffect;
+}
+
 void Pacman::Input()
 {
 	if (IsKeyPressed(KEY_UP) || IsKeyPressed(KEY_W))
@@ -72,6 +77,8 @@ void Pacman::Input()
 void Pacman::Logic()
 {
 	Entity::Move();
+
+	cout << pelletEffect << endl;
 }
 
 void Pacman::Render()
@@ -82,6 +89,19 @@ void Pacman::Render()
 	else if (direction.x == 1)anim.Animate(position, 3, 0.1f, true);
 	DrawCircle(position.x, position.y, 2, RED);
 	DrawCircle(GetTileOfEntity().x*8, GetTileOfEntity().y*8, 2, GREEN);
+}
+
+void Pacman::Kill()
+{
+}
+
+void Pacman::Die()
+{
+}
+
+void Pacman::EatPellet()
+{
+	pelletEffect = 50;
 }
 
 void Pacman::SetTargetTile(Vector2 tile)

@@ -8,5 +8,6 @@ public:
 	Inky();
 	void Render()override;
 	void Brain() override;
+
 };
 

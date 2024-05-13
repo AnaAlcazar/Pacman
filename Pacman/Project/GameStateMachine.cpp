@@ -49,6 +49,7 @@ void GameStateMachine::Input()
 		break;
 	case 3:
 		game.Input();
+		//if(IsKeyPressed(KEY_KP_1))EntityManager::Instance().GetEntityAt(1).
 		break;
 	case 4:
 		break;

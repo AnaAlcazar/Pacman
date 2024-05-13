@@ -9,8 +9,12 @@ private:
 	Animator anim;
 public:
 	Pacman();
+	float GetPelletEffect();
 	void Input()override;
 	void Logic()override;
 	void Render()override;
+	void Kill()override;
+	void Die()override;
+	void EatPellet();
 	void SetTargetTile(Vector2 tile)override;
 };

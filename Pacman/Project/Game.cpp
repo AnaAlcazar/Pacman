@@ -1,7 +1,9 @@
 #include "Game.hpp"
 #include "Renderer.hpp"
 #include "FileReader.hpp"
+#include "EntityManager.hpp"
 #include <iostream>
+#include "Pacman.hpp"
 
 Game::Game()
 {
@@ -45,12 +47,16 @@ void Game::Logic()
 	}
 	else if (stage == 1)	//Game Running
 	{
-		/*for (int i = 0; i < Instructions.size(); i++)
+		if (autopilot)
 		{
-			if (Instructions[i].done)continue;
-			else if (!(Instructions[i].tile.x == EntityManager::Instance().GetEntityAt(0)->GetTileOfEntity().x) || !(Instructions[i].tile.y == EntityManager::Instance().GetEntityAt(0)->GetTileOfEntity().y) || EntityManager::Instance().GetEntityAt(0)->EntityIsCenteredInTile())break;
-			EntityManager::Instance().GetEntityAt(0).TrySetDirection(Instructions[i].dir);
-		}*/
+			for (int i = 0; i < Instructions.size(); i++)
+			{
+				if (Instructions[i].done)continue;
+				else if (!(Instructions[i].tile.x == EntityManager::Instance().GetEntityAt(0)->GetTileOfEntity().x) || !(Instructions[i].tile.y == EntityManager::Instance().GetEntityAt(0)->GetTileOfEntity().y) || EntityManager::Instance().GetEntityAt(0)->EntityIsCenteredInTile(EntityManager::Instance().GetEntityAt(0)->GetTileOfEntity()))break;
+				EntityManager::Instance().GetEntityAt(0)->TrySetDirection(Instructions[i].dir);
+			}
+		}
+		
 		EatDot();
 		EntityManager::Instance().Logic();
 	}
@@ -117,6 +123,7 @@ void Game::EatDot()
 	{
 		tileValue = -20;
 		score += 50;
+		dynamic_cast<Pacman*>(EntityManager::Instance().GetEntityAt(0))->EatPellet();
 	}
 	else return;
 	eatenDots++;

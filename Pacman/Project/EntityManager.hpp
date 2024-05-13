@@ -40,6 +40,8 @@ public:
 	virtual void Logic() = 0;
 	virtual void Render() = 0;
 	virtual void SetTargetTile(Vector2 tile) = 0;
+	virtual void Kill() = 0;
+	virtual void Die() = 0;
 #pragma endregion
 };
 

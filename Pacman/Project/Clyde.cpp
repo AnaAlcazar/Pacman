@@ -7,20 +7,20 @@ Clyde::Clyde()
 	u.sprites.push_back(75);
 
 	Animation l{ 0,2 };
-	u.sprites.push_back(72);
-	u.sprites.push_back(73);
+	l.sprites.push_back(72);
+	l.sprites.push_back(73);
 
 	Animation d{ 0,2 };
-	u.sprites.push_back(76);
-	u.sprites.push_back(77);
+	d.sprites.push_back(76);
+	d.sprites.push_back(77);
 
 	Animation r{ 0,2 };
-	u.sprites.push_back(70);
-	u.sprites.push_back(71);
+	r.sprites.push_back(70);
+	r.sprites.push_back(71);
 
 	Animation f{ 0,2 };
-	u.sprites.push_back(36);
-	u.sprites.push_back(37);
+	f.sprites.push_back(36);
+	f.sprites.push_back(37);
 
 	anim.animations.push_back(u);
 	anim.animations.push_back(l);
@@ -57,19 +57,26 @@ void Clyde::Render()
 void Clyde::Brain()
 {
 	Vector2 tileGo = { 0,0 };
-	switch (ghostMode)
+	if (alive)
 	{
-	case Ghost::Scatter:
-		tileGo = { 0,27 };
-		break;
-	case Ghost::Chase:
-		tileGo = { (float)((int)(rand() % 28)), (float)((int)(rand() % 31 + 3)) };
-		break;
-	case Ghost::Frightened:
-		tileGo = { (float)((int)(rand() % 28)), (float)((int)(rand() % 31 + 3)) };
-		break;
-	default:
-		break;
+		switch (ghostMode)
+		{
+		case Ghost::Scatter:
+			tileGo = { 0,35 };
+			break;
+		case Ghost::Chase:
+			tileGo = { (float)((int)(rand() % 28)), (float)((int)(rand() % 31 + 3)) };
+			break;
+		case Ghost::Frightened:
+			tileGo = { (float)((int)(rand() % 28)), (float)((int)(rand() % 31 + 3)) };
+			break;
+		default:
+			break;
+		}
+	}
+	else
+	{
+		Vector2 tileGo = { 13,18 };
 	}
 	SetTargetTile(tileGo);
 }

@@ -7,20 +7,20 @@ Pinky::Pinky()
 	u.sprites.push_back(47);
 
 	Animation l{ 0,2 };
-	u.sprites.push_back(44);
-	u.sprites.push_back(45);
+	l.sprites.push_back(44);
+	l.sprites.push_back(45);
 
 	Animation d{ 0,2 };
-	u.sprites.push_back(48);
-	u.sprites.push_back(49);
+	d.sprites.push_back(48);
+	d.sprites.push_back(49);
 
 	Animation r{ 0,2 };
-	u.sprites.push_back(42);
-	u.sprites.push_back(43);
+	r.sprites.push_back(42);
+	r.sprites.push_back(43);
 
 	Animation f{ 0,2 };
-	u.sprites.push_back(36);
-	u.sprites.push_back(37);
+	f.sprites.push_back(36);
+	f.sprites.push_back(37);
 
 	anim.animations.push_back(u);
 	anim.animations.push_back(l);
