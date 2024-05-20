@@ -40,6 +40,10 @@ int Ghost::AvaiableDirections()
 	
 	return count;
 }
+Vector2 Ghost::GetTargetTile()
+{
+	return targetTile;
+}
 void Ghost::DecideDirection(bool canTurnBack)
 {
 	Vector2 selectedDirection = { 0,0 };
@@ -47,6 +51,7 @@ void Ghost::DecideDirection(bool canTurnBack)
 	{
 		if (!canTurnBack && (IntToDirection(i).x * -1 == direction.x && IntToDirection(i).y * -1 == direction.y))continue;
 		else if (!ScreenManager::Instance().IsTangible({ GetTileOfEntity().x + IntToDirection(i).x , GetTileOfEntity().y + IntToDirection(i).y }))continue;
+		else if ((GetTileOfEntity().x == 13 || GetTileOfEntity().x == 14) && GetTileOfEntity().y == 14 && i == 2)continue;
 		else if (selectedDirection.x == 0 && selectedDirection.y == 0)
 		{
 			selectedDirection = IntToDirection(i);
@@ -58,14 +63,15 @@ void Ghost::DecideDirection(bool canTurnBack)
 	TrySetDirection(selectedDirection);
 	intersectionDecided = true;
 }
-Ghost::Ghost() : Entity(Enemy, { 13.5 * 8 + 4,8 * 8 + 4 }, { -1,0 }, 0.8f)
+Ghost::Ghost(Vector2 st, float t) : Entity(Enemy, { 13.5 * 8 + 4,8 * 8 + 4 }, { 0,-1 }, 0.8f, st)
 {
-	ghostModeTimer = 7;
-	modeRound = 0;
+	IsInBox = true;
+	timerToStart = t;
 	targetTile = { 0,0 };
 	ghostMode = Scatter;
 	alive = true;
 	intersectionDecided = false;
+	Playing = false;
 }
 
 void Ghost::Input()
@@ -83,6 +89,11 @@ void Ghost::Logic()
 	if (AvaiableDirections() < 3 && ContraryDirections())
 		intersectionDecided = false;
 	Entity::Move();
+	Kill();
+}
+
+void Ghost::Brain()
+{
 }
 
 void Ghost::Render()
@@ -93,25 +104,31 @@ void Ghost::SetTargetTile(Vector2 tile)
 	targetTile = tile;
 }
 
+void Ghost::ChangeMode(Mode m)
+{
+	ghostMode = m;
+}
+
 void Ghost::Kill()
 {
 	Vector2 pacmanTile = EntityManager::Instance().GetEntityAt(0)->GetTileOfEntity();
-	if (!GetTileOfEntity().x == pacmanTile.x || !GetTileOfEntity().y == pacmanTile.y)return;
+	if (!(GetTileOfEntity().x == pacmanTile.x) || !(GetTileOfEntity().y == pacmanTile.y))return;
 	else
 	{
-		if (dynamic_cast<Pacman*>(EntityManager::Instance().GetEntityAt(0))->GetPelletEffect() > 0)
+		if (ghostMode == Frightened && alive)
 		{
 			Die();
 			EntityManager::Instance().GetEntityAt(0)->Kill();
 		}
-		else
+		else if(ghostMode != Frightened && alive)
 			EntityManager::Instance().GetEntityAt(0)->Die();
 	}
 }
 
 void Ghost::Die()
 {
-
+	alive = false;
+	DecideDirection(true);
 }
 
 Ghost::~Ghost()

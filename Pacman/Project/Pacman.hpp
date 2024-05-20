@@ -6,6 +6,7 @@ class Pacman : public Entity
 private:
 	float pelletEffect;
 	int pelletMultiplier;
+	float scoreTimer;
 	Animator anim;
 public:
 	Pacman();

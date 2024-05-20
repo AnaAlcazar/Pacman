@@ -173,7 +173,7 @@ void Renderer::DrawNumber(int number, Vector2 position, int color)
 		 if (loop_)
 			 currentSprite = 0;
 		 else
-			 currentSprite = animations[animIndex].size;
+			 currentSprite = animations[animIndex].size-1;
 	 }
 	 if(animations[animIndex].sprites[currentSprite] >= 0)
 		Renderer::Instance().DrawSprite(animations[animIndex].spritesheetIndex, Renderer::Instance().SpriteIndexToPosition(animations[animIndex].spritesheetIndex,animations[animIndex].sprites[currentSprite]), pos_, WHITE);

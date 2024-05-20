@@ -12,7 +12,7 @@
 
 void Entity::TrySetDirection(Vector2 dir)
 {
-	if (ScreenManager::Instance().OnTunnel(GetTileOfEntity()))return;
+	if (ScreenManager::Instance().OnTunnel(GetTileOfEntity()) && type == Enemy)return;
 	if (dir.x == nextDirection.x && dir.y == nextDirection.y) return;
 	Vector2 targetTile = { GetTileOfEntity().x + dir.x*2, GetTileOfEntity().y + dir.y*2 };
 	if (!ScreenManager::Instance().IsTangible(targetTile))return;
@@ -21,7 +21,12 @@ void Entity::TrySetDirection(Vector2 dir)
 	position.x = GetTileOfEntity().x * 8 + 4;
 	position.y = GetTileOfEntity().y * 8 + 4;
 }
-
+void Entity::ResetPosition()
+{
+	float x = StartTile.x * 8 + 4;
+	float y = StartTile.y * 8 + 4;
+	position = { x,y };
+}
 void Entity::Move()
 {
 	if (EntityIsCenteredInTile(GetTileOfEntity()))
@@ -31,8 +36,8 @@ void Entity::Move()
 	bool NextTileTangible = ScreenManager::Instance().IsTangible({ GetTileOfEntity().x + direction.x, GetTileOfEntity().y + direction.y });
 	if (ScreenManager::Instance().OnTunnel(GetTileOfEntity()))
 	{
-		position.x += direction.x * speed*SCALE_FACTOR;
-		position.y += direction.y * speed*SCALE_FACTOR;
+		position.x += direction.x * speed;
+		position.y += direction.y * speed;
 	}
 	else if (!NextTileTangible && EntityIsCenteredInTile(GetTileOfEntity()))
 	{}
@@ -45,14 +50,15 @@ void Entity::Move()
 	else if (position.x > 228 && direction.x == 1)position.x = -8;
 }
 
-Entity::Entity(const Type t, const Vector2 pos, const Vector2 dir, const float sp)
+Entity::Entity(const EntityType t, const Vector2 pos, const Vector2 dir, const float sp, Vector2 st)
 {
 	type = t;
-	position = pos;
 	direction = dir;
 	nextDirection = dir;
 	speed = sp;
+	StartTile = st;
 	alive = true;
+	ResetPosition();
 }
 
 Entity::~Entity()
@@ -136,6 +142,14 @@ void EntityManager::Render()
 void EntityManager::SetTargetTile(Entity* entity, Vector2 tile)
 {
 	entity->SetTargetTile(tile);
+}
+
+void EntityManager::ResetAllPositions()
+{
+	for (int i = 0; i < 5; i++)
+	{
+		entityList[i]->ResetPosition();
+	}
 }
 
 EntityManager::~EntityManager()

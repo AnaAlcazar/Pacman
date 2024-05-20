@@ -1,4 +1,5 @@
 ﻿#include "GameStateMachine.hpp"
+#include "Globals.hpp"
 #include "Game.hpp"
 #include <iostream>
 
@@ -327,14 +328,34 @@ void GameStateMachine::SetState(const int state_)
 
 void GameStateMachine::Run()
 {
+	bool isMonitorHigher = GetMonitorHeight(GetCurrentMonitor()) > (36/28)* GetMonitorWidth(GetCurrentMonitor());
+	int windowsSizeUsage = isMonitorHigher ? GetMonitorWidth(GetCurrentMonitor()) : GetMonitorHeight(GetCurrentMonitor());
+	int tilemapSizeUsage = isMonitorHigher ? 8 * SCALE_FACTOR * 28 : 8 * SCALE_FACTOR * 36;
+	int tilemapOffset = isMonitorHigher ? (8 * SCALE_FACTOR * (36+1)) : (8 * SCALE_FACTOR * (28+1));
+	float scale = (float)windowsSizeUsage / (tilemapSizeUsage);
+	float offset = (tilemapSizeUsage)-tilemapOffset;
+	if (offset > 0)
+		offset = (tilemapSizeUsage)-tilemapOffset -(GetMonitorHeight(GetCurrentMonitor()) / 2) + 224 * scale / 2;
+	cout << offset << endl;
+	Camera2D camera = { 0 };
+	camera.target = { 0,0 };
+	camera.offset = { -offset * scale * 2 , 0 };
+	camera.rotation = 0.0f;
+	camera.zoom = scale;
 	Start();
+	cout << camera.offset.x << endl;
+	
 	while (nextState != -1 && !WindowShouldClose() && IsSameState())
 	{
-		ClearBackground(BLACK);
 		Input();
 		Logic();
 		BeginDrawing();
+		ClearBackground(BLACK);
+		BeginMode2D(camera);
 		Render();
+		DrawRectangle(-GetMonitorWidth(GetCurrentMonitor()),0, GetMonitorWidth(GetCurrentMonitor()), GetMonitorHeight(GetCurrentMonitor()), BLACK);
+		DrawRectangle(224*SCALE_FACTOR, 0, GetMonitorWidth(GetCurrentMonitor()), GetMonitorHeight(GetCurrentMonitor()), BLACK);
+		EndMode2D();
 		EndDrawing();
 	}
 	End();

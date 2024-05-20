@@ -17,8 +17,6 @@ private:
 	int coins;
 	float timer;
 	int highscore;
-	Game game;
-	float scaleFactor;
 	void Start();
 	void Input();
 	void Logic();
@@ -33,6 +31,7 @@ public:
 		static GameStateMachine instance;
 		return instance;
 	};
+	Game game;
 	int GetState();
 	void SetState(const int state_);
 	void Run();

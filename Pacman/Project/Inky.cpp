@@ -1,6 +1,6 @@
 #include "Inky.hpp"
-
-Inky::Inky()
+#include "GameStateMachine.hpp"
+Inky::Inky() : Ghost({ 12.5f, 17 }, 4)
 {
 	Animation u{ 0,2 };
 	u.sprites.push_back(60);
@@ -27,54 +27,72 @@ Inky::Inky()
 	anim.animations.push_back(d);
 	anim.animations.push_back(r);
 	anim.animations.push_back(f);
+	SetTargetTile(StartTile);
 }
 
 void Inky::Render()
 {
-	if (alive)
+	if (GameStateMachine::Instance().game.GetStage() == 1)
 	{
-		if (ghostMode == Ghost::Frightened)
+		if (alive)
 		{
-			anim.Animate(position, 4, 0.1f, true);
+			if (ghostMode == Ghost::Frightened)
+			{
+				anim.Animate(position, 4, 0.1f, true);
+			}
+			else
+			{
+				if (direction.x == 0 && direction.y == -1)anim.Animate(position, 0, 0.1f, true);
+				else if (direction.x == -1 && direction.y == 0)anim.Animate(position, 1, 0.1f, true);
+				else if (direction.x == 0 && direction.y == 1)anim.Animate(position, 2, 0.1f, true);
+				else if (direction.x == 1 && direction.y == 0)anim.Animate(position, 3, 0.1f, true);
+			}
 		}
 		else
 		{
-			if (direction.x == 0 && direction.y == -1)anim.Animate(position, 0, 0.1f, true);
-			else if (direction.x == -1 && direction.y == 0)anim.Animate(position, 1, 0.1f, true);
-			else if (direction.x == 0 && direction.y == 1)anim.Animate(position, 2, 0.1f, true);
-			else if (direction.x == 1 && direction.y == 0)anim.Animate(position, 3, 0.1f, true);
+			if (direction.x == 0 && direction.y == -1) Renderer::Instance().DrawSprite(0, { 8,5 }, position, WHITE);
+			else if (direction.x == -1 && direction.y == 0) Renderer::Instance().DrawSprite(0, { 9,4 }, position, WHITE);
+			else if (direction.x == 0 && direction.y == 1) Renderer::Instance().DrawSprite(0, { 9,5 }, position, WHITE);
+			else if (direction.x == 1 && direction.y == 0) Renderer::Instance().DrawSprite(0, { 8,4 }, position, WHITE);
 		}
 	}
-	else
-	{
-		if (direction.x == 0 && direction.y == -1) Renderer::Instance().DrawSprite(0, { 8,5 }, position, WHITE);
-		else if (direction.x == -1 && direction.y == 0) Renderer::Instance().DrawSprite(0, { 9,4 }, position, WHITE);
-		else if (direction.x == 0 && direction.y == 1) Renderer::Instance().DrawSprite(0, { 9,5 }, position, WHITE);
-		else if (direction.x == 1 && direction.y == 0) Renderer::Instance().DrawSprite(0, { 8,4 }, position, WHITE);
-	}
+	DrawRectangleLinesEx({ GetTargetTile().x * 8 * SCALE_FACTOR, GetTargetTile().y * 8 * SCALE_FACTOR, 8 * SCALE_FACTOR,8 * SCALE_FACTOR }, 2, SKYBLUE);
 }
 
 void Inky::Brain()
 {
 	float distance;
 	Vector2 tileGo = { 0,0 };
-	switch (ghostMode)
+	if (alive)
 	{
-	case Ghost::Scatter:
-		tileGo = { 26,35 };
-		break;
-	case Ghost::Chase:
-		distance = hypot(EntityManager::Instance().GetEntityAt(1)->GetPosition().x - position.x, EntityManager::Instance().GetEntityAt(1)->GetPosition().y - position.y);
-		if(distance < 24)
-			tileGo = EntityManager::Instance().GetEntityAt(0)->GetTileOfEntity();
-		else
+		switch (ghostMode)
+		{
+		case Ghost::Scatter:
+			tileGo = { 27,35 };
+			break;
+		case Ghost::Chase:
+			distance = hypot(EntityManager::Instance().GetEntityAt(1)->GetPosition().x - position.x, EntityManager::Instance().GetEntityAt(1)->GetPosition().y - position.y);
+			if (distance < 24)
+				tileGo = EntityManager::Instance().GetEntityAt(0)->GetTileOfEntity();
+			else
+				tileGo = { (float)((int)(rand() % 28)), (float)((int)(rand() % 31 + 3)) };
+			break;
+		case Ghost::Frightened:
 			tileGo = { (float)((int)(rand() % 28)), (float)((int)(rand() % 31 + 3)) };
-		break;
-	case Ghost::Frightened:
-		tileGo = { (float)((int)(rand() % 28)), (float)((int)(rand() % 31 + 3)) };
-		break;
-	default:
-		break;
+			break;
+		default:
+			break;
+		}
+	}
+	else
+	{
+		tileGo = { 14,14 };
+		if (GetTileOfEntity().x == tileGo.x && GetTileOfEntity().y == tileGo.y)
+		{
+			alive = true;
+			ghostMode = Scatter;
+			Ghost::DecideDirection(true);
+		}
 	}
 	SetTargetTile(tileGo);
 }

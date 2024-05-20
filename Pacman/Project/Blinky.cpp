@@ -1,6 +1,7 @@
 #include "Blinky.hpp"
+#include "GameStateMachine.hpp"
 
-Blinky::Blinky()
+Blinky::Blinky() : Ghost({ 13.5f,14 }, 0)
 {
 	Animation u{ 0,2 };
 	u.sprites.push_back(32);
@@ -31,45 +32,62 @@ Blinky::Blinky()
 
 void Blinky::Render()
 {
-	if (alive)
+	if (GameStateMachine::Instance().game.GetStage() == 1)
 	{
-		if (ghostMode == Ghost::Frightened)
+		if (alive)
 		{
-			anim.Animate(position, 4, 0.1f, true);
+			if (ghostMode == Ghost::Frightened)
+			{
+				anim.Animate(position, 4, 0.1f, true);
+			}
+			else
+			{
+				if (direction.x == 0 && direction.y == -1)anim.Animate(position, 0, 0.1f, true);
+				else if (direction.x == -1 && direction.y == 0)anim.Animate(position, 1, 0.1f, true);
+				else if (direction.x == 0 && direction.y == 1)anim.Animate(position, 2, 0.1f, true);
+				else if (direction.x == 1 && direction.y == 0)anim.Animate(position, 3, 0.1f, true);
+			}
 		}
 		else
 		{
-			if (direction.x == 0 && direction.y == -1)anim.Animate(position, 0, 0.1f, true);
-			else if (direction.x == -1 && direction.y == 0)anim.Animate(position, 1, 0.1f, true);
-			else if (direction.x == 0 && direction.y == 1)anim.Animate(position, 2, 0.1f, true);
-			else if (direction.x == 1 && direction.y == 0)anim.Animate(position, 3, 0.1f, true);
+			if (direction.x == 0 && direction.y == -1) Renderer::Instance().DrawSprite(0, { 8,5 }, position, WHITE);
+			else if (direction.x == -1 && direction.y == 0) Renderer::Instance().DrawSprite(0, { 9,4 }, position, WHITE);
+			else if (direction.x == 0 && direction.y == 1) Renderer::Instance().DrawSprite(0, { 9,5 }, position, WHITE);
+			else if (direction.x == 1 && direction.y == 0) Renderer::Instance().DrawSprite(0, { 8,4 }, position, WHITE);
 		}
 	}
-	else
-	{
-		if (direction.x == 0 && direction.y == -1) Renderer::Instance().DrawSprite(0, {8,5}, position, WHITE);
-		else if (direction.x == -1 && direction.y == 0) Renderer::Instance().DrawSprite(0, {9,4}, position, WHITE);
-		else if (direction.x == 0 && direction.y == 1) Renderer::Instance().DrawSprite(0, {9,5}, position, WHITE);
-		else if (direction.x == 1 && direction.y == 0) Renderer::Instance().DrawSprite(0, {8,4}, position, WHITE);
-	}
+	DrawRectangleLinesEx({ GetTargetTile().x * 8 * SCALE_FACTOR, GetTargetTile().y * 8 * SCALE_FACTOR, 8 * SCALE_FACTOR,8 * SCALE_FACTOR }, 2, RED);
 }
 
 void Blinky::Brain()
 {
 	Vector2 tileGo = { 0,0 };
-	switch (ghostMode)
+	if (alive)
 	{
-	case Ghost::Scatter:
-		tileGo = { 25,0 };
-		break;
-	case Ghost::Chase:
-		tileGo = EntityManager::Instance().GetEntityAt(0)->GetTileOfEntity();
-		break;
-	case Ghost::Frightened:
-		tileGo = { (float)((int)(rand() % 28)), (float)((int)(rand() % 31+3)) };
-		break;
-	default:
-		break;
+		switch (ghostMode)
+		{
+		case Ghost::Scatter:
+			tileGo = { 25,0 };
+			break;
+		case Ghost::Chase:
+			tileGo = EntityManager::Instance().GetEntityAt(0)->GetTileOfEntity();
+			break;
+		case Ghost::Frightened:
+			tileGo = { (float)((int)(rand() % 28)), (float)((int)(rand() % 31 + 3)) };
+			break;
+		default:
+			break;
+		}
+	}
+	else
+	{
+		tileGo = { 14,14 };
+		if (GetTileOfEntity().x == tileGo.x && GetTileOfEntity().y == tileGo.y)
+		{
+			alive = true;
+			ghostMode = Scatter;
+			Ghost::DecideDirection(true);
+		}
 	}
 	SetTargetTile(tileGo);
 }

@@ -1,14 +1,16 @@
 #include "Pacman.hpp"
 #include "Renderer.hpp"
+#include "GameStateMachine.hpp"
+#include "Ghost.hpp"
 #include <math.h>
 #include <iostream>
 #include "ScreenManager.hpp"
 
-Pacman::Pacman() : Entity(Player, { 13.5*8+4,26*8+4}, { -1, 0 }, 0.8f)
+Pacman::Pacman() : Entity(Player, {13.5*8+4,26*8+4}, { -1, 0 }, 0.8f, { 13.5f,26})
 {
 	pelletEffect = 0;
 	pelletMultiplier = 0;
-
+	scoreTimer = 0;
 	Animation pUp={0,4};
 	pUp.sprites.push_back(0);
 	pUp.sprites.push_back(15);
@@ -78,30 +80,72 @@ void Pacman::Logic()
 {
 	Entity::Move();
 
-	cout << pelletEffect << endl;
+	if (pelletEffect > 0)pelletEffect -= GetFrameTime();
+	else pelletEffect = 0;
+	if (scoreTimer > 0 && GameStateMachine::Instance().game.GetStage() == 4)
+	{
+		scoreTimer -= GetFrameTime();
+	}
+	else if(GameStateMachine::Instance().game.GetStage() == 4)
+		GameStateMachine::Instance().game.SetStage(1);
 }
 
 void Pacman::Render()
 {
-	if (direction.y == -1)anim.Animate(position, 0, 0.1f, true);
-	else if (direction.x == -1)anim.Animate(position, 1, 0.1f, true);
-	else if (direction.y == 1)anim.Animate(position, 2, 0.1f, true);
-	else if (direction.x == 1)anim.Animate(position, 3, 0.1f, true);
-	DrawCircle(position.x, position.y, 2, RED);
-	DrawCircle(GetTileOfEntity().x*8, GetTileOfEntity().y*8, 2, GREEN);
+	if (GameStateMachine::Instance().game.GetStage() == 1)
+	{
+		if (direction.y == -1)anim.Animate(position, 0, 0.1f, true);
+		else if (direction.x == -1)anim.Animate(position, 1, 0.1f, true);
+		else if (direction.y == 1)anim.Animate(position, 2, 0.1f, true);
+		else if (direction.x == 1)anim.Animate(position, 3, 0.1f, true);
+	}
+	else if (GameStateMachine::Instance().game.GetStage() == 3)
+	{
+		anim.Animate(position, 4, 0.15f, false);
+	}
+	else if (GameStateMachine::Instance().game.GetStage() == 4)
+	{
+		switch (pelletMultiplier - 1)
+		{
+		case 1:
+			Renderer::Instance().DrawSprite(0, { 10,1 }, { position.x, position.y}, WHITE);
+			break;
+		case 2:
+			Renderer::Instance().DrawSprite(0, { 12,0 }, { position.x, position.y}, WHITE);
+			break;
+		case 3:
+			Renderer::Instance().DrawSprite(0, { 13,1 }, { position.x, position.y}, WHITE);
+			break;
+		case 4:
+			Renderer::Instance().DrawSprite(0, { 13,3 }, { position.x, position.y}, WHITE);
+			Renderer::Instance().DrawSprite(0, { 12,3 }, { position.x-6*SCALE_FACTOR, position.y }, WHITE);
+			break;
+		default:
+			break;
+		}
+	}
 }
 
 void Pacman::Kill()
 {
+	GameStateMachine::Instance().game.SetStage(4);
+	pelletMultiplier++;
+	GameStateMachine::Instance().game.AddScore(100 * pow(2, pelletMultiplier));
 }
 
 void Pacman::Die()
 {
+	GameStateMachine::Instance().game.SetStage(3);
 }
 
 void Pacman::EatPellet()
 {
 	pelletEffect = 50;
+	pelletMultiplier = 1;
+	for (int i = 1; i < 5; i++)
+	{
+		dynamic_cast<Ghost*>(EntityManager::Instance().GetEntityAt(i))->ChangeMode(Ghost::Frightened);
+	}
 }
 
 void Pacman::SetTargetTile(Vector2 tile)

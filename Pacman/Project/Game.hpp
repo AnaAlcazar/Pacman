@@ -71,5 +71,8 @@ public:
     void RenderPoints();
     void EatDot();
     void End();
+    void AddScore(int s);
+    int GetStage();
+    void SetStage(int s);
     ~Game();
 };

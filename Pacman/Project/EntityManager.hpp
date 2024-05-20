@@ -6,24 +6,25 @@ using namespace std;
 
 class Entity
 {
+	
 protected:
-	enum Type
+	enum EntityType
 	{
 		Player,
 		Enemy
 	};
-	Type type;
+	EntityType type;
 	Vector2 position;
 	Vector2 direction, nextDirection;
 	bool alive;
 	float speed;
 	Vector2 StartTile;
 	void Move();
-	
 public:
+	
 #pragma region Constructor & Destructor
-	Entity(const Type t, const Vector2 pos, const Vector2 dir, const float sp);
-	void TrySetDirection(Vector2 dir);
+	Entity(const EntityType t, const Vector2 pos, const Vector2 dir, const float sp, Vector2 st);
+	
 	virtual ~Entity();
 #pragma endregion
 
@@ -42,6 +43,8 @@ public:
 	virtual void SetTargetTile(Vector2 tile) = 0;
 	virtual void Kill() = 0;
 	virtual void Die() = 0;
+	void TrySetDirection(Vector2 dir);
+	void ResetPosition();
 #pragma endregion
 };
 
@@ -63,4 +66,5 @@ public:
 	void Logic();
 	void Render();
 	void SetTargetTile(Entity* entity, Vector2 tile);
+	void ResetAllPositions();
 };

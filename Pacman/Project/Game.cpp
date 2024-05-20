@@ -4,6 +4,7 @@
 #include "EntityManager.hpp"
 #include <iostream>
 #include "Pacman.hpp"
+#include "Ghost.hpp"
 
 Game::Game()
 {
@@ -26,6 +27,7 @@ void Game::Start()
 	highscore = FileReader::Instance().ReadHighScore();
 	score = 0;
 	ResetLayout();
+	EntityManager::Instance().ResetAllPositions();
 }
 
 void Game::Input()
@@ -39,6 +41,7 @@ void Game::Logic()
 	if (stage == 0)		//Ready text
 	{
 		timer += GetFrameTime();
+		EntityManager::Instance().ResetAllPositions();
 		if (timer >= 3)
 		{
 			timer = 0;
@@ -56,7 +59,33 @@ void Game::Logic()
 				EntityManager::Instance().GetEntityAt(0)->TrySetDirection(Instructions[i].dir);
 			}
 		}
-		
+		timer += GetFrameTime();
+		for (int i = 1; i < 5; i++)
+		{
+			Entity* e = EntityManager::Instance().GetEntityAt(i);
+			if ((e->GetTileOfEntity().x == 13 || e->GetTileOfEntity().x == 14) && e->GetTileOfEntity().y == 14 && !(dynamic_cast<Ghost*>(EntityManager::Instance().GetEntityAt(i)))->Playing)
+			{
+				dynamic_cast<Ghost*>(EntityManager::Instance().GetEntityAt(i))->ChangeMode(Ghost::Scatter);
+				dynamic_cast<Ghost*>(EntityManager::Instance().GetEntityAt(i))->DecideDirection(true);
+				dynamic_cast<Ghost*>(EntityManager::Instance().GetEntityAt(i))->Playing = true;
+			}
+			else if (timer >= (dynamic_cast<Ghost*>(EntityManager::Instance().GetEntityAt(i)))->timerToStart + 0.2f && !(dynamic_cast<Ghost*>(EntityManager::Instance().GetEntityAt(i)))->Playing)
+			{
+				dynamic_cast<Ghost*>(EntityManager::Instance().GetEntityAt(i))->SetTargetTile({ 14,0 });
+				dynamic_cast<Ghost*>(EntityManager::Instance().GetEntityAt(i))->DecideDirection(true);
+			}
+			else if (timer >= (dynamic_cast<Ghost*>(EntityManager::Instance().GetEntityAt(i)))->timerToStart && !(dynamic_cast<Ghost*>(EntityManager::Instance().GetEntityAt(i)))->Playing)
+			{
+				dynamic_cast<Ghost*>(EntityManager::Instance().GetEntityAt(i))->SetTargetTile({14,17});
+				dynamic_cast<Ghost*>(EntityManager::Instance().GetEntityAt(i))->DecideDirection(true);
+			}
+			else if (timer <(dynamic_cast<Ghost*>(EntityManager::Instance().GetEntityAt(i)))->timerToStart && !(dynamic_cast<Ghost*>(EntityManager::Instance().GetEntityAt(i)))->Playing)
+			{
+				dynamic_cast<Ghost*>(EntityManager::Instance().GetEntityAt(i))->DecideDirection(true);
+			}
+			
+		}
+
 		EatDot();
 		EntityManager::Instance().Logic();
 	}
@@ -67,6 +96,15 @@ void Game::Logic()
 	else if (stage == 3)		//Pacman Dying
 	{
 
+	}
+	else if (stage == 4)		//Stopped for killing ghost
+	{
+		timer += GetFrameTime();
+		if (timer >= 1)
+		{
+			timer = 0;
+			stage = 1;
+		}
 	}
 
 	if (!autopilot && score > highscore)highscore = score;
@@ -84,6 +122,19 @@ void Game::Render()
 		Renderer::Instance().DrawSprite(0,{(float)8,(float)1},{(float)(24+16*i),(float) 280}, WHITE);
 	}
 	if (stage == 0)Renderer::Instance().DrawText("Ready!", 6, { 92, 160 }, 6);
+	else if (stage == 3)
+	{
+		timer += GetFrameTime();
+		if (timer >= 5)
+		{
+			timer = 0;
+			lives--;
+			if (lives > 0)
+				stage = 0;
+			else
+				Renderer::Instance().DrawText("Game Over!", 10, { 90, 160 }, 5);
+		}
+	}
 }
 
 void Game::ResetLayout()
@@ -133,6 +184,21 @@ void Game::End()
 {
 	if(!autopilot)
 		FileReader::Instance().NewHighScore(highscore);
+}
+
+void Game::AddScore(int s)
+{
+	score += s;
+}
+
+int Game::GetStage()
+{
+	return stage;
+}
+
+void Game::SetStage(int s)
+{
+	stage = s;
 }
 
 Game::~Game()
