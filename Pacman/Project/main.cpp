@@ -8,7 +8,7 @@ int main()
 	ReportMemoryLeaks();
 	InitWindow(224 * SCALE_FACTOR, 288 * SCALE_FACTOR, "Pacman");
 	SetWindowSize(GetMonitorWidth(GetCurrentMonitor()), GetMonitorHeight(GetCurrentMonitor()));
-	ToggleFullscreen();
+	//ToggleFullscreen();
 
 	SetTargetFPS(60);
 	InitAudioDevice();

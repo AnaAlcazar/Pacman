@@ -11,6 +11,7 @@ private:
 public:
 	Pacman();
 	float GetPelletEffect();
+	void ResetPelletEffect();
 	void Input()override;
 	void Logic()override;
 	void Render()override;

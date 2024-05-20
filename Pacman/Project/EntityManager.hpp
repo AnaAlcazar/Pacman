@@ -18,10 +18,10 @@ protected:
 	Vector2 direction, nextDirection;
 	bool alive;
 	float speed;
-	Vector2 StartTile;
+	
 	void Move();
 public:
-	
+	Vector2 StartTile;
 #pragma region Constructor & Destructor
 	Entity(const EntityType t, const Vector2 pos, const Vector2 dir, const float sp, Vector2 st);
 	
@@ -44,6 +44,7 @@ public:
 	virtual void Kill() = 0;
 	virtual void Die() = 0;
 	void TrySetDirection(Vector2 dir);
+	void ForceDirection(Vector2 dir);
 	void ResetPosition();
 #pragma endregion
 };
@@ -67,4 +68,5 @@ public:
 	void Render();
 	void SetTargetTile(Entity* entity, Vector2 tile);
 	void ResetAllPositions();
+	void ResetEntities();
 };

@@ -2,17 +2,18 @@
 #include "Renderer.hpp"
 #include "FileReader.hpp"
 #include "EntityManager.hpp"
+#include "GameStateMachine.hpp"
 #include <iostream>
 #include "Pacman.hpp"
 #include "Ghost.hpp"
 
-Game::Game()
+Game::Game(int l)
 {
 	lives = 3;
 	score = 0;
 	highscore = 0;
 	stage = 0;
-	autopilot = false;
+	level = l;
 	eatenDots = 0;
 	timer = 0;
 }
@@ -28,6 +29,7 @@ void Game::Start()
 	score = 0;
 	ResetLayout();
 	EntityManager::Instance().ResetAllPositions();
+	timer = 0;
 }
 
 void Game::Input()
@@ -50,15 +52,6 @@ void Game::Logic()
 	}
 	else if (stage == 1)	//Game Running
 	{
-		if (autopilot)
-		{
-			for (int i = 0; i < Instructions.size(); i++)
-			{
-				if (Instructions[i].done)continue;
-				else if (!(Instructions[i].tile.x == EntityManager::Instance().GetEntityAt(0)->GetTileOfEntity().x) || !(Instructions[i].tile.y == EntityManager::Instance().GetEntityAt(0)->GetTileOfEntity().y) || EntityManager::Instance().GetEntityAt(0)->EntityIsCenteredInTile(EntityManager::Instance().GetEntityAt(0)->GetTileOfEntity()))break;
-				EntityManager::Instance().GetEntityAt(0)->TrySetDirection(Instructions[i].dir);
-			}
-		}
 		timer += GetFrameTime();
 		for (int i = 1; i < 5; i++)
 		{
@@ -81,9 +74,12 @@ void Game::Logic()
 			}
 			else if (timer <(dynamic_cast<Ghost*>(EntityManager::Instance().GetEntityAt(i)))->timerToStart && !(dynamic_cast<Ghost*>(EntityManager::Instance().GetEntityAt(i)))->Playing)
 			{
+				Vector2 st = (EntityManager::Instance().GetEntityAt(i))->StartTile;
+				float directioner = (int)(timer * 4) % 2 == 0 ? -1 : 1;
+				st.y += directioner;
+				dynamic_cast<Ghost*>(EntityManager::Instance().GetEntityAt(i))->SetTargetTile(st);
 				dynamic_cast<Ghost*>(EntityManager::Instance().GetEntityAt(i))->DecideDirection(true);
 			}
-			
 		}
 
 		EatDot();
@@ -125,14 +121,41 @@ void Game::Render()
 	else if (stage == 3)
 	{
 		timer += GetFrameTime();
-		if (timer >= 5)
+		if (timer >= 8)
 		{
-			timer = 0;
-			lives--;
 			if (lives > 0)
+			{
+				timer = 0;
+				lives--;
+				for (int i = 1; i < 5; i++)
+				{
+					Ghost* g = dynamic_cast<Ghost*>(EntityManager::Instance().GetEntityAt(i));
+					g->ResetPosition();
+					g->targetTile = g->StartTile;
+					g->Playing = false;
+					g->ForceDirection({ -1,0 });
+				}
+				EntityManager::Instance().GetEntityAt(0)->ResetPosition();
+				EntityManager::Instance().GetEntityAt(0)->ForceDirection({-1,0});
 				stage = 0;
+			}	
 			else
-				Renderer::Instance().DrawText("Game Over!", 10, { 90, 160 }, 5);
+			{
+				if (timer >= 12)
+				{
+					Entity* p = EntityManager::Instance().GetEntityAt(0);
+					Renderer::Instance().DrawText("Game Over!", 10, { 72, 160 }, 5);
+					if (timer >= 15)
+					{
+						timer = 0;
+						GameStateMachine::Instance().UseCoin();
+						if (GameStateMachine::Instance().HasCoins())
+							GameStateMachine::Instance().SetState(2);
+						else
+							GameStateMachine::Instance().SetState(0);
+					}
+				}
+			}
 		}
 	}
 }
@@ -182,8 +205,8 @@ void Game::EatDot()
 
 void Game::End()
 {
-	if(!autopilot)
-		FileReader::Instance().NewHighScore(highscore);
+	EntityManager::Instance().ResetEntities();
+	FileReader::Instance().NewHighScore(highscore);
 }
 
 void Game::AddScore(int s)
@@ -203,5 +226,4 @@ void Game::SetStage(int s)
 
 Game::~Game()
 {
-	Instructions.clear();
 }

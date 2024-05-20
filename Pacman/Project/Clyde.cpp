@@ -1,6 +1,6 @@
 #include "Clyde.hpp"
 #include "GameStateMachine.hpp"
-Clyde::Clyde() : Ghost({ 14.5f,17 }, 8)
+Clyde::Clyde() : Ghost({ 15,17 }, 8)
 {
 	Animation u{ 0,2 };
 	u.sprites.push_back(74);
@@ -32,7 +32,7 @@ Clyde::Clyde() : Ghost({ 14.5f,17 }, 8)
 
 void Clyde::Render()
 {
-	if (GameStateMachine::Instance().game.GetStage() == 1)
+	if (GameStateMachine::Instance().game->GetStage() == 1)
 	{
 		if (alive)
 		{

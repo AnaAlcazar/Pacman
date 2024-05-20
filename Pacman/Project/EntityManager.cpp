@@ -21,10 +21,14 @@ void Entity::TrySetDirection(Vector2 dir)
 	position.x = GetTileOfEntity().x * 8 + 4;
 	position.y = GetTileOfEntity().y * 8 + 4;
 }
+void Entity::ForceDirection(Vector2 dir)
+{
+	direction = dir;
+}
 void Entity::ResetPosition()
 {
-	float x = StartTile.x * 8 + 4;
-	float y = StartTile.y * 8 + 4;
+	float x = StartTile.x * 8 +4;
+	float y = StartTile.y * 8 +4;
 	position = { x,y };
 }
 void Entity::Move()
@@ -150,6 +154,20 @@ void EntityManager::ResetAllPositions()
 	{
 		entityList[i]->ResetPosition();
 	}
+}
+
+void EntityManager::ResetEntities()
+{
+	for (int i = 0; i < entityList.size(); i++)
+	{
+		delete entityList[i];
+	}
+	entityList.clear();
+	entityList.push_back(new Pacman());
+	entityList.push_back(new Blinky());
+	entityList.push_back(new Pinky());
+	entityList.push_back(new Inky());
+	entityList.push_back(new Clyde());
 }
 
 EntityManager::~EntityManager()

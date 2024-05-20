@@ -18,6 +18,7 @@ private:
     float timer;
     int stage;
     bool autopilot;
+    int level;
 	int lives;
 	int score;
     int highscore;
@@ -61,7 +62,7 @@ private:
            {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1}
 	};
 public:
-    Game();
+    Game(int l);
     void EnableAutopilot();
     void Start();
 	void Input();

@@ -32,7 +32,7 @@ Blinky::Blinky() : Ghost({ 13.5f,14 }, 0)
 
 void Blinky::Render()
 {
-	if (GameStateMachine::Instance().game.GetStage() == 1)
+	if (GameStateMachine::Instance().game->GetStage() == 1)
 	{
 		if (alive)
 		{

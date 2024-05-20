@@ -13,15 +13,13 @@ void GameStateMachine::Start()
 		highscore = FileReader::Instance().ReadHighScore();
 		break;
 	case 1:
-		game.Start();
-		game.EnableAutopilot();
 		break;
 	case 2:
 		highscore = FileReader::Instance().ReadHighScore();
 		break;
 	case 3:
-		game = Game();
-		game.Start();
+		game = new Game();
+		game->Start();
 		break;
 	case 4:
 		break;
@@ -49,8 +47,7 @@ void GameStateMachine::Input()
 		if (IsKeyPressed(KEY_ENTER))SetState(3);
 		break;
 	case 3:
-		game.Input();
-		//if(IsKeyPressed(KEY_KP_1))EntityManager::Instance().GetEntityAt(1).
+		game->Input();
 		break;
 	case 4:
 		break;
@@ -80,12 +77,11 @@ void GameStateMachine::Logic()
 		if (timer > 32)SetState(1);
 		break;
 	case 1:
-		game.Logic();
 		break;
 	case 2:
 		break;
 	case 3:
-		game.Logic();
+		game->Logic();
 		break;
 	case 4:
 		break;
@@ -198,7 +194,7 @@ void GameStateMachine::Render()
 		break;
 	case 1:
 		ScreenManager::Instance().Render(1, 0);
-		game.Render();
+		game->Render();
 		break;
 	case 2:
 		ScreenManager::Instance().Render(0, WHITE);
@@ -215,7 +211,7 @@ void GameStateMachine::Render()
 		break;
 	case 3:
 		ScreenManager::Instance().Render(1, 0);
-		game.Render();
+		game->Render();
 		break;
 	case 4:
 		ScreenManager::Instance().Render(1, WHITE);
@@ -240,12 +236,12 @@ void GameStateMachine::End()
 	case 0:
 		break;
 	case 1:
-		game.End();
 		break;
 	case 2:
 		break;
 	case 3:
-		game.End();
+		game->End();
+		delete game;
 		break;
 	case 4:
 		break;
@@ -257,6 +253,16 @@ void GameStateMachine::End()
 		break;
 	}
 	currentState = nextState;
+}
+
+void GameStateMachine::UseCoin()
+{
+	coins--;
+}
+
+bool GameStateMachine::HasCoins()
+{
+	return coins > 0;
 }
 
 bool GameStateMachine::IsSameState()

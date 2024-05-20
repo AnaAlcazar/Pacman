@@ -32,7 +32,7 @@ Pinky::Pinky() : Ghost({ 13.5f,17 }, 1)
 
 void Pinky::Render()
 {
-	if (GameStateMachine::Instance().game.GetStage() == 1)
+	if (GameStateMachine::Instance().game->GetStage() == 1)
 	{
 		if (alive)
 		{

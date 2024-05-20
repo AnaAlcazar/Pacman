@@ -31,7 +31,7 @@ Pacman::Pacman() : Entity(Player, {13.5*8+4,26*8+4}, { -1, 0 }, 0.8f, { 13.5f,26
 	pRight.sprites.push_back(21);
 	pRight.sprites.push_back(20);
 	pRight.sprites.push_back(21);
-	Animation pDie = { 0,12 };
+	Animation pDie = { 0,13 };
 	pDie.sprites.push_back(0);
 	pDie.sprites.push_back(1);
 	pDie.sprites.push_back(2);
@@ -44,6 +44,7 @@ Pacman::Pacman() : Entity(Player, {13.5*8+4,26*8+4}, { -1, 0 }, 0.8f, { 13.5f,26
 	pDie.sprites.push_back(9);
 	pDie.sprites.push_back(10);
 	pDie.sprites.push_back(11);
+	pDie.sprites.push_back(-1);
 	anim.animations.push_back(pUp);
 	anim.animations.push_back(pLeft);
 	anim.animations.push_back(pDown);
@@ -54,6 +55,12 @@ Pacman::Pacman() : Entity(Player, {13.5*8+4,26*8+4}, { -1, 0 }, 0.8f, { 13.5f,26
 float Pacman::GetPelletEffect()
 {
 	return pelletEffect;
+}
+
+void Pacman::ResetPelletEffect()
+{
+	pelletEffect = 0;
+	pelletMultiplier = 0;
 }
 
 void Pacman::Input()
@@ -81,29 +88,30 @@ void Pacman::Logic()
 	Entity::Move();
 
 	if (pelletEffect > 0)pelletEffect -= GetFrameTime();
-	else pelletEffect = 0;
-	if (scoreTimer > 0 && GameStateMachine::Instance().game.GetStage() == 4)
+	else
+		ResetPelletEffect();
+	if (scoreTimer > 0 && GameStateMachine::Instance().game->GetStage() == 4)
 	{
 		scoreTimer -= GetFrameTime();
 	}
-	else if(GameStateMachine::Instance().game.GetStage() == 4)
-		GameStateMachine::Instance().game.SetStage(1);
+	else if(GameStateMachine::Instance().game->GetStage() == 4)
+		GameStateMachine::Instance().game->SetStage(1);
 }
 
 void Pacman::Render()
 {
-	if (GameStateMachine::Instance().game.GetStage() == 1)
+	if (GameStateMachine::Instance().game->GetStage() == 1)
 	{
 		if (direction.y == -1)anim.Animate(position, 0, 0.1f, true);
 		else if (direction.x == -1)anim.Animate(position, 1, 0.1f, true);
 		else if (direction.y == 1)anim.Animate(position, 2, 0.1f, true);
 		else if (direction.x == 1)anim.Animate(position, 3, 0.1f, true);
 	}
-	else if (GameStateMachine::Instance().game.GetStage() == 3)
+	else if (GameStateMachine::Instance().game->GetStage() == 3)
 	{
 		anim.Animate(position, 4, 0.15f, false);
 	}
-	else if (GameStateMachine::Instance().game.GetStage() == 4)
+	else if (GameStateMachine::Instance().game->GetStage() == 4)
 	{
 		switch (pelletMultiplier - 1)
 		{
@@ -128,14 +136,14 @@ void Pacman::Render()
 
 void Pacman::Kill()
 {
-	GameStateMachine::Instance().game.SetStage(4);
+	GameStateMachine::Instance().game->SetStage(4);
 	pelletMultiplier++;
-	GameStateMachine::Instance().game.AddScore(100 * pow(2, pelletMultiplier));
+	GameStateMachine::Instance().game->AddScore(100 * pow(2, pelletMultiplier));
 }
 
 void Pacman::Die()
 {
-	GameStateMachine::Instance().game.SetStage(3);
+	GameStateMachine::Instance().game->SetStage(3);
 }
 
 void Pacman::EatPellet()

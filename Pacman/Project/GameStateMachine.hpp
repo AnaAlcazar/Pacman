@@ -22,6 +22,7 @@ private:
 	void Logic();
 	void Render();
 	void End();
+	
 	bool IsSameState();
 	GameStateMachine();
 	~GameStateMachine();
@@ -31,9 +32,10 @@ public:
 		static GameStateMachine instance;
 		return instance;
 	};
-	Game game;
+	Game* game;
 	int GetState();
 	void SetState(const int state_);
 	void Run();
-	
+	void UseCoin();
+	bool HasCoins();
 };

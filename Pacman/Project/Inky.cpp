@@ -1,6 +1,6 @@
 #include "Inky.hpp"
 #include "GameStateMachine.hpp"
-Inky::Inky() : Ghost({ 12.5f, 17 }, 4)
+Inky::Inky() : Ghost({ 12, 17 }, 4)
 {
 	Animation u{ 0,2 };
 	u.sprites.push_back(60);
@@ -32,7 +32,7 @@ Inky::Inky() : Ghost({ 12.5f, 17 }, 4)
 
 void Inky::Render()
 {
-	if (GameStateMachine::Instance().game.GetStage() == 1)
+	if (GameStateMachine::Instance().game->GetStage() == 1)
 	{
 		if (alive)
 		{
