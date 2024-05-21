@@ -10,6 +10,11 @@
 #include <math.h>
 #include <iostream>
 
+void Entity::Revive()
+{
+	alive = true;
+}
+
 void Entity::TrySetDirection(Vector2 dir)
 {
 	if (ScreenManager::Instance().OnTunnel(GetTileOfEntity()) && type == Enemy)return;
@@ -153,6 +158,7 @@ void EntityManager::ResetAllPositions()
 	for (int i = 0; i < 5; i++)
 	{
 		entityList[i]->ResetPosition();
+		entityList[i]->Revive();
 	}
 }
 

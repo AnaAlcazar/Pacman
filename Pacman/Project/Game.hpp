@@ -17,7 +17,6 @@ private:
     vector <Instruction> Instructions;
     float timer;
     int stage;
-    bool autopilot;
     int level;
 	int lives;
 	int score;
@@ -62,8 +61,7 @@ private:
            {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1}
 	};
 public:
-    Game(int l);
-    void EnableAutopilot();
+    Game();
     void Start();
 	void Input();
 	void Logic();

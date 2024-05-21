@@ -50,11 +50,17 @@ Pacman::Pacman() : Entity(Player, {13.5*8+4,26*8+4}, { -1, 0 }, 0.8f, { 13.5f,26
 	anim.animations.push_back(pDown);
 	anim.animations.push_back(pRight);
 	anim.animations.push_back(pDie);
+	Revive();
 }
 
 float Pacman::GetPelletEffect()
 {
 	return pelletEffect;
+}
+
+int Pacman::GetPelletMultiplier()
+{
+	return pelletMultiplier;
 }
 
 void Pacman::ResetPelletEffect()
@@ -126,7 +132,7 @@ void Pacman::Render()
 			break;
 		case 4:
 			Renderer::Instance().DrawSprite(0, { 13,3 }, { position.x, position.y}, WHITE);
-			Renderer::Instance().DrawSprite(0, { 12,3 }, { position.x-6*SCALE_FACTOR, position.y }, WHITE);
+			Renderer::Instance().DrawSprite(0, { 12,3 }, { position.x-(8*SCALE_FACTOR), position.y }, WHITE);
 			break;
 		default:
 			break;
@@ -141,8 +147,19 @@ void Pacman::Kill()
 	GameStateMachine::Instance().game->AddScore(100 * pow(2, pelletMultiplier));
 }
 
+void Pacman::Revive()
+{
+	alive = true;
+}
+
+bool Pacman::IsAlive()
+{
+	return alive;
+}
+
 void Pacman::Die()
 {
+	alive = false;
 	GameStateMachine::Instance().game->SetStage(3);
 }
 

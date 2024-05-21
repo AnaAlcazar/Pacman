@@ -147,7 +147,7 @@
     <ClInclude Include="Ghost.hpp" />
     <ClInclude Include="Globals.hpp" />
     <ClInclude Include="Inky.hpp" />
-    <ClInclude Include="LevelManager.hpp" />
+    <ClInclude Include="Levels.hpp" />
     <ClInclude Include="Pacman.hpp" />
     <ClInclude Include="Pinky.hpp" />
     <ClInclude Include="Renderer.hpp" />
@@ -162,7 +162,7 @@
     <ClCompile Include="GameStateMachine.cpp" />
     <ClCompile Include="Ghost.cpp" />
     <ClCompile Include="Inky.cpp" />
-    <ClCompile Include="LevelManager.cpp" />
+    <ClCompile Include="Levels.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Pacman.cpp" />
     <ClCompile Include="Pinky.cpp" />

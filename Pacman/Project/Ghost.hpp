@@ -19,7 +19,7 @@ public:
 		Chase,
 		Frightened
 	};
-	bool Playing;
+	int stage;
 	float timerToStart;
 	Ghost(Vector2 st, float t);
 	void Input()override;

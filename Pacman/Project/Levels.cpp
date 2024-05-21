@@ -1,8 +1,7 @@
 #include "Levels.hpp"
 
-Level::Level(int ID_, float p, float g)
+Level::Level(float p, float g)
 {
-	ID = ID_;
 	PacmanSpeedMultiplier = p;
 	GhostSpeedMultiplier = g;
 }
@@ -28,10 +27,35 @@ Ghost::Mode Level::GetModeInTime(float time)
 {
 	float totalTime = GhostBehaviour.at(0)->time;
 	int index = 1;
-	while (totalTime < time)
+	for (int i = index; i < GhostBehaviour.size(); i++, index++)
 	{
-		totalTime+= GhostBehaviour.at(index)->time;
-		index++;
+		totalTime+= GhostBehaviour.at(0)->time;
+		if (totalTime >= time)
+			break;
 	}
-	return GhostBehaviour.at(0)->mode_;
+	return GhostBehaviour.at(index)->mode_;
+}
+
+LevelManager::~LevelManager()
+{
+	for (int i = 0; i < levelList.size(); i++)
+	{
+		delete &levelList[i];
+	}
+	levelList.clear();
+}
+
+void LevelManager::Start()
+{
+	timer = 0;
+}
+
+void LevelManager::Logic()
+{
+	timer += GetFrameTime();
+}
+
+Ghost::Mode LevelManager::RequestCurrentMode()
+{
+	return levelList[currentLevel].GetModeInTime(timer);
 }

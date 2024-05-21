@@ -71,7 +71,7 @@ Ghost::Ghost(Vector2 st, float t) : Entity(Enemy, { 13.5 * 8 + 4,8 * 8 + 4 }, { 
 	ghostMode = Scatter;
 	alive = true;
 	intersectionDecided = false;
-	Playing = false;
+	stage = 0;
 }
 
 void Ghost::Input()
@@ -107,6 +107,7 @@ void Ghost::SetTargetTile(Vector2 tile)
 void Ghost::ChangeMode(Mode m)
 {
 	ghostMode = m;
+	DecideDirection(true);
 }
 
 void Ghost::Kill()

@@ -342,14 +342,12 @@ void GameStateMachine::Run()
 	float offset = (tilemapSizeUsage)-tilemapOffset;
 	if (offset > 0)
 		offset = (tilemapSizeUsage)-tilemapOffset -(GetMonitorHeight(GetCurrentMonitor()) / 2) + 224 * scale / 2;
-	cout << offset << endl;
 	Camera2D camera = { 0 };
 	camera.target = { 0,0 };
 	camera.offset = { -offset * scale * 2 , 0 };
 	camera.rotation = 0.0f;
 	camera.zoom = scale;
 	Start();
-	cout << camera.offset.x << endl;
 	
 	while (nextState != -1 && !WindowShouldClose() && IsSameState())
 	{
