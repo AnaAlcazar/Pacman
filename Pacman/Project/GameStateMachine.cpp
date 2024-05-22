@@ -19,7 +19,7 @@ void GameStateMachine::Start()
 		break;
 	case 3:
 		game = new Game();
-		game->Start();
+		game->Start(true);
 		break;
 	case 4:
 		break;
@@ -77,6 +77,8 @@ void GameStateMachine::Logic()
 		if (timer > 32)SetState(1);
 		break;
 	case 1:
+		timer += GetFrameTime();
+		if (timer > 10)SetState(0);
 		break;
 	case 2:
 		break;
@@ -193,8 +195,7 @@ void GameStateMachine::Render()
 		}
 		break;
 	case 1:
-		ScreenManager::Instance().Render(1, 0);
-		game->Render();
+		ScreenManager::Instance().Render(0, 0);
 		break;
 	case 2:
 		ScreenManager::Instance().Render(0, WHITE);
@@ -334,19 +335,22 @@ void GameStateMachine::SetState(const int state_)
 
 void GameStateMachine::Run()
 {
-	bool isMonitorHigher = GetMonitorHeight(GetCurrentMonitor()) > (36/28)* GetMonitorWidth(GetCurrentMonitor());
-	int windowsSizeUsage = isMonitorHigher ? GetMonitorWidth(GetCurrentMonitor()) : GetMonitorHeight(GetCurrentMonitor());
-	int tilemapSizeUsage = isMonitorHigher ? 8 * SCALE_FACTOR * 28 : 8 * SCALE_FACTOR * 36;
-	int tilemapOffset = isMonitorHigher ? (8 * SCALE_FACTOR * (36+1)) : (8 * SCALE_FACTOR * (28+1));
-	float scale = (float)windowsSizeUsage / (tilemapSizeUsage);
-	float offset = (tilemapSizeUsage)-tilemapOffset;
-	if (offset > 0)
-		offset = (tilemapSizeUsage)-tilemapOffset -(GetMonitorHeight(GetCurrentMonitor()) / 2) + 224 * scale / 2;
-	Camera2D camera = { 0 };
-	camera.target = { 0,0 };
-	camera.offset = { -offset * scale * 2 , 0 };
-	camera.rotation = 0.0f;
-	camera.zoom = scale;
+	if (FULLSCREEN)
+	{
+		bool isMonitorHigher = GetMonitorHeight(GetCurrentMonitor()) > (36 / 28) * GetMonitorWidth(GetCurrentMonitor());
+		int windowsSizeUsage = isMonitorHigher ? GetMonitorWidth(GetCurrentMonitor()) : GetMonitorHeight(GetCurrentMonitor());
+		int tilemapSizeUsage = isMonitorHigher ? 8 * SCALE_FACTOR * 28 : 8 * SCALE_FACTOR * 36;
+		int tilemapOffset = isMonitorHigher ? (8 * SCALE_FACTOR * (36 + 1)) : (8 * SCALE_FACTOR * (28 + 1));
+		float scale = (float)windowsSizeUsage / (tilemapSizeUsage);
+		float offset = (tilemapSizeUsage)-tilemapOffset;
+		if (offset > 0)
+			offset = (tilemapSizeUsage)-tilemapOffset - (GetMonitorHeight(GetCurrentMonitor()) / 2) + 224 * scale / 2;
+		Camera2D camera = { 0 };
+		camera.target = { 0,0 };
+		camera.offset = { -offset * scale * 2 , 0 };
+		camera.rotation = 0.0f;
+		camera.zoom = scale;
+	}
 	Start();
 	
 	while (nextState != -1 && !WindowShouldClose() && IsSameState())
@@ -355,11 +359,15 @@ void GameStateMachine::Run()
 		Logic();
 		BeginDrawing();
 		ClearBackground(BLACK);
-		BeginMode2D(camera);
+		if(FULLSCREEN)
+			//BeginMode2D(camera);
 		Render();
-		DrawRectangle(-GetMonitorWidth(GetCurrentMonitor()),0, GetMonitorWidth(GetCurrentMonitor()), GetMonitorHeight(GetCurrentMonitor()), BLACK);
-		DrawRectangle(224*SCALE_FACTOR, 0, GetMonitorWidth(GetCurrentMonitor()), GetMonitorHeight(GetCurrentMonitor()), BLACK);
-		EndMode2D();
+		if (FULLSCREEN)
+		{
+			DrawRectangle(-GetMonitorWidth(GetCurrentMonitor()), 0, GetMonitorWidth(GetCurrentMonitor()), GetMonitorHeight(GetCurrentMonitor()), BLACK);
+			DrawRectangle(224 * SCALE_FACTOR, 0, GetMonitorWidth(GetCurrentMonitor()), GetMonitorHeight(GetCurrentMonitor()), BLACK);
+			EndMode2D();
+		}
 		EndDrawing();
 	}
 	End();

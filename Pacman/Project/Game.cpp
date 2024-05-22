@@ -18,14 +18,15 @@ Game::Game()
 	timer = 0;
 }
 
-void Game::Start()
+void Game::Start(bool rs)
 {
 	highscore = FileReader::Instance().ReadHighScore();
-	score = 0;
+	if(rs)score = 0;
 	ResetLayout();
 	EntityManager::Instance().ResetAllPositions();
 	dynamic_cast<Ghost*>(EntityManager::Instance().GetEntityAt(1))->stage = 2;
 	dynamic_cast<Ghost*>(EntityManager::Instance().GetEntityAt(2))->stage = 1;
+	LevelManager::Instance().Start(level);
 }
 
 void Game::Input()
@@ -48,7 +49,7 @@ void Game::Logic()
 	}
 	else if (stage == 1)	//Game Running
 	{
-		
+		LevelManager::Instance().Logic();
 		bool ghostInBox = false;
 		for (int i = 1; i < 5; i++)
 		{
@@ -61,7 +62,6 @@ void Game::Logic()
 		}
 		if(ghostInBox)
 			timer += GetFrameTime();
-
 		
 		for (int i = 1; i < 5; i++)
 		{
@@ -88,7 +88,7 @@ void Game::Logic()
 			}
 			else if (e->stage == 3)
 			{
-				dynamic_cast<Ghost*>(EntityManager::Instance().GetEntityAt(i))->ChangeMode(Ghost::Mode::Scatter);
+				dynamic_cast<Ghost*>(EntityManager::Instance().GetEntityAt(i))->ChangeMode((Ghost::Mode)LevelManager::Instance().RequestCurrentMode(true));
 				dynamic_cast<Ghost*>(EntityManager::Instance().GetEntityAt(i))->DecideDirection(false);
 				e->stage++;
 			}
@@ -137,13 +137,12 @@ void Game::Render()
 	Renderer::Instance().DrawText("   1UP   HIGH SCORE   2UP  ", 28, { 0,0 }, WHITE);
 	Renderer::Instance().DrawNumber(score, Renderer::Instance().AnchorNumberOnRight(score, {48,8}), WHITE);
 	Renderer::Instance().DrawNumber(highscore, Renderer::Instance().AnchorNumberOnRight(score, { 128,8 }), WHITE);
-	
-#pragma endregion
 	EntityManager::Instance().Render();
+#pragma endregion
+	
 	if (stage == 0)
 	{
 		Renderer::Instance().DrawText("Ready!", 6, { 92, 160 }, 6);
-
 		Renderer::Instance().DrawSprite(1, { 19,1 }, { 13.5*8*SCALE_FACTOR,15.5 * 8 * SCALE_FACTOR }, WHITE);
 		Renderer::Instance().DrawSprite(1, { 19,1 }, { 14.5 * 8 * SCALE_FACTOR,15.5 * 8 * SCALE_FACTOR }, WHITE);
 	}
@@ -164,7 +163,6 @@ void Game::Render()
 	{
 		#pragma region Pacman killed
 		Pacman* p = dynamic_cast<Pacman*>(EntityManager::Instance().GetEntityAt(0));
-		cout << p->GetPelletMultiplier() << endl;
 		timer += GetFrameTime();
 		p->Render();
 		if (!p->IsAlive())
@@ -173,7 +171,7 @@ void Game::Render()
 			p->Revive();
 		}
 		
-		if (timer >= 8)
+		if (timer >= 5)
 		{
 			if (lives > 0)
 			{
@@ -188,7 +186,7 @@ void Game::Render()
 				
 				dynamic_cast<Ghost*>(EntityManager::Instance().GetEntityAt(1))->stage = 2;
 				dynamic_cast<Ghost*>(EntityManager::Instance().GetEntityAt(2))->stage = 1;
-				if (timer >= 12)
+				if (timer >= 10)
 				{
 					EntityManager::Instance().GetEntityAt(0)->ResetPosition();
 					EntityManager::Instance().GetEntityAt(0)->ForceDirection({ -1,0 });
@@ -198,9 +196,9 @@ void Game::Render()
 			}
 			else if (lives <= 0)
 			{
-				if (timer >= 12)
+				if (timer >= 8)
 					Renderer::Instance().DrawText("Game Over!", 10, { 72, 160 }, 5);
-				if (timer >= 15)
+				if (timer >= 11)
 				{
 					timer = 0;
 					GameStateMachine::Instance().UseCoin();

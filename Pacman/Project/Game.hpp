@@ -1,9 +1,8 @@
 #pragma once
 #include "ScreenManager.hpp"
 #include "EntityManager.hpp"
+#include "Levels.hpp"
 #include <vector>
-
-
 
 class Game
 {
@@ -62,7 +61,7 @@ private:
 	};
 public:
     Game();
-    void Start();
+    void Start(bool rs);
 	void Input();
 	void Logic();
 	void Render();

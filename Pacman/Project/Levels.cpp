@@ -15,18 +15,20 @@ Level::~Level()
 	GhostBehaviour.clear();
 }
 
-void Level::GenerateGhostBehaviour(Ghost::Mode m, float t)
+void Level::GenerateGhostBehaviour(int m, float t)
 {
-	GhostParameter ngp;
-	ngp.mode_ = m;
-	ngp.time = t;
-	GhostBehaviour.push_back(&ngp);
+	GhostParameter* ngp = new GhostParameter;
+	ngp->mode_ = m;
+	ngp->time = t;
+	GhostBehaviour.push_back(ngp);
 }
 
-Ghost::Mode Level::GetModeInTime(float time)
+int Level::GetModeInTime(float time, bool forceLevelMode)
 {
+	if (dynamic_cast <Pacman*>(EntityManager::Instance().GetEntityAt(0))->HasPelletEffect() && !forceLevelMode)
+		return Ghost::Frightened;
 	float totalTime = GhostBehaviour.at(0)->time;
-	int index = 1;
+	int index = 0;
 	for (int i = index; i < GhostBehaviour.size(); i++, index++)
 	{
 		totalTime+= GhostBehaviour.at(0)->time;
@@ -34,6 +36,23 @@ Ghost::Mode Level::GetModeInTime(float time)
 			break;
 	}
 	return GhostBehaviour.at(index)->mode_;
+}
+
+LevelManager::LevelManager()
+{
+	Start(1);
+	#pragma region Level 1
+		Level* l1 = new Level(1,1);
+		l1->GenerateGhostBehaviour(Ghost::Scatter, 7);
+		l1->GenerateGhostBehaviour(Ghost::Chase, 20);
+		l1->GenerateGhostBehaviour(Ghost::Scatter, 7);
+		l1->GenerateGhostBehaviour(Ghost::Chase, 20);
+		l1->GenerateGhostBehaviour(Ghost::Scatter, 5);
+		l1->GenerateGhostBehaviour(Ghost::Chase, 20);
+		l1->GenerateGhostBehaviour(Ghost::Scatter, 5);
+		l1->GenerateGhostBehaviour(Ghost::Chase, 20);
+		levelList.push_back(*l1);
+	#pragma endregion
 }
 
 LevelManager::~LevelManager()
@@ -45,17 +64,22 @@ LevelManager::~LevelManager()
 	levelList.clear();
 }
 
-void LevelManager::Start()
+void LevelManager::Start(int l)
 {
+	currentLevel = l;
+	if(currentLevel >= levelList.size())
+		currentLevel = levelList.size()-1;
+	currentStage = 0;
 	timer = 0;
 }
 
 void LevelManager::Logic()
 {
-	timer += GetFrameTime();
+	if (!dynamic_cast<Pacman*>(EntityManager::Instance().GetEntityAt(0))->HasPelletEffect())
+		timer += GetFrameTime();
 }
 
-Ghost::Mode LevelManager::RequestCurrentMode()
+int LevelManager::RequestCurrentMode(bool forceLevelMode)
 {
-	return levelList[currentLevel].GetModeInTime(timer);
+	return levelList[currentLevel].GetModeInTime(timer, forceLevelMode);
 }

@@ -8,7 +8,7 @@ class Level
 protected:
 	struct GhostParameter
 	{
-		Ghost::Mode mode_;
+		int mode_;
 		float time;
 	};
 	float PacmanSpeedMultiplier;
@@ -18,8 +18,8 @@ protected:
 public:
 	Level(float p, float g);
 	~Level();
-	void GenerateGhostBehaviour(Ghost::Mode m, float t);
-	Ghost::Mode GetModeInTime(float time);
+	void GenerateGhostBehaviour(int m, float t);
+	int GetModeInTime(float time, bool forceLevelMode);
 };
 
 class LevelManager
@@ -32,7 +32,12 @@ private:
 	LevelManager();
 	~LevelManager();
 public:
-	void Start();
+	static LevelManager& Instance()
+	{
+		static LevelManager instance;
+		return instance;
+	}
+	void Start(int l);
 	void Logic();
-	Ghost::Mode RequestCurrentMode();
+	int RequestCurrentMode(bool forceLevelMode);
 };

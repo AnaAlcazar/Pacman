@@ -23,22 +23,36 @@ Blinky::Blinky() : Ghost({ 13.5f,14 }, 0)
 	f.sprites.push_back(36);
 	f.sprites.push_back(37);
 
+	Animation fe{ 0,4 };
+	fe.sprites.push_back(36);
+	fe.sprites.push_back(37);
+	fe.sprites.push_back(50);
+	fe.sprites.push_back(51);
+
 	anim.animations.push_back(u);
 	anim.animations.push_back(l);
 	anim.animations.push_back(d);
 	anim.animations.push_back(r);
 	anim.animations.push_back(f);
+	anim.animations.push_back(fe);
 }
 
 void Blinky::Render()
 {
+	if (GameStateMachine::Instance().game->GetStage() == 0)
+	{
+		Renderer::Instance().DrawSprite(0, { 2,2 }, position, WHITE);
+	}
 	if (GameStateMachine::Instance().game->GetStage() == 1)
 	{
 		if (alive)
 		{
 			if (ghostMode == Ghost::Frightened)
 			{
-				anim.Animate(position, 4, 0.1f, true);
+				if (PelletEffectEnding())
+					anim.Animate(position, 5, 0.1f, true);
+				else
+					anim.Animate(position, 4, 0.1f, true);
 			}
 			else
 			{
@@ -56,7 +70,7 @@ void Blinky::Render()
 			else if (direction.x == 1 && direction.y == 0) Renderer::Instance().DrawSprite(0, { 8,4 }, position, WHITE);
 		}
 	}
-	DrawRectangleLinesEx({ GetTargetTile().x * 8 * SCALE_FACTOR, GetTargetTile().y * 8 * SCALE_FACTOR, 8 * SCALE_FACTOR,8 * SCALE_FACTOR }, 2, RED);
+	//DrawRectangleLinesEx({ GetTargetTile().x * 8 * SCALE_FACTOR, GetTargetTile().y * 8 * SCALE_FACTOR, 8 * SCALE_FACTOR,8 * SCALE_FACTOR }, 2, RED);
 }
 
 void Blinky::Brain()
@@ -79,14 +93,14 @@ void Blinky::Brain()
 			break;
 		}
 	}
-	else
+	else if (!alive)
 	{
 		tileGo = { 14,14 };
 		if (GetTileOfEntity().x == tileGo.x && GetTileOfEntity().y == tileGo.y)
 		{
-			alive = true;
-			ghostMode = Scatter;
+			ghostMode = (Mode)LevelManager::Instance().RequestCurrentMode(true);
 			Ghost::DecideDirection(true);
+			alive = true;
 		}
 	}
 	SetTargetTile(tileGo);

@@ -11,6 +11,7 @@ private:
 public:
 	Pacman();
 	float GetPelletEffect();
+	bool HasPelletEffect();
 	int GetPelletMultiplier();
 	void ResetPelletEffect();
 	void Input()override;

@@ -1,12 +1,14 @@
 #pragma once
 #include "EntityManager.hpp"
 #include "ScreenManager.hpp"
+#include "Pacman.hpp"
 #include "Globals.hpp"
+#include "Levels.hpp"
 class Ghost : public Entity
 {
 	friend class Game;
+	friend class LevelManager;
 private:
-	bool IsInBox;
 	Vector2 targetTile;
 	Vector2 IntToDirection(int index);
 	bool ContraryDirections();
@@ -34,6 +36,8 @@ public:
 protected:
 	Vector2 GetTargetTile();
 	void DecideDirection(bool canTurnBack);
+	bool PelletEffectEnding();
 	Mode ghostMode;
+	Mode RequestActualMode(bool force);
 };
 

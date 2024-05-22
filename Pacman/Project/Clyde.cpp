@@ -22,23 +22,37 @@ Clyde::Clyde() : Ghost({ 15,17 }, 8)
 	f.sprites.push_back(36);
 	f.sprites.push_back(37);
 
+	Animation fe{ 0,4 };
+	fe.sprites.push_back(36);
+	fe.sprites.push_back(37);
+	fe.sprites.push_back(50);
+	fe.sprites.push_back(51);
+
 	anim.animations.push_back(u);
 	anim.animations.push_back(l);
 	anim.animations.push_back(d);
 	anim.animations.push_back(r);
 	anim.animations.push_back(f);
+	anim.animations.push_back(fe);
 	SetTargetTile(StartTile);
 }
 
 void Clyde::Render()
 {
+	if (GameStateMachine::Instance().game->GetStage() == 0)
+	{
+		Renderer::Instance().DrawSprite(0, { 4,5 }, position, WHITE);
+	}
 	if (GameStateMachine::Instance().game->GetStage() == 1)
 	{
 		if (alive)
 		{
 			if (ghostMode == Ghost::Frightened)
 			{
-				anim.Animate(position, 4, 0.1f, true);
+				if (PelletEffectEnding())
+					anim.Animate(position, 5, 0.1f, true);
+				else
+					anim.Animate(position, 4, 0.1f, true);
 			}
 			else
 			{
@@ -57,7 +71,7 @@ void Clyde::Render()
 		}
 		DrawRectangleLinesEx({ GetTargetTile().x * 8 * SCALE_FACTOR,GetTargetTile().y * 8 * SCALE_FACTOR, 8 * SCALE_FACTOR, 8 * SCALE_FACTOR }, 2, WHITE);
 	}
-	DrawRectangleLinesEx({ GetTargetTile().x * 8 * SCALE_FACTOR, GetTargetTile().y * 8 * SCALE_FACTOR, 8 * SCALE_FACTOR,8 * SCALE_FACTOR }, 2, ORANGE);
+	//DrawRectangleLinesEx({ GetTargetTile().x * 8 * SCALE_FACTOR, GetTargetTile().y * 8 * SCALE_FACTOR, 8 * SCALE_FACTOR,8 * SCALE_FACTOR }, 2, ORANGE);
 }
 
 void Clyde::Brain()
@@ -80,14 +94,14 @@ void Clyde::Brain()
 			break;
 		}
 	}
-	else
+	else if (!alive)
 	{
 		tileGo = { 14,14 };
 		if (GetTileOfEntity().x == tileGo.x && GetTileOfEntity().y == tileGo.y)
 		{
-			alive = true;
-			ghostMode = Scatter;
+			ghostMode = (Mode)LevelManager::Instance().RequestCurrentMode(true);
 			Ghost::DecideDirection(true);
+			alive = true;
 		}
 	}
 	SetTargetTile(tileGo);

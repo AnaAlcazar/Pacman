@@ -63,9 +63,17 @@ void Ghost::DecideDirection(bool canTurnBack)
 	TrySetDirection(selectedDirection);
 	intersectionDecided = true;
 }
+bool Ghost::PelletEffectEnding()
+{
+	if (dynamic_cast <Pacman*>(EntityManager::Instance().GetEntityAt(0))->GetPelletEffect() < 3)return true;
+	return false;
+}
+Ghost::Mode Ghost::RequestActualMode(bool force)
+{
+	return (Ghost::Mode)LevelManager::Instance().RequestCurrentMode(force);
+}
 Ghost::Ghost(Vector2 st, float t) : Entity(Enemy, { 13.5 * 8 + 4,8 * 8 + 4 }, { 0,-1 }, 0.8f, st)
 {
-	IsInBox = true;
 	timerToStart = t;
 	targetTile = { 0,0 };
 	ghostMode = Scatter;
@@ -80,8 +88,8 @@ void Ghost::Input()
 
 void Ghost::Logic()
 {
+	ghostMode = RequestActualMode(false);
 	Brain();
-
 	if (ScreenManager::Instance().OnTunnel(GetTileOfEntity()))speed = 0.4f;
 	else speed = 0.8f;
 	if(!intersectionDecided)
@@ -106,6 +114,7 @@ void Ghost::SetTargetTile(Vector2 tile)
 
 void Ghost::ChangeMode(Mode m)
 {
+	if (m == Frightened && stage < 3)return;
 	ghostMode = m;
 	DecideDirection(true);
 }

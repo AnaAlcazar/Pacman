@@ -58,6 +58,11 @@ float Pacman::GetPelletEffect()
 	return pelletEffect;
 }
 
+bool Pacman::HasPelletEffect()
+{
+	return pelletEffect > 0? true:false;
+}
+
 int Pacman::GetPelletMultiplier()
 {
 	return pelletMultiplier;
@@ -106,6 +111,10 @@ void Pacman::Logic()
 
 void Pacman::Render()
 {
+	if (GameStateMachine::Instance().game->GetStage() == 0)
+	{
+		Renderer::Instance().DrawSprite(0,{3,1}, position, WHITE);
+	}
 	if (GameStateMachine::Instance().game->GetStage() == 1)
 	{
 		if (direction.y == -1)anim.Animate(position, 0, 0.1f, true);
@@ -115,7 +124,7 @@ void Pacman::Render()
 	}
 	else if (GameStateMachine::Instance().game->GetStage() == 3)
 	{
-		anim.Animate(position, 4, 0.15f, false);
+		anim.Animate(position, 4, 0.2f, false);
 	}
 	else if (GameStateMachine::Instance().game->GetStage() == 4)
 	{
@@ -165,7 +174,7 @@ void Pacman::Die()
 
 void Pacman::EatPellet()
 {
-	pelletEffect = 50;
+	pelletEffect = 10;
 	pelletMultiplier = 1;
 	for (int i = 1; i < 5; i++)
 	{
