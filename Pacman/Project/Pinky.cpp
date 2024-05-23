@@ -104,9 +104,10 @@ void Pinky::Brain()
 		tileGo = { 14,14 };
 		if (GetTileOfEntity().x == tileGo.x && GetTileOfEntity().y == tileGo.y)
 		{
-			ghostMode = (Mode)LevelManager::Instance().RequestCurrentMode(true);
 			Ghost::DecideDirection(true);
 			alive = true;
+			ghostMode = (Mode)LevelManager::Instance().RequestCurrentMode(true);
+			stage = 5;
 		}
 	}
 	SetTargetTile(tileGo);

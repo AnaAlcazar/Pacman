@@ -15,6 +15,16 @@ Level::~Level()
 	GhostBehaviour.clear();
 }
 
+float Level::GetPacmanSpeed()
+{
+	return PacmanSpeedMultiplier;
+}
+
+float Level::GetGhostSpeed()
+{
+	return GhostSpeedMultiplier;
+}
+
 void Level::GenerateGhostBehaviour(int m, float t)
 {
 	GhostParameter* ngp = new GhostParameter;
@@ -35,6 +45,8 @@ int Level::GetModeInTime(float time, bool forceLevelMode)
 		if (totalTime >= time)
 			break;
 	}
+	if (index >= GhostBehaviour.size())
+		index = GhostBehaviour.size() - 1;
 	return GhostBehaviour.at(index)->mode_;
 }
 
@@ -51,7 +63,7 @@ LevelManager::LevelManager()
 		l1->GenerateGhostBehaviour(Ghost::Chase, 20);
 		l1->GenerateGhostBehaviour(Ghost::Scatter, 5);
 		l1->GenerateGhostBehaviour(Ghost::Chase, 20);
-		levelList.push_back(*l1);
+		levelList.push_back(l1);
 	#pragma endregion
 }
 
@@ -59,7 +71,7 @@ LevelManager::~LevelManager()
 {
 	for (int i = 0; i < levelList.size(); i++)
 	{
-		delete &levelList[i];
+		delete levelList[i];
 	}
 	levelList.clear();
 }
@@ -81,5 +93,15 @@ void LevelManager::Logic()
 
 int LevelManager::RequestCurrentMode(bool forceLevelMode)
 {
-	return levelList[currentLevel].GetModeInTime(timer, forceLevelMode);
+	return (*levelList[currentLevel]).GetModeInTime(timer, forceLevelMode);
+}
+
+int LevelManager::RequestPacmanSpeedMultiplier()
+{
+	return levelList[currentLevel]->GetPacmanSpeed();
+}
+
+int LevelManager::RequestGhostSpeedMultiplier()
+{
+	return levelList[currentLevel]->GetGhostSpeed();
 }

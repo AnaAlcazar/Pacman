@@ -7,13 +7,6 @@
 class Game
 {
 private:
-    struct Instruction
-    {
-        Vector2 tile;
-        Vector2 dir;
-        bool done;
-    };
-    vector <Instruction> Instructions;
     float timer;
     int stage;
     int level;

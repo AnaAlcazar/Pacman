@@ -18,6 +18,8 @@ protected:
 public:
 	Level(float p, float g);
 	~Level();
+	float GetPacmanSpeed();
+	float GetGhostSpeed();
 	void GenerateGhostBehaviour(int m, float t);
 	int GetModeInTime(float time, bool forceLevelMode);
 };
@@ -28,7 +30,7 @@ private:
 	int currentLevel;
 	int currentStage;
 	float timer;
-	vector <Level> levelList;
+	vector <Level*> levelList;
 	LevelManager();
 	~LevelManager();
 public:
@@ -40,4 +42,6 @@ public:
 	void Start(int l);
 	void Logic();
 	int RequestCurrentMode(bool forceLevelMode);
+	int RequestPacmanSpeedMultiplier();
+	int RequestGhostSpeedMultiplier();
 };

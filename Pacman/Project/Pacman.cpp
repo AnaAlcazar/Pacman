@@ -179,6 +179,7 @@ void Pacman::EatPellet()
 	for (int i = 1; i < 5; i++)
 	{
 		dynamic_cast<Ghost*>(EntityManager::Instance().GetEntityAt(i))->ChangeMode(Ghost::Frightened);
+		dynamic_cast<Ghost*>(EntityManager::Instance().GetEntityAt(i))->stage = 4;
 	}
 }
 

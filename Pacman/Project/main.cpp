@@ -20,7 +20,6 @@ int main()
 #pragma endregion
 	while (!WindowShouldClose() && !(GameStateMachine::Instance().GetState() == -1))
 	{
-		
 		GameStateMachine::Instance().Run();
 	}
 	CloseAudioDevice();

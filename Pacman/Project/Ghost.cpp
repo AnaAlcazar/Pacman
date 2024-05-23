@@ -88,7 +88,12 @@ void Ghost::Input()
 
 void Ghost::Logic()
 {
-	ghostMode = RequestActualMode(false);
+	if(stage == 4)
+		ghostMode = RequestActualMode(false);
+	else
+		ghostMode = RequestActualMode(true);
+	if (!dynamic_cast<Pacman*>(EntityManager::Instance().GetEntityAt(0))->HasPelletEffect() && stage == 5)
+		stage = 4;
 	Brain();
 	if (ScreenManager::Instance().OnTunnel(GetTileOfEntity()))speed = 0.4f;
 	else speed = 0.8f;
