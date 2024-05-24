@@ -106,7 +106,7 @@ void Inky::Brain()
 			ghostMode = (Mode)LevelManager::Instance().RequestCurrentMode(true);
 			Ghost::DecideDirection(true);
 			alive = true;
-			stage = 5;
+			if (stage == 4)stage = 5;
 		}
 	}
 	SetTargetTile(tileGo);

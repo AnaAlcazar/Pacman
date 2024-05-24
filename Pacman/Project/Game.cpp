@@ -29,6 +29,11 @@ void Game::Start(bool rs)
 	LevelManager::Instance().Start(level);
 }
 
+void Game::ResetTimer()
+{
+	timer = 0;
+}
+
 void Game::Input()
 {
 	if(stage == 1)
@@ -118,6 +123,7 @@ void Game::Logic()
 	}
 	else if (stage == 4)		//Stopped for killing ghost
 	{
+		cout << timer << endl;
 		timer += GetFrameTime();
 		if (timer >= 1)
 		{

@@ -76,19 +76,19 @@ void Pacman::ResetPelletEffect()
 
 void Pacman::Input()
 {
-	if (IsKeyPressed(KEY_UP) || IsKeyPressed(KEY_W))
+	if (IsKeyDown(KEY_UP) || IsKeyDown(KEY_W))
 	{
 		TrySetDirection({ 0,-1 });
 	}
-	else if (IsKeyPressed(KEY_LEFT) || IsKeyPressed(KEY_A))
+	else if (IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A))
 	{
 		TrySetDirection({ -1, 0 });
 	}
-	else if (IsKeyPressed(KEY_DOWN) || IsKeyPressed(KEY_S))
+	else if (IsKeyDown(KEY_DOWN) || IsKeyDown(KEY_S))
 	{
 		TrySetDirection({ 0, 1 });
 	}
-	else if (IsKeyPressed(KEY_RIGHT) || IsKeyPressed(KEY_D))
+	else if (IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D))
 	{
 		TrySetDirection({ 1, 0 });
 	}
@@ -107,6 +107,7 @@ void Pacman::Logic()
 	}
 	else if(GameStateMachine::Instance().game->GetStage() == 4)
 		GameStateMachine::Instance().game->SetStage(1);
+
 }
 
 void Pacman::Render()
@@ -151,6 +152,7 @@ void Pacman::Render()
 
 void Pacman::Kill()
 {
+	GameStateMachine::Instance().game->ResetTimer();
 	GameStateMachine::Instance().game->SetStage(4);
 	pelletMultiplier++;
 	GameStateMachine::Instance().game->AddScore(100 * pow(2, pelletMultiplier));
@@ -179,7 +181,8 @@ void Pacman::EatPellet()
 	for (int i = 1; i < 5; i++)
 	{
 		dynamic_cast<Ghost*>(EntityManager::Instance().GetEntityAt(i))->ChangeMode(Ghost::Frightened);
-		dynamic_cast<Ghost*>(EntityManager::Instance().GetEntityAt(i))->stage = 4;
+		if(dynamic_cast<Ghost*>(EntityManager::Instance().GetEntityAt(i))->stage > 3)
+			dynamic_cast<Ghost*>(EntityManager::Instance().GetEntityAt(i))->stage = 4;
 	}
 }
 

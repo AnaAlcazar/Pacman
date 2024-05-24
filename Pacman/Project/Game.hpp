@@ -55,6 +55,7 @@ private:
 public:
     Game();
     void Start(bool rs);
+    void ResetTimer();
 	void Input();
 	void Logic();
 	void Render();
