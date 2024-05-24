@@ -60,6 +60,9 @@
     <ClInclude Include="Levels.hpp">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="Fruits.hpp">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameStateMachine.cpp">
@@ -102,6 +105,9 @@
       <Filter>Archivos de recursos</Filter>
     </ClCompile>
     <ClCompile Include="Levels.cpp">
+      <Filter>Archivos de recursos</Filter>
+    </ClCompile>
+    <ClCompile Include="Fruits.cpp">
       <Filter>Archivos de recursos</Filter>
     </ClCompile>
   </ItemGroup>
