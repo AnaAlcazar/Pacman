@@ -96,8 +96,8 @@ void Ghost::Logic()
 	if (!dynamic_cast<Pacman*>(EntityManager::Instance().GetEntityAt(0))->HasPelletEffect() && stage == 5)
 		stage = 4;
 	Brain();
-	if (ScreenManager::Instance().OnTunnel(GetTileOfEntity()))speed = 0.35f*LevelManager::Instance().RequestGhostSpeedMultiplier();
-	else speed = 0.7f * LevelManager::Instance().RequestGhostSpeedMultiplier();
+	if (ScreenManager::Instance().OnTunnel(GetTileOfEntity()))speed = 0.35f;
+	else speed = 0.7f;
 	if(!intersectionDecided)
 		DecideDirection(false);
 	if (AvaiableDirections() < 3 && ContraryDirections())

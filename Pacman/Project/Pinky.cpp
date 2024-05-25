@@ -75,6 +75,7 @@ void Pinky::Render()
 
 void Pinky::Brain()
 {
+	//speed = LevelManager::Instance().RequestGhostSpeed(IsInTunnel(),0,false);
 	Vector2 tileGo = { 0,0 };
 	if (alive)
 	{

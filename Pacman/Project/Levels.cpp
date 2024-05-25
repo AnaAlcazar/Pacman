@@ -1,9 +1,21 @@
 #include "Levels.hpp"
+#include "DataBase.hpp"
 
-Level::Level(float p, float g)
+Level::Level(float PacmanSpeed_, float FrightPacmanSpeed_, float PacmanDotSpeed_, float FrightPacmanDotSpeed_, float GhostSpeed_, float FrightGhostSpeed_, float GhostTunnelSpeed_, int Blinky1Dots_, float Blinky1Speed_, int Blinky2Dots_, float Blinky2Speed_, float FrightTime_, int FrightFlashes_)
 {
-	PacmanSpeedMultiplier = p;
-	GhostSpeedMultiplier = g;
+	PacmanSpeed = PacmanSpeed_;
+	FrightPacmanSpeed = FrightPacmanSpeed_;
+	PacmanDotSpeed = PacmanDotSpeed_;
+	FrightPacmanDotSpeed = FrightPacmanDotSpeed_;
+	GhostSpeed = GhostSpeed_;
+	FrightGhostSpeed = FrightGhostSpeed_;
+	GhostTunnelSpeed = GhostTunnelSpeed_;
+	Blinky1Dots = Blinky1Dots_;
+	Blinky1Speed = Blinky1Speed_;
+	Blinky2Dots = Blinky2Dots_;
+	Blinky2Speed = Blinky2Speed_;
+	FrightTime = FrightTime_;
+	FrightFlashes = FrightFlashes_;
 }
 
 Level::~Level()
@@ -17,12 +29,12 @@ Level::~Level()
 
 float Level::GetPacmanSpeed()
 {
-	return PacmanSpeedMultiplier;
+	return PacmanSpeed;
 }
 
 float Level::GetGhostSpeed()
 {
-	return GhostSpeedMultiplier;
+	return GhostSpeed;
 }
 
 void Level::GenerateGhostBehaviour(int m, float t)
@@ -52,40 +64,11 @@ int Level::GetModeInTime(float time, bool forceLevelMode)
 
 LevelManager::LevelManager()
 {
-	#pragma region Level 1
-		Level* l1 = new Level(1,1);
-		l1->GenerateGhostBehaviour(Ghost::Scatter, 7);
-		l1->GenerateGhostBehaviour(Ghost::Chase, 20);
-		l1->GenerateGhostBehaviour(Ghost::Scatter, 7);
-		l1->GenerateGhostBehaviour(Ghost::Chase, 20);
-		l1->GenerateGhostBehaviour(Ghost::Scatter, 5);
-		l1->GenerateGhostBehaviour(Ghost::Chase, 20);
-		l1->GenerateGhostBehaviour(Ghost::Scatter, 5);
-		l1->GenerateGhostBehaviour(Ghost::Chase, 20);
-		levelList.push_back(l1);
-	#pragma endregion
-#pragma region Level 2
-		Level* l2 = new Level(1.5f, 1.5f);
-		l2->GenerateGhostBehaviour(Ghost::Scatter, 7);
-		l2->GenerateGhostBehaviour(Ghost::Chase, 20);
-		l2->GenerateGhostBehaviour(Ghost::Scatter, 7);
-		l2->GenerateGhostBehaviour(Ghost::Chase, 20);
-		l2->GenerateGhostBehaviour(Ghost::Scatter, 5);
-		l2->GenerateGhostBehaviour(Ghost::Chase, 20);
-		l2->GenerateGhostBehaviour(Ghost::Scatter, 5);
-		l2->GenerateGhostBehaviour(Ghost::Chase, 20);
-		levelList.push_back(l2);
-#pragma endregion
-
+	levelList = DataBase::Instance().GetOriginalLevels();
 }
 
 LevelManager::~LevelManager()
 {
-	for (int i = 0; i < levelList.size(); i++)
-	{
-		delete levelList[i];
-	}
-	levelList.clear();
 }
 
 void LevelManager::Start(int l)
@@ -108,12 +91,16 @@ int LevelManager::RequestCurrentMode(bool forceLevelMode)
 	return (*levelList[currentLevel]).GetModeInTime(timer, forceLevelMode);
 }
 
-int LevelManager::RequestPacmanSpeedMultiplier()
+float LevelManager::RequestPacmanSpeed(bool pelletEffect, bool InDot)
 {
-	return levelList[currentLevel]->GetPacmanSpeed();
-}
-
-int LevelManager::RequestGhostSpeedMultiplier()
-{
-	return levelList[currentLevel]->GetGhostSpeed();
+	if (pelletEffect)
+	{
+		if (InDot) return levelList[currentLevel]->FrightPacmanDotSpeed;
+		else return levelList[currentLevel]->FrightPacmanSpeed;
+	}
+	else
+	{
+		if (InDot) return levelList[currentLevel]->PacmanDotSpeed;
+		else return levelList[currentLevel]->PacmanSpeed;
+	}
 }

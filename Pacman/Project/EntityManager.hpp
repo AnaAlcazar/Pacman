@@ -43,6 +43,7 @@ public:
 	virtual void SetTargetTile(Vector2 tile) = 0;
 	virtual void Kill() = 0;
 	virtual void Die() = 0;
+	bool IsInTunnel();
 	void Revive();
 	void TrySetDirection(Vector2 dir);
 	void ForceDirection(Vector2 dir);

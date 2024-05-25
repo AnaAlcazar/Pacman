@@ -10,6 +10,11 @@
 #include <math.h>
 #include <iostream>
 
+bool Entity::IsInTunnel()
+{
+	return ScreenManager::Instance().OnTunnel(GetTileOfEntity());
+}
+
 void Entity::Revive()
 {
 	alive = true;
@@ -157,11 +162,9 @@ void EntityManager::SetTargetTile(Entity* entity, Vector2 tile)
 
 void EntityManager::SetNewStats()
 {
-	entityList[0]->speed = 0.8f * LevelManager::Instance().RequestPacmanSpeedMultiplier();
 	for (int i = 1; i < entityList.size(); i++)
 	{
-
-		entityList[i]->speed = 0.7f * LevelManager::Instance().RequestGhostSpeedMultiplier();
+		entityList[i]->speed = 0.7f;
 	}
 }
 

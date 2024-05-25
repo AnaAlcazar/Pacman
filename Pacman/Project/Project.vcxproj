@@ -140,6 +140,7 @@
     <ClInclude Include="Blinky.hpp" />
     <ClInclude Include="Clyde.hpp" />
     <ClInclude Include="CustomColors.hpp" />
+    <ClInclude Include="DataBase.hpp" />
     <ClInclude Include="EntityManager.hpp" />
     <ClInclude Include="FileReader.hpp" />
     <ClInclude Include="Fruits.hpp" />
@@ -157,6 +158,7 @@
   <ItemGroup>
     <ClCompile Include="Blinky.cpp" />
     <ClCompile Include="Clyde.cpp" />
+    <ClCompile Include="DataBase.cpp" />
     <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="FileReader.cpp" />
     <ClCompile Include="Fruits.cpp" />

@@ -8,7 +8,7 @@ Game::Game()
 	score = 0;
 	highscore = 0;
 	stage = 0;
-	level = 1;
+	level = 0;
 	eatenDots = 0;
 	timer = 0;
 }
@@ -100,7 +100,7 @@ void Game::Logic()
 				dynamic_cast<Ghost*>(EntityManager::Instance().GetEntityAt(i))->DecideDirection(false);
 				e->stage++;
 			}
-			if (eatenDots == 246)stage = 2;
+			if (eatenDots == 244)stage = 2;
 #pragma endregion
 
 #pragma region Changing Stage
@@ -293,6 +293,11 @@ int Game::GetStage()
 int Game::GetLevel()
 {
 	return level;
+}
+
+bool Game::IsInDotTile(Vector2 tile)
+{
+	return pointsLayout[(int)tile.y][(int)tile.x] == 19;
 }
 
 void Game::SetLevel(int l)

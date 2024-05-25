@@ -7,7 +7,7 @@
 #include <iostream>
 #include "ScreenManager.hpp"
 
-Pacman::Pacman() : Entity(Player, {13.5*8+4,26*8+4}, { -1, 0 }, 0.8f, { 13.5f,26})
+Pacman::Pacman() : Entity(Player, {13.5*8+4,26*8+4}, { -1, 0 }, 0.8f*SCALE_FACTOR, { 13.5f,26})
 {
 	pelletEffect = 0;
 	pelletMultiplier = 0;
@@ -97,6 +97,7 @@ void Pacman::Input()
 
 void Pacman::Logic()
 {
+	speed = LevelManager::Instance().RequestPacmanSpeed(HasPelletEffect(), GameStateMachine::Instance().game->IsInDotTile(GetTileOfEntity()));
 	Entity::Move();
 
 	if (pelletEffect > 0)pelletEffect -= GetFrameTime();
