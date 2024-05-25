@@ -6,7 +6,7 @@ using namespace std;
 
 class Entity
 {
-	
+	friend class EntityManager;
 protected:
 	enum EntityType
 	{
@@ -68,6 +68,8 @@ public:
 	void Logic();
 	void Render();
 	void SetTargetTile(Entity* entity, Vector2 tile);
+	void SetNewStats();
+	void ResetAllEntities();
 	void ResetAllPositions();
 	void ResetEntities();
 };

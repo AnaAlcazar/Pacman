@@ -1,6 +1,7 @@
 #include "Ghost.hpp"
 #include "Pacman.hpp"
 #include "Renderer.hpp"
+#include "Levels.hpp"
 #include <math.h>
 Vector2 Ghost::IntToDirection(int index)
 {
@@ -72,7 +73,7 @@ Ghost::Mode Ghost::RequestActualMode(bool force)
 {
 	return (Ghost::Mode)LevelManager::Instance().RequestCurrentMode(force);
 }
-Ghost::Ghost(Vector2 st, float t) : Entity(Enemy, { 13.5 * 8 + 4,8 * 8 + 4 }, { 0,-1 }, 0.8f, st)
+Ghost::Ghost(Vector2 st, float t) : Entity(Enemy, { 13.5 * 8 + 4,8 * 8 + 4 }, { 0,-1 }, 0.7f, st)
 {
 	timerToStart = t;
 	targetTile = { 0,0 };
@@ -95,8 +96,8 @@ void Ghost::Logic()
 	if (!dynamic_cast<Pacman*>(EntityManager::Instance().GetEntityAt(0))->HasPelletEffect() && stage == 5)
 		stage = 4;
 	Brain();
-	if (ScreenManager::Instance().OnTunnel(GetTileOfEntity()))speed = 0.4f;
-	else speed = 0.8f;
+	if (ScreenManager::Instance().OnTunnel(GetTileOfEntity()))speed = 0.35f*LevelManager::Instance().RequestGhostSpeedMultiplier();
+	else speed = 0.7f * LevelManager::Instance().RequestGhostSpeedMultiplier();
 	if(!intersectionDecided)
 		DecideDirection(false);
 	if (AvaiableDirections() < 3 && ContraryDirections())
@@ -135,8 +136,8 @@ void Ghost::Kill()
 			Die();
 			EntityManager::Instance().GetEntityAt(0)->Kill();
 		}
-		else if(ghostMode != Frightened && alive)
-			EntityManager::Instance().GetEntityAt(0)->Die();
+		//else if(ghostMode != Frightened && alive)
+			//EntityManager::Instance().GetEntityAt(0)->Die();
 	}
 }
 

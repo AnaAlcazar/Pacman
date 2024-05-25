@@ -57,8 +57,6 @@ void FruitManager::Logic()
 
 	if (inScene)
 	{
-		cout << EntityManager::Instance().GetEntityAt(0)->GetTileOfEntity().x << " = " << spawnTile.x << " && ";
-		cout << EntityManager::Instance().GetEntityAt(0)->GetTileOfEntity().y << " = " << spawnTile.y << endl;
 		timer += GetFrameTime();
 		if (timer >= 10)
 		{
@@ -68,10 +66,10 @@ void FruitManager::Logic()
 
 		if (EntityManager::Instance().GetEntityAt(0)->GetTileOfEntity().x == (int)spawnTile.x && EntityManager::Instance().GetEntityAt(0)->GetTileOfEntity().y == (int)spawnTile.y)
 		{
-			
 			timer = 0;
 			inScene = false;
 			collected = true;
+			GameStateMachine::Instance().game->AddScore(GetFruitOfLevel().score);
 		}
 	}
 

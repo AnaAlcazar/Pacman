@@ -52,7 +52,6 @@ int Level::GetModeInTime(float time, bool forceLevelMode)
 
 LevelManager::LevelManager()
 {
-	Start(1);
 	#pragma region Level 1
 		Level* l1 = new Level(1,1);
 		l1->GenerateGhostBehaviour(Ghost::Scatter, 7);
@@ -65,6 +64,19 @@ LevelManager::LevelManager()
 		l1->GenerateGhostBehaviour(Ghost::Chase, 20);
 		levelList.push_back(l1);
 	#pragma endregion
+#pragma region Level 2
+		Level* l2 = new Level(1.5f, 1.5f);
+		l2->GenerateGhostBehaviour(Ghost::Scatter, 7);
+		l2->GenerateGhostBehaviour(Ghost::Chase, 20);
+		l2->GenerateGhostBehaviour(Ghost::Scatter, 7);
+		l2->GenerateGhostBehaviour(Ghost::Chase, 20);
+		l2->GenerateGhostBehaviour(Ghost::Scatter, 5);
+		l2->GenerateGhostBehaviour(Ghost::Chase, 20);
+		l2->GenerateGhostBehaviour(Ghost::Scatter, 5);
+		l2->GenerateGhostBehaviour(Ghost::Chase, 20);
+		levelList.push_back(l2);
+#pragma endregion
+
 }
 
 LevelManager::~LevelManager()

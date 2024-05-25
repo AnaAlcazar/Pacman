@@ -15,6 +15,8 @@ void Entity::Revive()
 	alive = true;
 }
 
+
+
 void Entity::TrySetDirection(Vector2 dir)
 {
 	if (ScreenManager::Instance().OnTunnel(GetTileOfEntity()) && type == Enemy)return;
@@ -151,6 +153,31 @@ void EntityManager::Render()
 void EntityManager::SetTargetTile(Entity* entity, Vector2 tile)
 {
 	entity->SetTargetTile(tile);
+}
+
+void EntityManager::SetNewStats()
+{
+	entityList[0]->speed = 0.8f * LevelManager::Instance().RequestPacmanSpeedMultiplier();
+	for (int i = 1; i < entityList.size(); i++)
+	{
+
+		entityList[i]->speed = 0.7f * LevelManager::Instance().RequestGhostSpeedMultiplier();
+	}
+}
+
+void EntityManager::ResetAllEntities()
+{
+	ResetAllPositions();
+	for (int i = 0; i < 5; i++)
+	{
+		entityList[i]->ForceDirection({ -1,0 });
+		if (i == 0)
+		{
+			dynamic_cast<Pacman*>(entityList[i])->Revive();
+			continue;
+		}
+			dynamic_cast<Ghost*>(entityList[i])->ChangeMode(Ghost::Mode::Scatter);
+	}
 }
 
 void EntityManager::ResetAllPositions()

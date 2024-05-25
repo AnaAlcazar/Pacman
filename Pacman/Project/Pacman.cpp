@@ -2,6 +2,7 @@
 #include "Renderer.hpp"
 #include "GameStateMachine.hpp"
 #include "Ghost.hpp"
+#include "Levels.hpp"
 #include <math.h>
 #include <iostream>
 #include "ScreenManager.hpp"
@@ -161,6 +162,7 @@ void Pacman::Kill()
 void Pacman::Revive()
 {
 	alive = true;
+	pelletEffect = 0;
 }
 
 bool Pacman::IsAlive()

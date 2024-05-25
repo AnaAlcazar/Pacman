@@ -8,7 +8,7 @@ Game::Game()
 	score = 0;
 	highscore = 0;
 	stage = 0;
-	level = 0;
+	level = 1;
 	eatenDots = 0;
 	timer = 0;
 }
@@ -18,11 +18,17 @@ void Game::Start(bool rs)
 	highscore = FileReader::Instance().ReadHighScore();
 	if(rs)score = 0;
 	ResetLayout();
-	EntityManager::Instance().ResetAllPositions();
+	ResetTimer();
+	eatenDots = 0;
+	EntityManager::Instance().ResetAllEntities();
 	dynamic_cast<Ghost*>(EntityManager::Instance().GetEntityAt(1))->stage = 2;
 	dynamic_cast<Ghost*>(EntityManager::Instance().GetEntityAt(2))->stage = 1;
+	dynamic_cast<Ghost*>(EntityManager::Instance().GetEntityAt(3))->stage = 0;
+	dynamic_cast<Ghost*>(EntityManager::Instance().GetEntityAt(4))->stage = 0;
+	
 	LevelManager::Instance().Start(level);
 	FruitManager::Instance().Start(level);
+	EntityManager::Instance().SetNewStats();
 }
 
 void Game::ResetTimer()
@@ -94,7 +100,7 @@ void Game::Logic()
 				dynamic_cast<Ghost*>(EntityManager::Instance().GetEntityAt(i))->DecideDirection(false);
 				e->stage++;
 			}
-			if (eatenDots == 244)stage = 2;
+			if (eatenDots == 246)stage = 2;
 #pragma endregion
 
 #pragma region Changing Stage
@@ -112,7 +118,14 @@ void Game::Logic()
 	}
 	else if (stage == 2)		//Level Cleared
 	{
-
+		timer += GetFrameTime();
+		if (timer >= 5)
+		{
+			timer = 0;
+			level++;
+			Start(false);
+			stage = 0;
+		}
 	}
 	else if (stage == 3)		//Pacman Dying
 	{
