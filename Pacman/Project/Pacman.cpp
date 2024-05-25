@@ -144,7 +144,7 @@ void Pacman::Render()
 			break;
 		case 4:
 			Renderer::Instance().DrawSprite(0, { 13,3 }, { position.x, position.y}, WHITE);
-			Renderer::Instance().DrawSprite(0, { 12,3 }, { position.x-(8*SCALE_FACTOR), position.y }, WHITE);
+			Renderer::Instance().DrawSprite(0, { 12,3 }, { position.x-8*2, position.y }, WHITE);
 			break;
 		default:
 			break;

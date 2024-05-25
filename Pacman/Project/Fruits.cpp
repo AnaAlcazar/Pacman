@@ -90,8 +90,11 @@ void FruitManager::Render()
 		Renderer::Instance().DrawSprite(0, GetFruitOfLevel().TexturePos, { spawnTile.x * 8, spawnTile.y*8 }, WHITE);
 
 	if (collected)
+	{
 		Renderer::Instance().DrawSprite(0, GetFruitOfLevel().ScoreTexturePos, { spawnTile.x * 8, spawnTile.y * 8 }, WHITE);
-
+		if(GetFruitOfLevel().score >= 1000)
+			Renderer::Instance().DrawSprite(0, {GetFruitOfLevel().ScoreTexturePos.x - 1,GetFruitOfLevel().ScoreTexturePos.y }, { (spawnTile.x-2) * 8, spawnTile.y * 8 }, WHITE);
+	}
 	for (int  i = 0; i < 7; i++)
 	{
 		if (fruitRender[i] == -1)
