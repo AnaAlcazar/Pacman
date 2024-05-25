@@ -142,5 +142,7 @@ Fruit FruitManager::GetFruitOfLevel()
 		{
 			return fruits[i];
 		}
+		else
+			return fruits[7];
 	}
 }
