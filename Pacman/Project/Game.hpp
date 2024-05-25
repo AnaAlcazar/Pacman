@@ -2,6 +2,12 @@
 #include "ScreenManager.hpp"
 #include "EntityManager.hpp"
 #include "Levels.hpp"
+#include "Renderer.hpp"
+#include "FileReader.hpp"
+#include "Pacman.hpp"
+#include "Ghost.hpp"
+#include "GameStateMachine.hpp"
+#include "Fruits.hpp"
 #include <vector>
 
 class Game
@@ -64,7 +70,11 @@ public:
     void EatDot();
     void End();
     void AddScore(int s);
-    int GetStage();
     void SetStage(int s);
+    int GetEatenDots();
+    int GetLevel();
+    void SetLevel(int l);
+    int GetStage();
+
     ~Game();
 };

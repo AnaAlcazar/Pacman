@@ -1,11 +1,6 @@
 #include "Game.hpp"
-#include "Renderer.hpp"
-#include "FileReader.hpp"
-#include "EntityManager.hpp"
-#include "GameStateMachine.hpp"
+
 #include <iostream>
-#include "Pacman.hpp"
-#include "Ghost.hpp"
 
 Game::Game()
 {
@@ -27,6 +22,7 @@ void Game::Start(bool rs)
 	dynamic_cast<Ghost*>(EntityManager::Instance().GetEntityAt(1))->stage = 2;
 	dynamic_cast<Ghost*>(EntityManager::Instance().GetEntityAt(2))->stage = 1;
 	LevelManager::Instance().Start(level);
+	FruitManager::Instance().Start(level);
 }
 
 void Game::ResetTimer()
@@ -54,6 +50,7 @@ void Game::Logic()
 	}
 	else if (stage == 1)	//Game Running
 	{
+		FruitManager::Instance().Logic();
 		LevelManager::Instance().Logic();
 		bool ghostInBox = false;
 		for (int i = 1; i < 5; i++)
@@ -119,7 +116,7 @@ void Game::Logic()
 	}
 	else if (stage == 3)		//Pacman Dying
 	{
-
+		FruitManager::Instance().QuitFruit();
 	}
 	else if (stage == 4)		//Stopped for killing ghost
 	{
@@ -143,6 +140,7 @@ void Game::Render()
 	Renderer::Instance().DrawText("   1UP   HIGH SCORE   2UP  ", 28, { 0,0 }, WHITE);
 	Renderer::Instance().DrawNumber(score, Renderer::Instance().AnchorNumberOnRight(score, {48,8}), WHITE);
 	Renderer::Instance().DrawNumber(highscore, Renderer::Instance().AnchorNumberOnRight(score, { 128,8 }), WHITE);
+	FruitManager::Instance().Render();
 	EntityManager::Instance().Render();
 #pragma endregion
 	
@@ -217,6 +215,7 @@ void Game::Render()
 		}
 #pragma endregion
 	}
+	
 }
 
 void Game::ResetLayout()
@@ -278,9 +277,24 @@ int Game::GetStage()
 	return stage;
 }
 
+int Game::GetLevel()
+{
+	return level;
+}
+
+void Game::SetLevel(int l)
+{
+	level = l;
+}
+
 void Game::SetStage(int s)
 {
 	stage = s;
+}
+
+int Game::GetEatenDots()
+{
+	return eatenDots;
 }
 
 Game::~Game()
