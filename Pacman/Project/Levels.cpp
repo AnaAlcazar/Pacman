@@ -119,3 +119,8 @@ float LevelManager::RequestGhostSpeed(bool tunnel, int dots, bool fright)
 			return levelList[currentLevel]->GhostSpeed;
 	}
 }
+
+int LevelManager::RequestPelletTime()
+{
+	return levelList[currentLevel]->FrightTime;
+}

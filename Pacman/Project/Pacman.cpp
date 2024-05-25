@@ -179,7 +179,7 @@ void Pacman::Die()
 
 void Pacman::EatPellet()
 {
-	pelletEffect = 10;
+	pelletEffect = LevelManager::Instance().RequestPelletTime();
 	pelletMultiplier = 1;
 	for (int i = 1; i < 5; i++)
 	{
