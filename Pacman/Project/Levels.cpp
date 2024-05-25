@@ -104,3 +104,18 @@ float LevelManager::RequestPacmanSpeed(bool pelletEffect, bool InDot)
 		else return levelList[currentLevel]->PacmanSpeed;
 	}
 }
+
+float LevelManager::RequestGhostSpeed(bool tunnel, int dots, bool fright)
+{
+	if (tunnel)return levelList[currentLevel]->GhostTunnelSpeed;
+	else if (fright)return levelList[currentLevel]->FrightGhostSpeed;
+	else
+	{
+		if (dots == levelList[currentLevel]->Blinky1Dots)
+			return levelList[currentLevel]->Blinky1Speed;
+		else if (dots == levelList[currentLevel]->Blinky2Dots)
+			return levelList[currentLevel]->Blinky2Speed;
+		else
+			return levelList[currentLevel]->GhostSpeed;
+	}
+}

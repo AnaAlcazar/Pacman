@@ -75,7 +75,7 @@ void Blinky::Render()
 
 void Blinky::Brain()
 {
-	//speed = LevelManager::Instance().RequestGhostSpeed(IsInTunnel(), 0, false);
+	speed = LevelManager::Instance().RequestGhostSpeed(IsInTunnel(), 244 - GameStateMachine::Instance().game->GetEatenDots(), ghostMode == Frightened);
 	Vector2 tileGo = { 0,0 };
 	if (alive)
 	{

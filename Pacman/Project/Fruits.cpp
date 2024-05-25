@@ -87,14 +87,10 @@ void FruitManager::Logic()
 void FruitManager::Render()
 {
 	if (inScene)
-	{
 		Renderer::Instance().DrawSprite(0, GetFruitOfLevel().TexturePos, { spawnTile.x * 8, spawnTile.y*8 }, WHITE);
-	}
 
 	if (collected)
-	{
 		Renderer::Instance().DrawSprite(0, GetFruitOfLevel().ScoreTexturePos, { spawnTile.x * 8, spawnTile.y * 8 }, WHITE);
-	}
 
 	for (int  i = 0; i < 7; i++)
 	{
@@ -109,32 +105,24 @@ void FruitManager::UpdateLevelCounter()
 {
 	int l = level+1;
 	int renderFruits[7] = { -1,-1,-1,-1,-1,-1,-1 };
-	int offset = 0;
+	int offset = 6;
 
-	while (l > 0)
+	while (l > 0 && offset > -1)
 	{
-		for (int i = 0; i < 8; i++)
+		for (int i = 7; i > -1; i--)
 		{
-			if (fruits[i].levelsAppear.x <= l && fruits[i].levelsAppear.x >= l)
+			if (fruits[i].levelsAppear.x <= l && fruits[i].levelsAppear.y >= l)
 			{
-				if (offset == 6)
-				{
-					for (int j = 6; j > 0; j--)
-					{
-						renderFruits[j] = renderFruits[j - 1];
-					}
-					offset--;
-				}
 				renderFruits[offset] = i;
-				offset++;
+				offset--;
 				l--;
 				break;
 			}
 		}
 	}
-	for (int i = 7-offset; i < 7; i++)
+	for (int i = 0; i < 7; i++)
 	{
-		fruitRender[i] = renderFruits[i - 7 + offset];
+		fruitRender[i] = renderFruits[6-i];
 	}
 }
 

@@ -75,7 +75,7 @@ void Inky::Render()
 
 void Inky::Brain()
 {
-	//speed = LevelManager::Instance().RequestGhostSpeed(IsInTunnel(), 0, false);
+	speed = LevelManager::Instance().RequestGhostSpeed(IsInTunnel(), -1, ghostMode == Frightened);
 	float distance;
 	Vector2 tileGo = { 0,0 };
 	if (alive)

@@ -12,7 +12,7 @@
 
 bool Entity::IsInTunnel()
 {
-	return ScreenManager::Instance().OnTunnel(GetTileOfEntity());
+	return ScreenManager::Instance().OnTunnel(GetTileOfEntity(),direction.x);
 }
 
 void Entity::Revive()
@@ -24,7 +24,7 @@ void Entity::Revive()
 
 void Entity::TrySetDirection(Vector2 dir)
 {
-	if (ScreenManager::Instance().OnTunnel(GetTileOfEntity()) && type == Enemy)return;
+	if (ScreenManager::Instance().OnTunnel(GetTileOfEntity(), direction.x) && type == Enemy)return;
 	if (dir.x == nextDirection.x && dir.y == nextDirection.y) return;
 	Vector2 targetTile = { GetTileOfEntity().x + dir.x*2, GetTileOfEntity().y + dir.y*2 };
 	if (!ScreenManager::Instance().IsTangible(targetTile))return;
@@ -50,7 +50,7 @@ void Entity::Move()
 		direction = nextDirection;
 	}
 	bool NextTileTangible = ScreenManager::Instance().IsTangible({ GetTileOfEntity().x + direction.x, GetTileOfEntity().y + direction.y });
-	if (ScreenManager::Instance().OnTunnel(GetTileOfEntity()))
+	if (ScreenManager::Instance().OnTunnel(GetTileOfEntity(), direction.x))
 	{
 		position.x += direction.x * speed;
 		position.y += direction.y * speed;

@@ -132,9 +132,9 @@ void ScreenManager::Render(const int index, const int color_)
 	Render(index, newColor);
 }
 
-bool ScreenManager::OnTunnel(Vector2 tile)
+bool ScreenManager::OnTunnel(Vector2 tile, float dir)
 {
-    if (Screens[1].GetValue(tile) == 38)return true;
+    if (Screens[1].GetValue({ tile.x - dir, tile.y }) == 38)return true;
     return false;
 }
 

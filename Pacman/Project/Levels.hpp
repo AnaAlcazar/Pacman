@@ -58,6 +58,6 @@ public:
 	void Logic();
 	int RequestCurrentMode(bool forceLevelMode);
 	float RequestPacmanSpeed(bool pelletEffect, bool InDot);
-	float RequestGhostSpeed(bool tunnel, int tier, bool fright);
+	float RequestGhostSpeed(bool tunnel, int dots, bool fright);
 	int RequestPelletTime();
 };

@@ -8,7 +8,7 @@ Game::Game()
 	score = 0;
 	highscore = 0;
 	stage = 0;
-	level = 0;
+	level = 7;
 	eatenDots = 0;
 	timer = 0;
 }
@@ -133,7 +133,6 @@ void Game::Logic()
 	}
 	else if (stage == 4)		//Stopped for killing ghost
 	{
-		cout << timer << endl;
 		timer += GetFrameTime();
 		if (timer >= 1)
 		{

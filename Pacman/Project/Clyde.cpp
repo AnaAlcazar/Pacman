@@ -76,7 +76,7 @@ void Clyde::Render()
 
 void Clyde::Brain()
 {
-	//speed = LevelManager::Instance().RequestGhostSpeed(IsInTunnel(), 0, false);
+	speed = LevelManager::Instance().RequestGhostSpeed(IsInTunnel(), -1, ghostMode == Frightened);
 	Vector2 tileGo = { 0,0 };
 	if (alive)
 	{
