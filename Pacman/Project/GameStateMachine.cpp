@@ -1,6 +1,7 @@
 ﻿#include "GameStateMachine.hpp"
 #include "Globals.hpp"
 #include "Game.hpp"
+#include "Debugger.hpp"
 #include <iostream>
 
 void GameStateMachine::Start()
@@ -23,10 +24,6 @@ void GameStateMachine::Start()
 		break;
 	case 4:
 		break;
-	case 5:
-		break;
-	case 6:
-		break;
 	default:
 		break;
 	}
@@ -44,27 +41,21 @@ void GameStateMachine::Input()
 		break;
 	case 2:
 		if (IsKeyPressed(KEY_TAB) && coins < 99)coins++;
-		if (IsKeyPressed(KEY_ENTER))SetState(3);
+		if (IsKeyPressed(KEY_ENTER))
+		{
+			AudioManager::Instance().PlayMusicByName("Start_Game");
+			SetState(3);
+		}
 		break;
 	case 3:
 		game->Input();
+		Debugger::Instance().Input();
 		break;
 	case 4:
-		break;
-	case 5:
-		break;
-	case 6:
 		break;
 	default:
 		break;
 	}
-	if (IsKeyPressed(KEY_KP_0))SetState(0);
-	else if (IsKeyPressed(KEY_KP_1))SetState(1);
-	else if (IsKeyPressed(KEY_KP_2))SetState(2);
-	else if (IsKeyPressed(KEY_KP_3))SetState(3);
-	else if (IsKeyPressed(KEY_KP_4))SetState(4);
-	else if (IsKeyPressed(KEY_KP_5))SetState(5);
-	else if (IsKeyPressed(KEY_KP_6))SetState(6);
 }
 
 void GameStateMachine::Logic()
@@ -72,13 +63,12 @@ void GameStateMachine::Logic()
 	switch (currentState)
 	{
 	case 0:
-		
 		timer += GetFrameTime();
 		if (timer > 32)SetState(1);
 		break;
 	case 1:
 		timer += GetFrameTime();
-		if (timer > 10)SetState(0);
+		if (timer > 16)SetState(0);
 		break;
 	case 2:
 		break;
@@ -86,16 +76,6 @@ void GameStateMachine::Logic()
 		game->Logic();
 		break;
 	case 4:
-		break;
-	case 5:
-		break;
-	case 6:
-		while (timer < 3)
-		{
-			timer += GetFrameTime();
-		}
-		if (coins > 0)SetState(2);
-		else SetState(0);
 		break;
 	default:
 		break;
@@ -181,21 +161,72 @@ void GameStateMachine::Render()
 				else
 				{
 					float pacPos = 36 + (timer - 23.25f) * 30;
-					float bPos = 92 + (timer - 23.25f) * 12;
-					float pPos = 108 + (timer - 23.25f) * 12;
-					float iPos = 124 + (timer - 23.25f) * 12;
-					float cPos = 140 + (timer - 23.25f) * 12;
+					float bPos = 92 + 3 * 12;
+					float pPos = 108 + 4 * 12;
+					float iPos = 124 + 5 * 12;
+					float cPos = 140 + 6 * 12;
+					if (timer < 26.25f)
+					{
+						bPos = 92 + (timer - 23.25f) * 12;
+						b.Animate({ bPos, 176 }, 1, 0.1f, true);
+					}
+					if (timer > 26.25f && timer < 26.75f)
+						Renderer::Instance().DrawSprite(0, { 10,1 }, { bPos, 176 }, WHITE);
+					if (timer < 27.2f)
+					{
+						pPos = 108 + (timer - 23.25f) * 12;
+						p.Animate({ pPos, 176 }, 1, 0.1f, true);
+					}
+						if (timer > 27.2f && timer < 27.7f)
+						Renderer::Instance().DrawSprite(0, { 12,0 }, { pPos, 176 }, WHITE);
+					if (timer < 28.15f)
+					{
+						iPos = 124 + (timer - 23.25f) * 12;
+						i.Animate({ iPos, 176 }, 1, 0.1f, true);
+					}
+						if (timer > 28.15f && timer < 28.65f)
+						Renderer::Instance().DrawSprite(0, { 13,1 }, { iPos, 176 }, WHITE);
+					if (timer < 29.1f)
+					{
+						cPos = 140 + (timer - 23.25f) * 12;
+						c.Animate({ cPos, 176 }, 1, 0.1f, true);
+					}
+					if (timer > 29.1f && timer < 29.6f)
+					{
+						Renderer::Instance().DrawSprite(0, { 13,3 }, { cPos, 176 }, WHITE);
+						Renderer::Instance().DrawSprite(0, { 12,3 }, { cPos - 16, 176 }, WHITE);
+					}
+						
 					pacman.Animate({ pacPos, 176 }, 1, 0.1f, true);
-					b.Animate({ bPos, 176 }, 1, 0.1f, true);
-					p.Animate({ pPos, 176 }, 1, 0.1f, true);
-					i.Animate({ iPos, 176 }, 1, 0.1f, true);
-					c.Animate({ cPos, 176 }, 1, 0.1f, true);
 				}
 			}
 		}
 		break;
 	case 1:
 		ScreenManager::Instance().Render(0, 0);
+		Renderer::Instance().DrawText("          CONTROLS          ", 28, { 0,8 }, WHITE);
+		timer += GetFrameTime();
+		if (timer > 0 && timer < 2 || timer > 8 && timer < 10)
+		{
+			pacman.Animate({ 104,136 }, 0, 0.1f, true);
+			Renderer::Instance().DrawText("          A    LEFT ARROW   ", 28, { 0,160 }, WHITE);
+		}
+		else if (timer > 2 && timer < 4 || timer > 10 && timer < 12)
+		{
+			pacman.Animate({ 104,136 }, 2, 0.1f, true);
+			Renderer::Instance().DrawText("          W    UP ARROW     ", 28, { 0,160 }, WHITE);
+		}
+		else if (timer > 4 && timer < 6 || timer > 12 && timer < 14)
+		{
+			pacman.Animate({ 104,136 }, 1, 0.1f, true);
+			Renderer::Instance().DrawText("          D    RIGHT ARROW  ", 28, { 0,160 }, WHITE);
+		}
+		else if (timer > 6 && timer < 8 || timer > 14 && timer < 16)
+		{
+			pacman.Animate({ 104,136 }, 3, 0.1f, true);
+			Renderer::Instance().DrawText("          S    DOWN ARROW   ", 28, { 0,160 }, WHITE);
+		}
+		Renderer::Instance().DrawText("  PRESS TAB TO INSERT COIN  ", 28, { 0,272 }, WHITE);
 		break;
 	case 2:
 		ScreenManager::Instance().Render(0, WHITE);
@@ -215,14 +246,6 @@ void GameStateMachine::Render()
 		game->Render();
 		break;
 	case 4:
-		ScreenManager::Instance().Render(1, WHITE);
-		break;
-	case 5:
-		ScreenManager::Instance().Render(1, 0);
-		Renderer::Instance().DrawText("GAME OVER!", 10, { 72,160 }, 5);
-		break;
-	case 6:
-		ScreenManager::Instance().Render(0, WHITE);
 		break;
 	default:
 		break;
@@ -246,10 +269,7 @@ void GameStateMachine::End()
 		break;
 	case 4:
 		break;
-	case 5:
-		break;
-	case 6:
-		break;
+
 	default:
 		break;
 	}
@@ -294,6 +314,18 @@ GameStateMachine::GameStateMachine()
 	pacmanR.sprites.push_back(20);
 	pacmanR.sprites.push_back(21);
 	pacman.animations.push_back(pacmanR);
+	Animation pacmanU = { 0,4 };
+	pacmanU.sprites.push_back(0);
+	pacmanU.sprites.push_back(15);
+	pacmanU.sprites.push_back(14);
+	pacmanU.sprites.push_back(15);
+	pacman.animations.push_back(pacmanU);
+	Animation pacmanD = { 0,4 };
+	pacmanD.sprites.push_back(0);
+	pacmanD.sprites.push_back(19);
+	pacmanD.sprites.push_back(18);
+	pacmanD.sprites.push_back(19);
+	pacman.animations.push_back(pacmanD);
 	Animation gv = { 0,2 };
 	gv.sprites.push_back(36);
 	gv.sprites.push_back(37);
@@ -321,6 +353,7 @@ GameStateMachine::GameStateMachine()
 
 GameStateMachine::~GameStateMachine()
 {
+
 }
 
 int GameStateMachine::GetState()
@@ -335,39 +368,34 @@ void GameStateMachine::SetState(const int state_)
 
 void GameStateMachine::Run()
 {
-	if (FULLSCREEN)
-	{
-		bool isMonitorHigher = GetMonitorHeight(GetCurrentMonitor()) > (36 / 28) * GetMonitorWidth(GetCurrentMonitor());
-		int windowsSizeUsage = isMonitorHigher ? GetMonitorWidth(GetCurrentMonitor()) : GetMonitorHeight(GetCurrentMonitor());
-		int tilemapSizeUsage = isMonitorHigher ? 8 * SCALE_FACTOR * 28 : 8 * SCALE_FACTOR * 36;
-		int tilemapOffset = isMonitorHigher ? (8 * SCALE_FACTOR * (36 + 1)) : (8 * SCALE_FACTOR * (28 + 1));
-		float scale = (float)windowsSizeUsage / (tilemapSizeUsage);
-		float offset = (tilemapSizeUsage)-tilemapOffset;
-		if (offset > 0)
-			offset = (tilemapSizeUsage)-tilemapOffset - (GetMonitorHeight(GetCurrentMonitor()) / 2) + 224 * scale / 2;
-		Camera2D camera = { 0 };
-		camera.target = { 0,0 };
-		camera.offset = { -offset * scale * 2 , 0 };
-		camera.rotation = 0.0f;
-		camera.zoom = scale;
-	}
+	bool isMonitorHigher = GetMonitorHeight(GetCurrentMonitor()) > (36 / 28) * GetMonitorWidth(GetCurrentMonitor());
+	int windowsSizeUsage = isMonitorHigher ? GetMonitorWidth(GetCurrentMonitor()) : GetMonitorHeight(GetCurrentMonitor());
+	int tilemapSizeUsage = isMonitorHigher ? 8 * SCALE_FACTOR * 28 : 8 * SCALE_FACTOR * 36;
+	int tilemapOffset = isMonitorHigher ? (8 * SCALE_FACTOR * (36 + 1)) : (8 * SCALE_FACTOR * (28 + 1));
+	float scale = (float)windowsSizeUsage / (tilemapSizeUsage);
+	float offset = (tilemapSizeUsage)-tilemapOffset;
+	if (offset > 0)
+		offset = (tilemapSizeUsage)-tilemapOffset - (GetMonitorHeight(GetCurrentMonitor()) / 2) + 224 * scale / 2;
+	Camera2D camera = { 0 };
+	camera.target = { 0,0 };
+	camera.offset = { -offset * scale * 2 , 0 };
+	camera.rotation = 0.0f;
+	camera.zoom = scale;
 	Start();
 	
 	while (nextState != -1 && !WindowShouldClose() && IsSameState())
 	{
+		AudioManager::Instance().Update(); 
 		Input();
 		Logic();
 		BeginDrawing();
 		ClearBackground(BLACK);
-		if(FULLSCREEN)
-			//BeginMode2D(camera);
+		BeginMode2D(camera);
 		Render();
-		if (FULLSCREEN)
-		{
-			DrawRectangle(-GetMonitorWidth(GetCurrentMonitor()), 0, GetMonitorWidth(GetCurrentMonitor()), GetMonitorHeight(GetCurrentMonitor()), BLACK);
-			DrawRectangle(224 * SCALE_FACTOR, 0, GetMonitorWidth(GetCurrentMonitor()), GetMonitorHeight(GetCurrentMonitor()), BLACK);
-			EndMode2D();
-		}
+		DrawRectangle(-GetMonitorWidth(GetCurrentMonitor()), 0, GetMonitorWidth(GetCurrentMonitor()), GetMonitorHeight(GetCurrentMonitor()), BLACK);
+		DrawRectangle(224 * SCALE_FACTOR, 0, GetMonitorWidth(GetCurrentMonitor()), GetMonitorHeight(GetCurrentMonitor()), BLACK);
+		Debugger::Instance().Render();
+		EndMode2D();
 		EndDrawing();
 	}
 	End();

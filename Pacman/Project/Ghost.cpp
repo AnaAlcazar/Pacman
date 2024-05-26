@@ -2,6 +2,7 @@
 #include "Pacman.hpp"
 #include "Renderer.hpp"
 #include "Levels.hpp"
+#include "Debugger.hpp"
 #include <math.h>
 Vector2 Ghost::IntToDirection(int index)
 {
@@ -134,8 +135,8 @@ void Ghost::Kill()
 			Die();
 			EntityManager::Instance().GetEntityAt(0)->Kill();
 		}
-		//else if(ghostMode != Frightened && alive)
-			//EntityManager::Instance().GetEntityAt(0)->Die();
+		else if(ghostMode != Frightened && alive && !Debugger::Instance().GetSwitch(0))
+			EntityManager::Instance().GetEntityAt(0)->Die();
 	}
 }
 

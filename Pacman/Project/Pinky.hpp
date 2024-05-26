@@ -8,5 +8,6 @@ public:
 	Pinky();
 	void Render()override;
 	void Brain() override;
+	~Pinky(){}
 };
 

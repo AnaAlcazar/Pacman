@@ -31,6 +31,7 @@ public:
 	void Start(int l);
 	void Logic();
 	Fruit GetFruitOfLevel();
+	int GetAppearedFruits();
 	void QuitFruit();
 	void Render();
 	void UpdateLevelCounter();

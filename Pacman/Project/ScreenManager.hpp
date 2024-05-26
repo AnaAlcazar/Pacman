@@ -29,5 +29,6 @@ public:
 	void Render(const int index, const Color color_);
 	void Render(const int index, const int color_);
 	bool OnTunnel(Vector2 tile, float dir);
+	bool Empty(Vector2 tile);
 	bool IsTangible(Vector2 tile);
 };

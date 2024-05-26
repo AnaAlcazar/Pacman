@@ -1,5 +1,4 @@
 #include "Game.hpp"
-
 #include <iostream>
 
 Game::Game()
@@ -8,7 +7,7 @@ Game::Game()
 	score = 0;
 	highscore = 0;
 	stage = 0;
-	level = 7;
+	level = 0;
 	eatenDots = 0;
 	timer = 0;
 }
@@ -46,6 +45,8 @@ void Game::Logic()
 {
 	if (stage == 0)		//Ready text
 	{
+		AudioManager::Instance().StopMusicByName("Siren");
+		AudioManager::Instance().PlayMusicByName("Start_Game");
 		timer += GetFrameTime();
 		EntityManager::Instance().ResetAllPositions();
 		if (timer >= 3)
@@ -56,6 +57,7 @@ void Game::Logic()
 	}
 	else if (stage == 1)	//Game Running
 	{
+		AudioManager::Instance().PlayMusicByName("Siren");
 		FruitManager::Instance().Logic();
 		LevelManager::Instance().Logic();
 		bool ghostInBox = false;
@@ -100,7 +102,11 @@ void Game::Logic()
 				dynamic_cast<Ghost*>(EntityManager::Instance().GetEntityAt(i))->DecideDirection(false);
 				e->stage++;
 			}
-			if (eatenDots == 244)stage = 2;
+			if (eatenDots == 244)
+			{
+				AudioManager::Instance().StopMusicByName("Siren");
+				stage = 2;
+			}
 #pragma endregion
 
 #pragma region Changing Stage
@@ -112,7 +118,7 @@ void Game::Logic()
 				e->stage++;
 #pragma endregion
 		}
-
+		AudioManager::Instance().PlaySoundByName("Siren");
 		EatDot();
 		EntityManager::Instance().Logic();
 	}
@@ -129,13 +135,17 @@ void Game::Logic()
 	}
 	else if (stage == 3)		//Pacman Dying
 	{
+		AudioManager::Instance().StopMusicByName("Siren");
+		
 		FruitManager::Instance().QuitFruit();
 	}
 	else if (stage == 4)		//Stopped for killing ghost
 	{
+		AudioManager::Instance().StopMusicByName("Siren");
 		timer += GetFrameTime();
 		if (timer >= 1)
 		{
+			AudioManager::Instance().PlaySoundByName("Retreating");
 			timer = 0;
 			stage = 1;
 		}
@@ -173,7 +183,9 @@ void Game::Render()
 	}
 	else if (stage == 2)
 	{
-
+		if((int)(timer*2) %2 == 0)
+			ScreenManager::Instance().Render(1, WHITE);
+		EntityManager::Instance().GetEntityAt(0)->Render();
 	}
 	else if (stage == 3)
 	{
@@ -187,7 +199,7 @@ void Game::Render()
 			p->Revive();
 		}
 		
-		if (timer >= 5)
+		if (timer >= 2)
 		{
 			if (lives > 0)
 			{
@@ -202,7 +214,7 @@ void Game::Render()
 				
 				dynamic_cast<Ghost*>(EntityManager::Instance().GetEntityAt(1))->stage = 2;
 				dynamic_cast<Ghost*>(EntityManager::Instance().GetEntityAt(2))->stage = 1;
-				if (timer >= 10)
+				if (timer >= 3)
 				{
 					EntityManager::Instance().GetEntityAt(0)->ResetPosition();
 					EntityManager::Instance().GetEntityAt(0)->ForceDirection({ -1,0 });
@@ -212,9 +224,9 @@ void Game::Render()
 			}
 			else if (lives <= 0)
 			{
-				if (timer >= 8)
+				if (timer >= 5)
 					Renderer::Instance().DrawText("Game Over!", 10, { 72, 160 }, 5);
-				if (timer >= 11)
+				if (timer >= 7)
 				{
 					timer = 0;
 					GameStateMachine::Instance().UseCoin();
@@ -260,11 +272,13 @@ void Game::EatDot()
 	int &tileValue = pointsLayout[(int)(EntityManager::Instance().GetEntityAt(0)->GetTileOfEntity().y)][(int)(EntityManager::Instance().GetEntityAt(0)->GetTileOfEntity().x)];
 	if (tileValue == 19)
 	{
+		AudioManager::Instance().PlaySoundByName("Munch");
 		tileValue = -19;
 		score += 10;
 	}
 	else if (tileValue == 20)
 	{
+		AudioManager::Instance().PlaySoundByName("Power_Pellet");
 		tileValue = -20;
 		score += 50;
 		dynamic_cast<Pacman*>(EntityManager::Instance().GetEntityAt(0))->EatPellet();

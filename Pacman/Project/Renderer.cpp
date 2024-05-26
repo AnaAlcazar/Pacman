@@ -16,6 +16,15 @@ Renderer::Renderer()
 	spritesheets.push_back(citm);
 }
 
+Renderer::~Renderer()
+{
+	for (int i = 0; i < spritesheets.size(); i++)
+	{
+		UnloadTexture(spritesheets[i].spritesheet);
+	}
+	spritesheets.clear();
+}
+
 Rectangle Renderer::GetSpriteRectangle(int textureIndex, Vector2 texturePosition)
 {
 	if (textureIndex >= 0)
@@ -181,4 +190,5 @@ void Renderer::DrawNumber(int number, Vector2 position, int color)
 
  Animator::~Animator()
  {
+	 animations.clear();
  }

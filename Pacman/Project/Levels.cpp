@@ -88,7 +88,7 @@ void LevelManager::Logic()
 
 int LevelManager::RequestCurrentMode(bool forceLevelMode)
 {
-	return (*levelList[currentLevel]).GetModeInTime(timer, forceLevelMode);
+	return levelList[currentLevel]->GetModeInTime(timer, forceLevelMode);
 }
 
 float LevelManager::RequestPacmanSpeed(bool pelletEffect, bool InDot)

@@ -8,4 +8,5 @@ public:
 	Blinky();
 	void Render()override;
 	void Brain() override;
+	~Blinky();
 };

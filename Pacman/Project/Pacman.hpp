@@ -23,4 +23,5 @@ public:
 	void Die()override;
 	void EatPellet();
 	void SetTargetTile(Vector2 tile)override;
+	~Pacman();
 };

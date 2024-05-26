@@ -1,6 +1,6 @@
 #include "Clyde.hpp"
 #include "GameStateMachine.hpp"
-Clyde::Clyde() : Ghost({ 15,17 }, 8)
+Clyde::Clyde() : Ghost({ 15,18 }, 8)
 {
 	Animation u{ 0,2 };
 	u.sprites.push_back(74);
@@ -69,9 +69,7 @@ void Clyde::Render()
 			else if (direction.x == 0 && direction.y == 1) Renderer::Instance().DrawSprite(0, { 9,5 }, position, WHITE);
 			else if (direction.x == 1 && direction.y == 0) Renderer::Instance().DrawSprite(0, { 8,4 }, position, WHITE);
 		}
-		DrawRectangleLinesEx({ GetTargetTile().x * 8 * SCALE_FACTOR,GetTargetTile().y * 8 * SCALE_FACTOR, 8 * SCALE_FACTOR, 8 * SCALE_FACTOR }, 2, WHITE);
 	}
-	//DrawRectangleLinesEx({ GetTargetTile().x * 8 * SCALE_FACTOR, GetTargetTile().y * 8 * SCALE_FACTOR, 8 * SCALE_FACTOR,8 * SCALE_FACTOR }, 2, ORANGE);
 }
 
 void Clyde::Brain()

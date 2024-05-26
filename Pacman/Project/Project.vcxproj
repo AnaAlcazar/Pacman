@@ -137,10 +137,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AudioManager.hpp" />
     <ClInclude Include="Blinky.hpp" />
     <ClInclude Include="Clyde.hpp" />
     <ClInclude Include="CustomColors.hpp" />
     <ClInclude Include="DataBase.hpp" />
+    <ClInclude Include="Debugger.hpp" />
     <ClInclude Include="EntityManager.hpp" />
     <ClInclude Include="FileReader.hpp" />
     <ClInclude Include="Fruits.hpp" />
@@ -156,9 +158,11 @@
     <ClInclude Include="ScreenManager.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="Blinky.cpp" />
     <ClCompile Include="Clyde.cpp" />
     <ClCompile Include="DataBase.cpp" />
+    <ClCompile Include="Debugger.cpp" />
     <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="FileReader.cpp" />
     <ClCompile Include="Fruits.cpp" />

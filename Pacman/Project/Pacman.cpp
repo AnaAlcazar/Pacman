@@ -109,7 +109,7 @@ void Pacman::Logic()
 	}
 	else if(GameStateMachine::Instance().game->GetStage() == 4)
 		GameStateMachine::Instance().game->SetStage(1);
-
+	AudioManager::Instance().PlaySoundByName("Siren");
 }
 
 void Pacman::Render()
@@ -155,6 +155,7 @@ void Pacman::Render()
 void Pacman::Kill()
 {
 	GameStateMachine::Instance().game->ResetTimer();
+	AudioManager::Instance().PlaySoundByName("Eat_Ghost");
 	GameStateMachine::Instance().game->SetStage(4);
 	pelletMultiplier++;
 	GameStateMachine::Instance().game->AddScore(100 * pow(2, pelletMultiplier));
@@ -173,7 +174,9 @@ bool Pacman::IsAlive()
 
 void Pacman::Die()
 {
+	GameStateMachine::Instance().game->ResetTimer();
 	alive = false;
+	AudioManager::Instance().PlaySoundByName("Death");
 	GameStateMachine::Instance().game->SetStage(3);
 }
 
@@ -190,6 +193,10 @@ void Pacman::EatPellet()
 }
 
 void Pacman::SetTargetTile(Vector2 tile)
+{
+}
+
+Pacman::~Pacman()
 {
 }
 

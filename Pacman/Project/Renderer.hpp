@@ -34,7 +34,7 @@ class Renderer
 private:
 	Renderer();
 	vector <SpriteSheet> spritesheets;
-	~Renderer() {};
+	~Renderer();
 public:
 #pragma region Singleton
 	static Renderer& Instance()

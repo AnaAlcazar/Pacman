@@ -70,7 +70,6 @@ void Blinky::Render()
 			else if (direction.x == 1 && direction.y == 0) Renderer::Instance().DrawSprite(0, { 8,4 }, position, WHITE);
 		}
 	}
-	//DrawRectangleLinesEx({ GetTargetTile().x * 8 * SCALE_FACTOR, GetTargetTile().y * 8 * SCALE_FACTOR, 8 * SCALE_FACTOR,8 * SCALE_FACTOR }, 2, RED);
 }
 
 void Blinky::Brain()
@@ -107,3 +106,6 @@ void Blinky::Brain()
 	}
 	SetTargetTile(tileGo);
 }
+
+Blinky::~Blinky()
+{}

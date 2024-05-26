@@ -34,11 +34,12 @@ FruitManager::FruitManager()
 
 FruitManager::~FruitManager()
 {
+
 }
 
 void FruitManager::Start(int l)
 {
-	level = l;
+	level = l+1;
 	timer = 0;
 	appeared = 0;
 	collected = false;
@@ -66,6 +67,7 @@ void FruitManager::Logic()
 
 		if (EntityManager::Instance().GetEntityAt(0)->GetTileOfEntity().x == (int)spawnTile.x && EntityManager::Instance().GetEntityAt(0)->GetTileOfEntity().y == (int)spawnTile.y)
 		{
+			AudioManager::Instance().PlaySoundByName("Eat_Fruit");
 			timer = 0;
 			inScene = false;
 			collected = true;
@@ -95,37 +97,42 @@ void FruitManager::Render()
 		if(GetFruitOfLevel().score >= 1000)
 			Renderer::Instance().DrawSprite(0, {GetFruitOfLevel().ScoreTexturePos.x - 1,GetFruitOfLevel().ScoreTexturePos.y }, { (spawnTile.x-2) * 8, spawnTile.y * 8 }, WHITE);
 	}
-	for (int  i = 0; i < 7; i++)
+	
+	for (int i = 0; i < 7; i++)
 	{
-		if (fruitRender[i] == -1)
-			continue;
-
-		Renderer::Instance().DrawSprite(0, fruits[fruitRender[i]].TexturePos, {(float)(112 + 16 * i ), 280}, WHITE);
+		if(fruitRender[i]!= -1)
+			Renderer::Instance().DrawSprite(0, fruits[fruitRender[i]].TexturePos, { (float)(112 + 16 * i), 280 }, WHITE);
 	}
 }
 
 void FruitManager::UpdateLevelCounter()
 {
-	int l = level+1;
+	int l = level;
 	int renderFruits[7] = { -1,-1,-1,-1,-1,-1,-1 };
-	int offset = 6;
+	int offset = 0;
+	int margin = 0;
 
-	while (l > 0 && offset > -1)
+	while (l > 0 && offset < 7)
 	{
-		for (int i = 7; i > -1; i--)
+		for (int i = 7; i >= 0; i--)
 		{
 			if (fruits[i].levelsAppear.x <= l && fruits[i].levelsAppear.y >= l)
 			{
 				renderFruits[offset] = i;
-				offset--;
+				offset++;
 				l--;
+				if (l == 0)
+				{
+					margin = 7 - offset;
+				}
 				break;
 			}
 		}
 	}
 	for (int i = 0; i < 7; i++)
 	{
-		fruitRender[i] = renderFruits[6-i];
+		if (i < margin)fruitRender[i] = -1;
+		else fruitRender[i] = renderFruits[i - margin];
 	}
 }
 
@@ -138,11 +145,15 @@ Fruit FruitManager::GetFruitOfLevel()
 {
 	for (int i = 0; i < 8; i++)
 	{
-		if (fruits[i].levelsAppear.x <= level + 1 && fruits[i].levelsAppear.y >= level + 1)
+		if (fruits[i].levelsAppear.x <= level && fruits[i].levelsAppear.y >= level)
 		{
 			return fruits[i];
 		}
-		else
-			return fruits[7];
+		else continue;
 	}
+}
+
+int FruitManager::GetAppearedFruits()
+{
+	return appeared;
 }

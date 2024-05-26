@@ -1,6 +1,6 @@
 #include "Inky.hpp"
 #include "GameStateMachine.hpp"
-Inky::Inky() : Ghost({ 12, 17 }, 4)
+Inky::Inky() : Ghost({ 12, 18 }, 4)
 {
 	Animation u{ 0,2 };
 	u.sprites.push_back(60);
@@ -70,7 +70,6 @@ void Inky::Render()
 			else if (direction.x == 1 && direction.y == 0) Renderer::Instance().DrawSprite(0, { 8,4 }, position, WHITE);
 		}
 	}
-	//DrawRectangleLinesEx({ GetTargetTile().x * 8 * SCALE_FACTOR, GetTargetTile().y * 8 * SCALE_FACTOR, 8 * SCALE_FACTOR,8 * SCALE_FACTOR }, 2, SKYBLUE);
 }
 
 void Inky::Brain()

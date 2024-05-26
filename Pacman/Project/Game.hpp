@@ -8,6 +8,8 @@
 #include "Ghost.hpp"
 #include "GameStateMachine.hpp"
 #include "Fruits.hpp"
+#include "AudioManager.hpp"
+#include "Debugger.hpp"
 #include <vector>
 
 class Game

@@ -1,6 +1,8 @@
 #include "raylib.h"
 #include "MemLeaks.h"
 #include "Globals.hpp"
+#include "AudioManager.hpp"
+#include "DataBase.hpp"
 #include "GameStateMachine.hpp"
 
 int main()
@@ -15,11 +17,13 @@ int main()
 
 	SetTargetFPS(60);
 	InitAudioDevice();
+	SetMasterVolume(1);
 	
 #pragma region Variables
 #pragma endregion
 	while (!WindowShouldClose() && !(GameStateMachine::Instance().GetState() == -1))
 	{
+		
 		GameStateMachine::Instance().Run();
 	}
 	CloseAudioDevice();

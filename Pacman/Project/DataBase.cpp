@@ -2,7 +2,7 @@
 
 DataBase::DataBase()
 {
-#pragma region LevealDeclarations
+#pragma region LevelDeclarations
 	Level* l1 = new Level(0.8f, 0.9f, 0.71f, 0.79f, 0.75f, 0.5f, 0.4f, 20, 0.8f, 10, 0.85f, 6, 5);
 	Level* l2 = new Level(0.9f, 0.95f, 0.79f, 0.83f, 0.85f, 0.55f, 0.45f, 30, 0.9f, 15, 0.95f, 5, 5);
 	Level* l3 = new Level(0.9f, 0.95f, 0.79f, 0.83f, 0.85f, 0.55f, 0.45f, 40, 0.9f, 20, 0.95f, 4, 5);
@@ -242,6 +242,21 @@ DataBase::DataBase()
 	OriginalLevels.push_back(l21);
 #pragma endregion
 
+
+#pragma region Audio
+	AudioManager::Instance().CreateMusic("assets/sounds/music/game_start.wav", "Start_Game");
+	AudioManager::Instance().SetMusicLoopStatus("Start_Game", false);
+	AudioManager::Instance().CreateMusic("assets/sounds/effects/Sirens/siren_1.wav", "Siren");
+	AudioManager::Instance().SetMusicLoopStatus("Siren", true);
+
+	AudioManager::Instance().CreateSound("assets/sounds/effects/death.wav", "Death");
+	AudioManager::Instance().CreateSound("assets/sounds/effects/eat_fruit.wav", "Eat_Fruit");
+	AudioManager::Instance().CreateSound("assets/sounds/effects/eat_ghost.wav", "Eat_Ghost");
+	AudioManager::Instance().CreateSound("assets/sounds/effects/power_pellet.wav", "Power_Pellet");
+	AudioManager::Instance().CreateSound("assets/sounds/effects/retreating.wav", "Retreating");
+	AudioManager::Instance().CreateSound("assets/sounds/effects/Munch/munch_1.wav", "Munch");
+#pragma endregion
+
 }
 
 DataBase::~DataBase()
@@ -255,6 +270,7 @@ void DataBase::FreeMemory()
 	{
 		delete OriginalLevels[i];
 	}
+	OriginalLevels.clear();
 }
 
 vector<Level*> DataBase::GetOriginalLevels()
