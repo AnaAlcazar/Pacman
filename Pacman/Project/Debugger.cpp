@@ -47,4 +47,10 @@ void Debugger::Render()
 		}
 		Renderer::Instance().DrawText("COLLIDERS ON", 12, { -104, 16 }, WHITE);
 	}
+	if (GetSwitch(3))
+	{
+		switches[3] = false;
+		GameStateMachine::Instance().game->FinishLevel();
+	}
+	if (GetSwitch(4)){}
 }

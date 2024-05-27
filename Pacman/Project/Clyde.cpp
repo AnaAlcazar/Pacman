@@ -1,6 +1,6 @@
 #include "Clyde.hpp"
 #include "GameStateMachine.hpp"
-Clyde::Clyde() : Ghost({ 15,18 }, 8)
+Clyde::Clyde() : Ghost({ 16,17 }, 8)
 {
 	Animation u{ 0,2 };
 	u.sprites.push_back(74);

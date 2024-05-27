@@ -1,6 +1,6 @@
 #include "Inky.hpp"
 #include "GameStateMachine.hpp"
-Inky::Inky() : Ghost({ 12, 18 }, 4)
+Inky::Inky() : Ghost({ 11, 17 }, 4)
 {
 	Animation u{ 0,2 };
 	u.sprites.push_back(60);

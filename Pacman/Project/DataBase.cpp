@@ -241,20 +241,18 @@ DataBase::DataBase()
 	OriginalLevels.push_back(l20);
 	OriginalLevels.push_back(l21);
 #pragma endregion
-
-
 #pragma region Audio
-	AudioManager::Instance().CreateMusic("assets/sounds/music/game_start.wav", "Start_Game");
+	AudioManager::Instance().CreateMusic("assets/sounds/music/game_start.ogg", "Start_Game");
 	AudioManager::Instance().SetMusicLoopStatus("Start_Game", false);
-	AudioManager::Instance().CreateMusic("assets/sounds/effects/Sirens/siren_1.wav", "Siren");
+	AudioManager::Instance().CreateMusic("assets/sounds/effects/Sirens/siren_1.ogg", "Siren");
 	AudioManager::Instance().SetMusicLoopStatus("Siren", true);
 
-	AudioManager::Instance().CreateSound("assets/sounds/effects/death.wav", "Death");
-	AudioManager::Instance().CreateSound("assets/sounds/effects/eat_fruit.wav", "Eat_Fruit");
-	AudioManager::Instance().CreateSound("assets/sounds/effects/eat_ghost.wav", "Eat_Ghost");
-	AudioManager::Instance().CreateSound("assets/sounds/effects/power_pellet.wav", "Power_Pellet");
-	AudioManager::Instance().CreateSound("assets/sounds/effects/retreating.wav", "Retreating");
-	AudioManager::Instance().CreateSound("assets/sounds/effects/Munch/munch_1.wav", "Munch");
+	AudioManager::Instance().CreateSound("assets/sounds/effects/death.ogg", "Death");
+	AudioManager::Instance().CreateSound("assets/sounds/effects/eat_fruit.ogg", "Eat_Fruit");
+	AudioManager::Instance().CreateSound("assets/sounds/effects/eat_ghost.ogg", "Eat_Ghost");
+	AudioManager::Instance().CreateSound("assets/sounds/effects/power_pellet.ogg", "Power_Pellet");
+	AudioManager::Instance().CreateSound("assets/sounds/effects/retreating.ogg", "Retreating");
+	AudioManager::Instance().CreateSound("assets/sounds/effects/Munch/munch_1.ogg", "Munch");
 #pragma endregion
 
 }

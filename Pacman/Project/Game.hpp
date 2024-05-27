@@ -71,6 +71,7 @@ public:
     void RenderPoints();
     void EatDot();
     void End();
+    void FinishLevel();
     void AddScore(int s);
     void SetStage(int s);
     int GetEatenDots();

@@ -293,6 +293,11 @@ void Game::End()
 	FileReader::Instance().NewHighScore(highscore);
 }
 
+void Game::FinishLevel()
+{
+	eatenDots = 244;
+}
+
 void Game::AddScore(int s)
 {
 	score += s;

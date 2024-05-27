@@ -74,7 +74,7 @@ LevelManager::~LevelManager()
 void LevelManager::Start(int l)
 {
 	currentLevel = l;
-	if(currentLevel >= levelList.size())
+	if(currentLevel = levelList.size())
 		currentLevel = levelList.size()-1;
 	currentStage = 0;
 	timer = 0;
