@@ -1,2 +1,3 @@
 #Pacman
-﻿Pac-Man is a classic arcade game developed by Namco and first released in 1980. In the game, player manipulate Pac-Man, a yellow, round person who navigates through a maze, consuming pellets while keeping off 4 ghosts: Blinky, Pinky, Inky, and Clyde. The objective is to clear the maze of all pellets while warding off or confronting the ghosts, which may be quickly eaten after Pac-Man consumes a power pellet.
+﻿
+ Pac-Man is a classic arcade game developed by Namco and first released in 1980. In the game, player manipulate Pac-Man, a yellow, round person who navigates through a maze, consuming pellets while keeping off 4 ghosts: Blinky, Pinky, Inky, and Clyde. The objective is to clear the maze of all pellets while warding off or confronting the ghosts, which may be quickly eaten after Pac-Man consumes a power pellet.
