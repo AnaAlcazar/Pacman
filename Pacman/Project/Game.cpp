@@ -118,7 +118,6 @@ void Game::Logic()
 				e->stage++;
 #pragma endregion
 		}
-		AudioManager::Instance().PlaySoundByName("Siren");
 		EatDot();
 		EntityManager::Instance().Logic();
 	}

@@ -101,7 +101,7 @@ void Pacman::Logic()
 	Entity::Move();
 
 	if (pelletEffect > 0)pelletEffect -= GetFrameTime();
-	else
+	else if (pelletEffect < 0)
 		ResetPelletEffect();
 	if (scoreTimer > 0 && GameStateMachine::Instance().game->GetStage() == 4)
 	{
@@ -109,7 +109,6 @@ void Pacman::Logic()
 	}
 	else if(GameStateMachine::Instance().game->GetStage() == 4)
 		GameStateMachine::Instance().game->SetStage(1);
-	AudioManager::Instance().PlaySoundByName("Siren");
 }
 
 void Pacman::Render()

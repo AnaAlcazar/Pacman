@@ -28,7 +28,7 @@ void AudioManager::PlayMusicByName(const char* musicName)
 {
 	if (!IsMusicLoaded(musicName))
 	{
-		printf("Sound File Not Loaded");
+		printf("Music File Not Loaded");
 		return;
 	}
 	PlayMusicStream(musicsData[musicName]);

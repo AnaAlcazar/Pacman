@@ -1,5 +1,6 @@
 #include "Levels.hpp"
 #include "DataBase.hpp"
+#include <iostream>
 
 Level::Level(float PacmanSpeed_, float FrightPacmanSpeed_, float PacmanDotSpeed_, float FrightPacmanDotSpeed_, float GhostSpeed_, float FrightGhostSpeed_, float GhostTunnelSpeed_, int Blinky1Dots_, float Blinky1Speed_, int Blinky2Dots_, float Blinky2Speed_, float FrightTime_, int FrightFlashes_)
 {
@@ -47,7 +48,7 @@ void Level::GenerateGhostBehaviour(int m, float t)
 
 int Level::GetModeInTime(float time, bool forceLevelMode)
 {
-	if (dynamic_cast <Pacman*>(EntityManager::Instance().GetEntityAt(0))->HasPelletEffect() && !forceLevelMode)
+	if (dynamic_cast <Pacman*>(EntityManager::Instance().GetEntityAt(0))->HasPelletEffect() && (!forceLevelMode))
 		return Ghost::Frightened;
 	float totalTime = GhostBehaviour.at(0)->time;
 	int index = 0;
@@ -74,7 +75,7 @@ LevelManager::~LevelManager()
 void LevelManager::Start(int l)
 {
 	currentLevel = l;
-	if(currentLevel = levelList.size())
+	if(currentLevel == levelList.size())
 		currentLevel = levelList.size()-1;
 	currentStage = 0;
 	timer = 0;
