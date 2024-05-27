@@ -86,7 +86,7 @@ void Inky::Brain()
 			break;
 		case Ghost::Chase:
 			distance = hypot(EntityManager::Instance().GetEntityAt(1)->GetPosition().x - position.x, EntityManager::Instance().GetEntityAt(1)->GetPosition().y - position.y);
-			if (distance < 24)
+			if (distance < 40)
 				tileGo = EntityManager::Instance().GetEntityAt(0)->GetTileOfEntity();
 			else
 				tileGo = { (float)((int)(rand() % 28)), (float)((int)(rand() % 31 + 3)) };

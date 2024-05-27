@@ -98,6 +98,11 @@ Vector2 Entity::GetTileOfEntity()
 	return {(float) x, (float) y};
 }
 
+float Entity::GetSpeed()
+{
+	return speed;
+}
+
 bool Entity::EntityIsCenteredInTile(Vector2 tile)
 {
 	if (direction.x == -1 && (abs(position.x - tile.x * 8) < 4) && (abs(position.y - tile.y * 8) <= 4))return true;

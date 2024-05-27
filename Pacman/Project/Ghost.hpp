@@ -28,13 +28,13 @@ public:
 	void Logic()override;
 	virtual void Brain();
 	virtual void Render()override;
+	Vector2 GetTargetTile();
 	void SetTargetTile(Vector2 tile) override;
 	void ChangeMode(Mode m);
 	void Kill()override;
 	void Die()override;
 	~Ghost();
 protected:
-	Vector2 GetTargetTile();
 	void DecideDirection(bool canTurnBack);
 	bool PelletEffectEnding();
 	Mode ghostMode;

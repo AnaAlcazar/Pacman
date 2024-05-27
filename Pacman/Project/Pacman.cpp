@@ -85,7 +85,7 @@ void Pacman::Input()
 	{
 		TrySetDirection({ -1, 0 });
 	}
-	else if (IsKeyDown(KEY_DOWN) || IsKeyDown(KEY_S))
+	else if ((IsKeyDown(KEY_DOWN) || IsKeyDown(KEY_S)) && !ScreenManager::Instance().YRestrictive(GetTileOfEntity()))
 	{
 		TrySetDirection({ 0, 1 });
 	}

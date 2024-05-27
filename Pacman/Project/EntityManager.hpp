@@ -32,6 +32,7 @@ public:
 	Vector2 GetPosition();
 	Vector2 GetDirection();
 	Vector2 GetTileOfEntity();
+	float GetSpeed();
 	bool EntityIsCenteredInTile(Vector2 tile);
 	bool IsAlive();
 #pragma endregion

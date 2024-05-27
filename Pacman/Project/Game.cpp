@@ -163,6 +163,10 @@ void Game::Render()
 	Renderer::Instance().DrawNumber(highscore, Renderer::Instance().AnchorNumberOnRight(score, { 128,8 }), WHITE);
 	FruitManager::Instance().Render();
 	EntityManager::Instance().Render();
+	for (int i = 0; i < lives - 1; i++)
+	{
+		Renderer::Instance().DrawSprite(0, { (float)8,(float)1 }, { (float)(24 + 16 * i),(float)280 }, WHITE);
+	}
 #pragma endregion
 	
 	if (stage == 0)
@@ -170,15 +174,6 @@ void Game::Render()
 		Renderer::Instance().DrawText("Ready!", 6, { 92, 160 }, 6);
 		Renderer::Instance().DrawSprite(1, { 19,1 }, { 13.5*8*SCALE_FACTOR,15.5 * 8 * SCALE_FACTOR }, WHITE);
 		Renderer::Instance().DrawSprite(1, { 19,1 }, { 14.5 * 8 * SCALE_FACTOR,15.5 * 8 * SCALE_FACTOR }, WHITE);
-	}
-	else if (stage == 1)
-	{
-		#pragma region Run
-		for (int i = 0; i < lives - 1; i++)
-		{
-			Renderer::Instance().DrawSprite(0, { (float)8,(float)1 }, { (float)(24 + 16 * i),(float)280 }, WHITE);
-		}
-#pragma endregion
 	}
 	else if (stage == 2)
 	{

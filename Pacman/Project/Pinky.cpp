@@ -85,9 +85,9 @@ void Pinky::Brain()
 			break;
 		case Ghost::Chase:
 			tileGo = EntityManager::Instance().GetEntityAt(0)->GetTileOfEntity();
-			tileGo.x += 4 * direction.x;
-			tileGo.y += 4 * direction.y;
-			if (direction.y == -1)
+			tileGo.x += 4 * EntityManager::Instance().GetEntityAt(0)->GetDirection().x;
+			tileGo.y += 4 * EntityManager::Instance().GetEntityAt(0)->GetDirection().y;
+			if (EntityManager::Instance().GetEntityAt(0)->GetDirection().y == -1)
 			{
 				tileGo.x -= 4;
 			}

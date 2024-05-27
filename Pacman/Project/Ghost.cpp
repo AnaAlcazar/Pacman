@@ -52,6 +52,7 @@ void Ghost::DecideDirection(bool canTurnBack)
 	for (int i = 0; i < 4; i++)
 	{
 		if (!canTurnBack && (IntToDirection(i).x * -1 == direction.x && IntToDirection(i).y * -1 == direction.y))continue;
+		else if (stage >= 4 && !canTurnBack && IntToDirection(i).y != 0 && ScreenManager::Instance().YRestrictive(GetTileOfEntity()))continue;
 		else if (!ScreenManager::Instance().IsTangible({ GetTileOfEntity().x + IntToDirection(i).x , GetTileOfEntity().y + IntToDirection(i).y }))continue;
 		else if ((GetTileOfEntity().x == 13 || GetTileOfEntity().x == 14) && GetTileOfEntity().y == 14 && i == 2)continue;
 		else if (selectedDirection.x == 0 && selectedDirection.y == 0)
