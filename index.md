@@ -1,6 +1,6 @@
 # Pacman
 
-![Header Image](https://github.com/AnaAlcazar/Shared-Projects/blob/Pacman-Web/assets/Header_Web.gif)
+![Header Image](assets/Header_Web.gif)
 
 ## Table of Contents
 - [Pacman](#about-pacman)
@@ -15,7 +15,7 @@ Pac-Man is a classic arcade game created by Namco and released in 1980. The obje
 
 ## About Me
 
-|<img src="https://github.com/AnaAlcazar/Shared-Projects/blob/Pacman-Web/assets/IMG_0421.png" alt="Me" style="width:200px; max-width:100%; height:auto; display:block; margin-left:auto; margin-right:auto;"/>|I am Ana|
+|<img src="assets/IMG_0421.png" alt="Me" style="width:200px; max-width:100%; height:auto; display:block; margin-left:auto; margin-right:auto;"/>|I am Ana|
 |:-------------|:-------------|
 
 ## Projects
