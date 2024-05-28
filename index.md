@@ -43,7 +43,7 @@ Education
 <a href="mailto:analcazarc.socialmedia@gmail.com" target="_blank" rel="noopener noreferrer" class="btn-gmail">
   <img src="https://www.gstatic.com/images/branding/product/2x/gmail_48dp.png" alt="Gmail Logo" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;"></a>
 
-<a href="https://www.instagram.com/anastgrm" target="_blank" rel="noopener noreferrer" class="btn-instagram">
+<a href="https://www.instagram.com/ananstgrm" target="_blank" rel="noopener noreferrer" class="btn-instagram">
   <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram Logo" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;"></a>
 
 <a href="https://www.facebook.com/ana.trex.7" target="_blank" rel="noopener noreferrer" class="btn-facebook">
