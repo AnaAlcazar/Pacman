@@ -2,21 +2,22 @@
 
 ![Header Image](https://github.com/AnaAlcazar/Shared-Projects/blob/Pacman-Web/assets/Header_Web.gif)
 
-## Introduction
+## Table of Contents
+- [About Pacman](#about-pacman)
+- [About Me](#about-me)
+- [Blog](#blog)
+- [Contact](#contact)
+
+## About Pacman
 
 Welcome to my GitHub Pages site! This site is a showcase of my projects, blogs, and more. Stay tuned for updates and feel free to explore.
 
-## Table of Contents
 
-- [About Me](#about-me)
-- [Projects](#projects)
-- [Blog](#blog)
-- [Contact](#contact)
 
 ## About Me
 
 Hello! I'm [Your Name], a software developer with a passion for open-source projects and web development. I enjoy learning new technologies and sharing my knowledge with the community.
-
+![Profile Image] (
 ## Projects
 
 ### Project 1: Awesome Project
