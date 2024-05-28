@@ -1,5 +1,43 @@
-title: Cayman theme
-description: 
-google_analytics:
-show_downloads: true
-theme: jekyll-theme-cayman
+# Site settings
+title: My GitHub Pages Site
+description: >- # this means to ignore newlines until "baseurl:"
+  Welcome to my GitHub Pages site. This is a simple theme.
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "https://yourusername.github.io" # the base hostname & protocol for your site
+
+# Author settings
+author:
+  name: Your Name
+  email: your-email@example.com
+
+# Build settings
+markdown: kramdown
+theme: minima # Jekyll theme you want to use, e.g. minima, just-the-docs, etc.
+plugins:
+  - jekyll-feed
+
+# Permalinks
+permalink: /:categories/:year/:month/:day/:title.html
+
+# Theme settings
+minima:
+  social_links:
+    twitter: your_twitter_handle
+    github: your_github_username
+    linkedin: your_linkedin_username
+
+# Include and exclude
+include:
+  - _pages
+exclude:
+  - vendor
+
+# Markdown settings
+kramdown:
+  input: GFM
+  syntax_highlighter_opts:
+    inline_theme: monokai
+
+# Configuration for other plugins
+jekyll-feed:
+  path: feed.xml
