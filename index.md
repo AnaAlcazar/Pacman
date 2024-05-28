@@ -33,14 +33,25 @@ Education
 ## Video
 ## Downloads
 
-<a href="https://github.com/AnaAlcazar/Shared-Projects/releases/download/Release1.0/Zyal-Ana_Pacman_v1.0.zip" download class="btn btn-blue">Download My File</a>
-
-
-<a href="https://github.com/AnaAlcazar/Shared-Projects/releases/download/Release1.0/Zyal-Ana_Pacman_v1.0.zip" download>
-  <button>Download Pacman</button>
-</a>
+<a href="https://github.com/AnaAlcazar/Shared-Projects/releases/download/Release1.0/Zyal-Ana_Pacman_v1.0.zip" download class="btn btn-blue">Pacman</a>
 
 ## Contact
+
+<a href="https://github.com/AnaAlcazar" target="_blank" rel="noopener noreferrer" class="btn-github">
+  <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub Logo" style="width: 24px; height: 24px; vertical-align: middle; margin-right: 5px;"></a>
+
+<a href="mailto:analcazarc.socialmedia@gmail.com" target="_blank" rel="noopener noreferrer" class="btn-gmail">
+  <img src="https://www.gstatic.com/images/branding/product/2x/gmail_48dp.png" alt="Gmail Logo" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;"></a>
+
+<a href="https://www.instagram.com/anastgrm" target="_blank" rel="noopener noreferrer" style="text-decoration: none; display: inline-block; background-color: #405DE6; color: #FFFFFF; padding: 10px 20px; border-radius: 5px; font-weight: bold; font-size: 16px;">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram Logo" style="vertical-align: middle; margin-right: 10px; width: 20px; height: 20px;"></a>
+
+<a href="https://www.facebook.com/ana.trex.7" target="_blank" rel="noopener noreferrer" class="btn-facebook">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook Logo" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;"></a>
+
+<a href="https://www.linkedin.com/in/ana-alcázar-cobo-295419221" target="_blank" rel="noopener noreferrer" class="btn-linkedin">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" alt="LinkedIn Logo" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;"></a>
+  
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
