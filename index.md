@@ -14,33 +14,23 @@
 Pac-Man is a classic arcade game created by Namco and released in 1980. The objective is to eat all the pellets in the maze while avoiding being caught by the ghosts named Blinky, Pinky, Inky, and Clyde.
 
 ## About Me
-<style>
-  table {
-    border-collapse: collapse;
-    width: 100%;
-  }
-  th, td {
-    border: none; /* Remove borders */
-    padding: 8px;
-    text-align: left;
-  }
-</style>
 
-<table>
-  <tr>
-    <tr>Row 1 Col 1</tr><img src="assets/IMG_0421.png" alt="Me" style="width:200px; max-width:100%; height:auto; display:block; margin-left:auto; margin-right:auto;"/>
-    <tr>Row 1 Col 2</tr><p>Hello World</p>
-  </tr>
-</table>
+<img src="assets/IMG_0421.png" alt="Me" style="width:200px; max-width:100%; height:auto; display:block; margin-left:auto; margin-right:auto;"/>
 
-## Sample Table
+Personal Data
+- Name: Ana Alcázar Cobo
+- Birth: 26th July 2003, Birth
 
-| Name        | Age | Occupation       |
-|-------------|-----|------------------|
-| John Doe    | 30  | Software Engineer|
-| Jane Smith  | 25  | Data Scientist   |
-| Emily Davis | 22  | UX Designer      |
-## Projects
+Career/s
+- Videogame Developer
+- Photograph model
+- High Performance Shooting Athlete
+
+Education
+- iFP DAM-VJO (High Degree): Completed
+- CITM-UPC : Currently studying
+
+## Video
 ## Downloads
 ## Contact
 ## License
