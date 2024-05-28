@@ -33,6 +33,9 @@ Education
 ## Video
 ## Downloads
 
+<a href="https://github.com/AnaAlcazar/Shared-Projects/releases/download/Release1.0/Zyal-Ana_Pacman_v1.0.zip" download class="btn btn-blue">Download My File</a>
+
+
 <a href="https://github.com/AnaAlcazar/Shared-Projects/releases/download/Release1.0/Zyal-Ana_Pacman_v1.0.zip" download>
   <button>Download Pacman</button>
 </a>
