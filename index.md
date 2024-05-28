@@ -3,55 +3,23 @@
 ![Header Image](https://github.com/AnaAlcazar/Shared-Projects/blob/Pacman-Web/assets/Header_Web.gif)
 
 ## Table of Contents
-- [About Pacman](#about-pacman)
+- [Pacman](#about-pacman)
 - [About Me](#about-me)
-- [Blog](#blog)
+- [Video](#video)
+- [Downloads](#downloads)
 - [Contact](#contact)
 
 ## About Pacman
 
-Welcome to my GitHub Pages site! This site is a showcase of my projects, blogs, and more. Stay tuned for updates and feel free to explore.
-
-
+Pac-Man is a classic arcade game created by Namco and released in 1980. The objective is to eat all the pellets in the maze while avoiding being caught by the ghosts named Blinky, Pinky, Inky, and Clyde.
 
 ## About Me
+|![Me](
+|:-------------|:-------------|
 
-Hello! I'm [Your Name], a software developer with a passion for open-source projects and web development. I enjoy learning new technologies and sharing my knowledge with the community.
-![Profile Image] (
 ## Projects
-
-### Project 1: Awesome Project
-
-Description: A brief description of what this project is about.
-
-- [GitHub Repository](https://github.com/yourusername/awesome-project)
-- [Live Demo](https://yourusername.github.io/awesome-project)
-
-### Project 2: Another Cool Project
-
-Description: A brief description of what this project is about.
-
-- [GitHub Repository](https://github.com/yourusername/cool-project)
-- [Live Demo](https://yourusername.github.io/cool-project)
-
-## Blog
-
-### [Latest Post: My Journey into Web Development](https://yourusername.github.io/blog/my-journey-into-web-development)
-
-A snippet of your latest blog post goes here.
-
-### [All Blog Posts](https://yourusername.github.io/blog)
-
-Check out all my blog posts [here](https://yourusername.github.io/blog).
-
+## Downloads
 ## Contact
-
-Feel free to reach out to me through the following channels:
-
-- Email: [your.email@example.com](mailto:your.email@example.com)
-- Twitter: [@yourusername](https://twitter.com/yourusername)
-- LinkedIn: [Your Name](https://www.linkedin.com/in/yourusername/)
-
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
