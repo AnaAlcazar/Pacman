@@ -9,6 +9,8 @@ int main()
 {
 	ReportMemoryLeaks();
 	InitWindow(224 * SCALE_FACTOR, 288 * SCALE_FACTOR, "Pacman");
+	Image Icon = LoadImage("assets/sprites/Logo.jpg");
+	SetWindowIcon(Icon);
 	if (FULLSCREEN)
 	{
 		SetWindowSize(GetMonitorWidth(GetCurrentMonitor()), GetMonitorHeight(GetCurrentMonitor()));
@@ -23,10 +25,10 @@ int main()
 #pragma endregion
 	while (!WindowShouldClose() && !(GameStateMachine::Instance().GetState() == -1))
 	{
-		
 		GameStateMachine::Instance().Run();
 	}
 	CloseAudioDevice();
 	CloseWindow();
+	UnloadImage(Icon);
 	return 0;
 }

@@ -60,7 +60,7 @@ void Game::Logic()
 		AudioManager::Instance().PlayMusicByName("Siren");
 		FruitManager::Instance().Logic();
 		LevelManager::Instance().Logic();
-		bool ghostInBox = false;
+		ghostInBox = false;
 		for (int i = 1; i < 5; i++)
 		{
 			Ghost* e = dynamic_cast<Ghost*>(EntityManager::Instance().GetEntityAt(i));
@@ -105,6 +105,7 @@ void Game::Logic()
 			if (eatenDots == 244)
 			{
 				AudioManager::Instance().StopMusicByName("Siren");
+				timer = 0;
 				stage = 2;
 			}
 #pragma endregion
@@ -172,8 +173,6 @@ void Game::Render()
 	if (stage == 0)
 	{
 		Renderer::Instance().DrawText("Ready!", 6, { 92, 160 }, 6);
-		Renderer::Instance().DrawSprite(1, { 19,1 }, { 13.5*8*SCALE_FACTOR,15.5 * 8 * SCALE_FACTOR }, WHITE);
-		Renderer::Instance().DrawSprite(1, { 19,1 }, { 14.5 * 8 * SCALE_FACTOR,15.5 * 8 * SCALE_FACTOR }, WHITE);
 	}
 	else if (stage == 2)
 	{
@@ -233,7 +232,11 @@ void Game::Render()
 		}
 #pragma endregion
 	}
-	
+	if (!ghostInBox)
+	{
+		Renderer::Instance().DrawSprite(1, { 19,1 }, { 13.5 * 8,15.5 * 8 }, WHITE);
+		Renderer::Instance().DrawSprite(1, { 19,1 }, { 14.5 * 8,15.5 * 8 }, WHITE);
+	}
 }
 
 void Game::ResetLayout()

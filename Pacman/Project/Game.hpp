@@ -20,6 +20,7 @@ private:
     int level;
 	int lives;
 	int score;
+    bool ghostInBox;
     int highscore;
     int eatenDots;
 	int pointsLayout[36][28] = {

@@ -185,7 +185,7 @@ void Debugger::Render()
 	}
 	if (GetSwitch(8))
 	{
-		Renderer::Instance().DrawSprite(0, { 3,4 }, { -64, 104 }, WHITE);
+		Renderer::Instance().DrawSprite(0, { 3,5 }, { -64, 104 }, WHITE);
 		Renderer::Instance().DrawText("POSITION I  .  I", 16, { -144, 64 }, 3);
 		DrawRectangle(-72 * SCALE_FACTOR, 65 * SCALE_FACTOR, 4 * SCALE_FACTOR, 8 * SCALE_FACTOR, BLACK);
 		DrawRectangle(-20 * SCALE_FACTOR, 65 * SCALE_FACTOR, 4 * SCALE_FACTOR, 8 * SCALE_FACTOR, BLACK);
