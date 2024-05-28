@@ -15,25 +15,38 @@ Pac-Man is a classic arcade game created by Namco and released in 1980. The obje
 
 ## About Me
 
-<div style="display:flex; align-items:center; justify-content:center;">
+<div style="display:flex; align-items:center;">
   <img src="assets/IMG_0421.png" alt="Me" style="width:200px; max-width:100%; height:auto;">
-  <div style="margin-left:20px;">
+  <div style="margin-left:20px; display:flex; flex-direction:column;">
   
-  Personal Data
-- Name: Ana Alcázar Cobo
-- Birth: 26th July 2003, Birth
-
-Career/s
-- Videogame Developer
-- Photograph model
-- High Performance Shooting Athlete
-
-Education
-- iFP DAM-VJO (High Degree): Completed
-- CITM-UPC : Currently studying
+    <div style="writing-mode: vertical-rl; text-orientation: upright;">
+      <h2>Personal Data</h2>
+      <ul>
+        <li><strong>Name:</strong> Ana Alcázar Cobo</li>
+        <li><strong>Birth:</strong> 26th July 2003</li>
+      </ul>
+    </div>
+  
+    <div style="writing-mode: vertical-rl; text-orientation: upright;">
+      <h2>Career/s</h2>
+      <ul>
+        <li>Videogame Developer</li>
+        <li>Photograph Model</li>
+        <li>High Performance Shooting Athlete</li>
+      </ul>
+    </div>
+  
+    <div style="writing-mode: vertical-rl; text-orientation: upright;">
+      <h2>Education</h2>
+      <ul>
+        <li>iFP DAM-VJO (High Degree): Completed</li>
+        <li>CITM-UPC : Currently studying</li>
+      </ul>
+    </div>
   
   </div>
 </div>
+
 
 ## Video
 ## Downloads
