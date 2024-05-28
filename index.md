@@ -49,7 +49,7 @@ Pac-Man is a classic arcade game created by Namco and released in 1980. The obje
 ## Contact
 <div class="button-container">
 <a href="https://github.com/AnaAlcazar" target="_blank" rel="noopener noreferrer" class="btn-github">
-  <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub Logo" style="width: 24px; height: 24px; vertical-align: middle; margin-right: 5px;"></a>
+  <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub Logo" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;"></a>
 
 <a href="mailto:analcazarc.socialmedia@gmail.com" target="_blank" rel="noopener noreferrer" class="btn-gmail">
   <img src="https://www.gstatic.com/images/branding/product/2x/gmail_48dp.png" alt="Gmail Logo" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;"></a>
