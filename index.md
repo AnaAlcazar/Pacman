@@ -14,7 +14,8 @@
 Pac-Man is a classic arcade game created by Namco and released in 1980. The objective is to eat all the pellets in the maze while avoiding being caught by the ghosts named Blinky, Pinky, Inky, and Clyde.
 
 ## About Me
-|![Me](https://github.com/AnaAlcazar/Shared-Projects/blob/Pacman-Web/assets/IMG_0421.png)|I am Ana|
+
+|<img src="https://github.com/AnaAlcazar/Shared-Projects/blob/Pacman-Web/assets/IMG_0421.png" alt="Me" style="width:200px; max-width:100%; height:auto; display:block; margin-left:auto; margin-right:auto;"/>|I am Ana|
 |:-------------|:-------------|
 
 ## Projects
