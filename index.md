@@ -32,6 +32,14 @@ Pac-Man is a classic arcade game created by Namco and released in 1980. The obje
     <tr>Row 1 Col 2</tr><p>Hello World</p>
   </tr>
 </table>
+
+## Sample Table
+
+| Name        | Age | Occupation       |
+|-------------|-----|------------------|
+| John Doe    | 30  | Software Engineer|
+| Jane Smith  | 25  | Data Scientist   |
+| Emily Davis | 22  | UX Designer      |
 ## Projects
 ## Downloads
 ## Contact
