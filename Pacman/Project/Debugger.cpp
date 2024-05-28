@@ -62,6 +62,10 @@ void Debugger::Input()
 			switches[7] = false;
 		}
 	}
+	if (IsKeyDown(KEY_F10))
+	{
+		Switch(9);
+	}
 }
 
 void Debugger::Render()
@@ -134,6 +138,19 @@ void Debugger::Render()
 		Renderer::Instance().DrawNumber(dynamic_cast <Ghost*>(EntityManager::Instance().GetEntityAt(1))->GetTargetTile().x, Renderer::Instance().AnchorNumberOnRight(dynamic_cast <Ghost*>(EntityManager::Instance().GetEntityAt(1))->GetTargetTile().x, { -56, 88 }), RED);
 		Renderer::Instance().DrawNumber(dynamic_cast <Ghost*>(EntityManager::Instance().GetEntityAt(1))->GetTargetTile().y, Renderer::Instance().AnchorNumberOnRight(dynamic_cast <Ghost*>(EntityManager::Instance().GetEntityAt(1))->GetTargetTile().y, { -32, 88 }), RED);
 		DrawRectangleLinesEx({ dynamic_cast <Ghost*>(EntityManager::Instance().GetEntityAt(1))->GetTargetTile().x * 8 * SCALE_FACTOR,dynamic_cast <Ghost*>(EntityManager::Instance().GetEntityAt(1))->GetTargetTile().y * 8 * SCALE_FACTOR, 8 * SCALE_FACTOR, 8 * SCALE_FACTOR }, 2, RED);
+	}
+	if (GetSwitch(9))
+	{
+		Renderer::Instance().DrawSprite(2, { 0,0 }, { -96, 280 }, WHITE);
+		Renderer::Instance().DrawSprite(2, { 0,0 }, { -80, 280 }, WHITE);
+		Renderer::Instance().DrawSprite(2, { 0,0 }, { -64, 280 }, WHITE);
+		Renderer::Instance().DrawSprite(2, { 0,0 }, { -40, 280 }, WHITE);
+		Renderer::Instance().DrawSprite(2, { 0,0 }, { -24, 280 }, WHITE);
+		Renderer::Instance().DrawSprite(2, { 13,0 }, { -88, 280 }, WHITE);
+		Renderer::Instance().DrawSprite(2, { 11,0 }, { -56, 280 }, WHITE);
+		Renderer::Instance().DrawSprite(2, { 2,0 }, { -48, 280 }, WHITE);
+		Renderer::Instance().DrawSprite(2, { 3,1 }, { -32, 280 }, WHITE);
+		Renderer::Instance().DrawSprite(2, { 17,0 }, { -16, 280 }, WHITE);
 	}
 	if (GetSwitch(6))
 	{

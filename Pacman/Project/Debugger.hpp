@@ -5,7 +5,7 @@
 class Debugger
 {
 private:
-	bool switches[9] = {false, false, false, false, false, false, false, false, false};
+	bool switches[10] = {false, false, false, false, false, false, false, false, false, false};
 	void Switch(int i);
 	Debugger() {};
 	~Debugger() {};
