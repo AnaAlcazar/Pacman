@@ -1,9 +1,7 @@
 # Site settings
-title: My GitHub Pages Site
-description: >- # this means to ignore newlines until "baseurl:"
-  Welcome to my GitHub Pages site. This is a simple theme.
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://yourusername.github.io" # the base hostname & protocol for your site
+title: Pacman
+description: Project I of CITM University.
+url: "https://ana.alcazar.pacman.github.io"
 
 # Author settings
 author:
@@ -12,7 +10,7 @@ author:
 
 # Build settings
 markdown: kramdown
-theme: minima # Jekyll theme you want to use, e.g. minima, just-the-docs, etc.
+theme: cayman # Jekyll theme you want to use, e.g. minima, just-the-docs, etc.
 plugins:
   - jekyll-feed
 
@@ -41,3 +39,4 @@ kramdown:
 # Configuration for other plugins
 jekyll-feed:
   path: feed.xml
+  downloads: true
