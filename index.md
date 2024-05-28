@@ -1,6 +1,6 @@
-# Welcome to My GitHub Pages Site
+# Pacman
 
-![Header Image](path_to_your_image)
+![Header Image](https://github.com/AnaAlcazar/Shared-Projects/blob/Pacman-Web/assets/Header_Web.gif)
 
 ## Introduction
 
