@@ -16,7 +16,7 @@ Pac-Man is a classic arcade game created by Namco and released in 1980. The obje
 ## About Me
 
 <div style="display:flex; align-items:center;">
-  <img src="assets/IMG_0421.png" alt="Me" style="width:200px; max-width:100%; height:auto;">
+  <img src="assets/IMG_0421.png" alt="Me" style="width:250px; max-width:100%; height:auto;">
   <div style="margin-left:20px;">
   
     <h2>Personal Data</h2>
