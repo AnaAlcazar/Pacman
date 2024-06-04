@@ -4,6 +4,7 @@ Web Link → https://anaalcazar.github.io/Pacman/
 ______________________________________________________________________________________________________________________________
 
 Team Members
+
 • Ana Alcázar Cobo → https://github.com/AnaAlcazar
 ______________________________________________________________________________________________________________________________
 
@@ -12,24 +13,41 @@ The game stars Pac-Man, a cheerful, yellow character shaped like a pie with a mi
 his way through a maze filled with dots while steering clear of four pesky ghosts named Blinky, Pinky, Inky, and Clyde.
 ______________________________________________________________________________________________________________________________
 
-HOW TO PLAY
+***HOW TO PLAY***
 
 OBJECTIVE: Guide Pac-man through the maze collecting all dots and avoiding all ghost to pass the level.
 	
-MOVE UP:	[W] or [↑]		MOVE DOWN:	[S] or [↓]
-MOVE LEFT:	[A] or [←]		MOVE RIGHT:	[D] or [→]
+MOVE UP:	[W] or [↑]
 
-INSERT COIN:	[TABULATOR]		PLAY:		[ENTER]
+MOVE DOWN:	[S] or [↓]
 
-DEBUG FUNCTIONALITIES
+MOVE LEFT:	[A] or [←]
+
+MOVE RIGHT:	[D] or [→]
+
+INSERT COIN:	[TABULATOR]
+
+PLAY:		[ENTER]
+
+
+***DEBUG FUNCTIONALITIES***
+
 F1→ Enable / Disable GOD Mode
+
 F2→ Level information
+
 F3→ Show map collisions
+
 F4→ Pass level
+
 F5→ Track Pac-man
+
 F6→ Track Blinky
+
 F7→ Track Pinky
+
 F8→ Track Inky
+
 F9→ Track Clyde
 ______________________________________________________________________________________________________________________________
 
